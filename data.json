@@ -1,6 +1,6 @@
 {
-  "_schema": "Data feed for the Express Insurance SEM dashboard live sections. Keys: _schema (this text). pmaxNote: string shown under the PMax ROAS KPI in the green KPI band. monthOrder: array of month labels shown in the Monthly dropdown, newest first. months: object keyed by month label; each month has periodLabel and compareLabel (display strings for the Performance section header), kpi (accountRoas, nonBrand, bestRoas, pmaxRoas: numbers; bestName: campaign name string; convValue: total conversion value in dollars; convValueNote: display string under the Total Conv. Value KPI), stats (impressions, clicks, conversions, convValue, cost, cpc; each is {v: number, chg: display change string like '+12.4%'}), campaigns (array in table order of {key, cost, conv, cpa, convValue, roas}; key is one of brand, pmax, pi, acct, pl, eng, dg; eng and dg carry paused: true and render as paused rows), geo (periodLabel display string plus locations: array of {name: bar label, tableName: table label, state, conv: conversions this period, prev: conversions previous period}). last30: same shape as a month entry, used for the Last 30 Days mode. custom: inputs for the Custom range mode; dailyRates are account-level per-day averages (impressions, clicks, conversions, convValue, cost), campaignDailyRates are per-day cost/conv/convValue per campaign key, geoDailyRates are per location {rate: conversions per day, tableName, state}, monthFactor maps 'YYYY-MM' to per-metric multipliers applied to the daily rates when aggregating a custom range (dates outside the listed months are clamped to the nearest listed month). Volume metrics scale with the number of days selected; deltas are computed against the previous equal-length window.",
-  "pmaxNote": "Optimising — new groups in progress",
+  "_schema": "Data feed for the Express Insurance SEM dashboard live sections. Keys: _schema (this text). pmaxNote: string shown under the PMax ROAS KPI in the green KPI band. monthOrder: array of month labels shown in the Monthly dropdown, newest first. months: object keyed by month label; each month has periodLabel and compareLabel (display strings for the Performance section header), kpi (accountRoas, nonBrand, bestRoas, pmaxRoas: numbers; bestName: campaign name string; convValue: total conversion value in dollars; convValueNote: display string under the Total Conv. Value KPI), stats (impressions, clicks, conversions, convValue, cost, cpc; each is {v: number, chg: display change string like '+12.4%'}), campaigns (array in table order of {key, cost, conv, cpa, convValue, roas}; key is one of brand, pmax, pi, acct, pl, eng, dg; eng and dg carry paused: true and render as paused rows), geo (periodLabel display string plus locations: array of {name: bar label, tableName: table label, state, conv: conversions this period, prev: conversions previous period}). last30: same shape as a month entry, used for the Last 30 Days mode. custom: inputs for the Custom range mode; dailyRates are account-level per-day averages (impressions, clicks, conversions, convValue, cost), campaignDailyRates are per-day cost/conv/convValue per campaign key, geoDailyRates are per location {rate: conversions per day, tableName, state}, monthFactor maps 'YYYY-MM' to per-metric multipliers applied to the daily rates when aggregating a custom range (dates outside the listed months are clamped to the nearest listed month). Volume metrics scale with the number of days selected; deltas are computed against the previous equal-length window. | budget: array of {name,type,key,daily,monthly[,color]} for the Budget section (Looker/manual; subtext auto-formats as 'type \u2014 ROAS x.xx' using the campaign ROAS matched by key). commentary: {pmax, geo, landing:{headline,body}} manual (Kirsten). months[m] may also carry assetGroups: array of {name,spend,conv,convValue,roas} (Google Ads) and its own budget/commentary/lob overrides. lob: array of {n,r,t} overriding the LTV revenue defaults (Looker).",
+  "pmaxNote": "Optimising \u2014 new groups in progress",
   "monthOrder": [
     "June 2026",
     "May 2026",
@@ -10,8 +10,8 @@
   ],
   "months": {
     "May 2026": {
-      "periodLabel": "1 Mar – 4 May 2026",
-      "compareLabel": "26 Dec 2025 – 28 Feb 2026",
+      "periodLabel": "1 Mar \u2013 4 May 2026",
+      "compareLabel": "26 Dec 2025 \u2013 28 Feb 2026",
       "kpi": {
         "accountRoas": 2.42,
         "nonBrand": 1.9,
@@ -19,7 +19,7 @@
         "bestRoas": 4.98,
         "pmaxRoas": 1.71,
         "convValue": 92000,
-        "convValueNote": "1 Mar – 4 May 2026"
+        "convValueNote": "1 Mar \u2013 4 May 2026"
       },
       "stats": {
         "impressions": {
@@ -32,19 +32,19 @@
         },
         "conversions": {
           "v": 68.75,
-          "chg": "−14.6%"
+          "chg": "\u221214.6%"
         },
         "convValue": {
           "v": 479000,
-          "chg": "−16.6%"
+          "chg": "\u221216.6%"
         },
         "cost": {
           "v": 17895,
-          "chg": "−3.8%"
+          "chg": "\u22123.8%"
         },
         "cpc": {
           "v": 1.4,
-          "chg": "−66%"
+          "chg": "\u221266%"
         }
       },
       "campaigns": [
@@ -99,7 +99,7 @@
         }
       ],
       "geo": {
-        "periodLabel": "All campaigns · 1 Apr – 11 May 2026 · User location",
+        "periodLabel": "All campaigns \u00b7 1 Apr \u2013 11 May 2026 \u00b7 User location",
         "locations": [
           {
             "name": "Brisbane City",
@@ -133,8 +133,8 @@
       }
     },
     "April 2026": {
-      "periodLabel": "1 Apr – 30 Apr 2026",
-      "compareLabel": "1 Mar – 31 Mar 2026",
+      "periodLabel": "1 Apr \u2013 30 Apr 2026",
+      "compareLabel": "1 Mar \u2013 31 Mar 2026",
       "kpi": {
         "accountRoas": 2.43,
         "nonBrand": 1.75,
@@ -142,7 +142,7 @@
         "bestRoas": 5.07,
         "pmaxRoas": 1.69,
         "convValue": 43000,
-        "convValueNote": "1 Apr – 30 Apr 2026"
+        "convValueNote": "1 Apr \u2013 30 Apr 2026"
       },
       "stats": {
         "impressions": {
@@ -163,11 +163,11 @@
         },
         "cost": {
           "v": 8610,
-          "chg": "−2.1%"
+          "chg": "\u22122.1%"
         },
         "cpc": {
           "v": 1.41,
-          "chg": "−17%"
+          "chg": "\u221217%"
         }
       },
       "campaigns": [
@@ -222,7 +222,7 @@
         }
       ],
       "geo": {
-        "periodLabel": "All campaigns · 1 Apr – 30 Apr 2026 · User location",
+        "periodLabel": "All campaigns \u00b7 1 Apr \u2013 30 Apr 2026 \u00b7 User location",
         "locations": [
           {
             "name": "Brisbane City",
@@ -256,8 +256,8 @@
       }
     },
     "March 2026": {
-      "periodLabel": "1 Mar – 31 Mar 2026",
-      "compareLabel": "1 Feb – 28 Feb 2026",
+      "periodLabel": "1 Mar \u2013 31 Mar 2026",
+      "compareLabel": "1 Feb \u2013 28 Feb 2026",
       "kpi": {
         "accountRoas": 2.26,
         "nonBrand": 1.69,
@@ -265,7 +265,7 @@
         "bestRoas": 4.63,
         "pmaxRoas": 1.67,
         "convValue": 40560,
-        "convValueNote": "1 Mar – 31 Mar 2026"
+        "convValueNote": "1 Mar \u2013 31 Mar 2026"
       },
       "stats": {
         "impressions": {
@@ -278,11 +278,11 @@
         },
         "conversions": {
           "v": 29.6,
-          "chg": "−6.2%"
+          "chg": "\u22126.2%"
         },
         "convValue": {
           "v": 196000,
-          "chg": "−9.8%"
+          "chg": "\u22129.8%"
         },
         "cost": {
           "v": 8830,
@@ -290,7 +290,7 @@
         },
         "cpc": {
           "v": 1.65,
-          "chg": "−24%"
+          "chg": "\u221224%"
         }
       },
       "campaigns": [
@@ -345,7 +345,7 @@
         }
       ],
       "geo": {
-        "periodLabel": "All campaigns · 1 Mar – 31 Mar 2026 · User location",
+        "periodLabel": "All campaigns \u00b7 1 Mar \u2013 31 Mar 2026 \u00b7 User location",
         "locations": [
           {
             "name": "Brisbane City",
@@ -379,8 +379,8 @@
       }
     },
     "February 2026": {
-      "periodLabel": "1 Feb – 28 Feb 2026",
-      "compareLabel": "1 Jan – 31 Jan 2026",
+      "periodLabel": "1 Feb \u2013 28 Feb 2026",
+      "compareLabel": "1 Jan \u2013 31 Jan 2026",
       "kpi": {
         "accountRoas": 2.22,
         "nonBrand": 1.61,
@@ -388,7 +388,7 @@
         "bestRoas": 4.79,
         "pmaxRoas": 1.59,
         "convValue": 38040,
-        "convValueNote": "1 Feb – 28 Feb 2026"
+        "convValueNote": "1 Feb \u2013 28 Feb 2026"
       },
       "stats": {
         "impressions": {
@@ -409,11 +409,11 @@
         },
         "cost": {
           "v": 8440,
-          "chg": "−1.5%"
+          "chg": "\u22121.5%"
         },
         "cpc": {
           "v": 2.17,
-          "chg": "−9%"
+          "chg": "\u22129%"
         }
       },
       "campaigns": [
@@ -468,7 +468,7 @@
         }
       ],
       "geo": {
-        "periodLabel": "All campaigns · 1 Feb – 28 Feb 2026 · User location",
+        "periodLabel": "All campaigns \u00b7 1 Feb \u2013 28 Feb 2026 \u00b7 User location",
         "locations": [
           {
             "name": "Brisbane City",
@@ -586,7 +586,7 @@
         }
       ],
       "geo": {
-        "periodLabel": "All campaigns · 1 Apr – 11 May 2026 · User location",
+        "periodLabel": "All campaigns \u00b7 1 Apr \u2013 11 May 2026 \u00b7 User location",
         "locations": [
           {
             "name": "Brisbane City",
@@ -621,8 +621,8 @@
     }
   },
   "last30": {
-    "periodLabel": "5 Apr – 4 May 2026",
-    "compareLabel": "6 Mar – 4 Apr 2026",
+    "periodLabel": "5 Apr \u2013 4 May 2026",
+    "compareLabel": "6 Mar \u2013 4 Apr 2026",
     "kpi": {
       "accountRoas": 2.43,
       "nonBrand": 1.77,
@@ -651,11 +651,11 @@
       },
       "cost": {
         "v": 8420,
-        "chg": "−2.4%"
+        "chg": "\u22122.4%"
       },
       "cpc": {
         "v": 1.4,
-        "chg": "−12%"
+        "chg": "\u221212%"
       }
     },
     "campaigns": [
@@ -710,7 +710,7 @@
       }
     ],
     "geo": {
-      "periodLabel": "All campaigns · Last 30 days · User location",
+      "periodLabel": "All campaigns \u00b7 Last 30 days \u00b7 User location",
       "locations": [
         {
           "name": "Brisbane City",
@@ -834,6 +834,57 @@
         "convValue": 1.2,
         "cost": 1.04
       }
+    }
+  },
+  "budget": [
+    {
+      "name": "Brand Campaign",
+      "type": "Search",
+      "key": "brand",
+      "daily": 150,
+      "monthly": 4500
+    },
+    {
+      "name": "Performance Max",
+      "type": "PMax",
+      "key": "pmax",
+      "daily": 280,
+      "monthly": 8400
+    },
+    {
+      "name": "Professional Indemnity",
+      "type": "Search",
+      "key": "pi",
+      "daily": 60,
+      "monthly": 1800
+    },
+    {
+      "name": "Accountant Insurance",
+      "type": "Search",
+      "key": "acct",
+      "daily": 50,
+      "monthly": 1500
+    },
+    {
+      "name": "Public Liability",
+      "type": "Search",
+      "key": "pl",
+      "daily": 40,
+      "monthly": 1200
+    },
+    {
+      "name": "Architects",
+      "type": "Search",
+      "daily": 30,
+      "monthly": 900
+    }
+  ],
+  "commentary": {
+    "pmax": "General drove most of the PMax uplift this period while Accounting softened slightly. The focus is to reduce reliance on the broad General asset group and move toward targeted, occupation-specific groups (Management Consultants, IT Contractors & Consultants) once there is enough data to support the split.",
+    "geo": "Google Ads geographic conversions for the selected period. Review the strongest converting locations at campaign / asset-group level before making bid or budget adjustments.",
+    "landing": {
+      "headline": "Landing pages",
+      "body": "Paid Search traffic quality strengthened over the period. Continue monitoring the core landing pages and quote journey, particularly where Google Ads conversion efficiency is weaker than the other campaigns."
     }
   }
 }

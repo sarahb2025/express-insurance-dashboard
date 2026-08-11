@@ -1,13 +1,21 @@
 {
-  "_schema": "July 2026 reporting-month data feed. This is a FILLABLE TEMPLATE. While placeholder=true the dashboard renders clearly-labelled 'awaiting data' cells and fabricates nothing. To publish real figures: (1) set placeholder=false (or remove it), (2) fill every field below from the correct source \u2014 see reports/2026-07/README.md and docs/DATA-SOURCES.md for which source owns which field. Structure matches the root data.json schema.",
+  "_schema": "July 2026 data feed. placeholder:true \u2192 the dashboard renders 'awaiting data' cells and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are awaited from the export. Commentary is Kirsten's manual July input (from the July 2026 commentary document). To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
   "placeholder": true,
   "pmaxNote": "Awaiting Google Ads",
   "monthOrder": [
     "July 2026"
   ],
+  "commentary": {
+    "pmax": "July improved overall \u2014 higher conversion volume and value on slightly lower spend than June. Brand remained the strongest contributor and PMax improved with stronger conversion volume and ROAS; within PMax, General drove most of the uplift while Accounting softened slightly month-on-month. Accountant Insurance is still the main efficiency watch-point (though ROAS improved from June): the CPA ad group improved strongly, PI has started generating conversions and PL was softer. A new Management Consultants ad group has launched under Professional Indemnity and is still in early learning with limited data. Next focus: gradually reduce reliance on the broad General asset group and expand into targeted groups (Management Consultants, IT Contractors & Consultants) once data supports the split.",
+    "geo": "Geographic conversions are sourced from Google Ads (source of truth). Awaiting the July geographic export \u2014 review strongest converting locations at campaign / asset-group level before adjusting.",
+    "landing": {
+      "headline": "Landing pages \u2014 July",
+      "body": "The Accountant Insurance landing page received more paid traffic in July (Paid Search + Cross-network sessions up 146 \u2192 160) and average engagement time improved from ~70s to ~99s, with engagement rate broadly stable (~60%). Google Ads conversion efficiency is still weaker than the other core campaigns, so the landing page and quote journey remain key to monitor. Management Consultants is too early to assess (only ~7 paid sessions to the dedicated page; one Google Ads click so far). Public Liability attracted more paid landing-page traffic but engagement softened \u2014 monitor rather than change."
+    }
+  },
   "months": {
     "July 2026": {
-      "_source": "kpi/stats/campaigns/geo = GOOGLE ADS (source of truth). periodLabel/compareLabel = static display strings.",
+      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (awaiting export). commentary above = Kirsten manual.",
       "periodLabel": "1 \u2013 31 July 2026",
       "compareLabel": "1 \u2013 30 June 2026",
       "kpi": {
@@ -85,19 +93,10 @@
           "cpa": null,
           "convValue": null,
           "roas": null
-        },
-        {
-          "key": "eng",
-          "paused": true
-        },
-        {
-          "key": "dg",
-          "paused": true,
-          "cost": null
         }
       ],
+      "assetGroups": [],
       "geo": {
-        "_source": "GOOGLE ADS geographic report (source of truth for geography, NOT GA4).",
         "periodLabel": "All campaigns \u00b7 1 \u2013 31 July 2026 \u00b7 User location (Google Ads)",
         "locations": []
       }

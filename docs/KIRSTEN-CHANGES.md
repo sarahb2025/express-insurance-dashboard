@@ -28,9 +28,46 @@ available when this project was built, so this delivery is:
    screenshots.
 5. Log each applied change in the table below.
 
-| # | Change (from PPT) | Section | Type | Applied? | Commit |
-|---|-------------------|---------|------|----------|--------|
-| _ | _(to be filled once the PowerPoint is received)_ | | | | |
+**Files received 2026-08-11:** `Express_Insurance_Dashboard_changes_1.pptx` (9 annotated
+slides) and `Express_Insurance___July_2026_Commentary.docx` (July manual commentary).
+
+| # | Change (from PPT) | Section | Type | Applied? |
+|---|-------------------|---------|------|----------|
+| G1 | Everything should pull from data — minimise static/manual figures | global | principle | ✅ (data-driven where feasible; honest placeholders elsewhere) |
+| G2 | The dates line by "Performance Overview" is the ONLY dates instance — remove all other (stale) date labels | global | remove | ✅ |
+| G3 | "Upload data" button hidden from client — remove it (commentary sent to us instead) | control bar | remove | ✅ |
+| 1a | Rename "Total Cost" → "Spend" | Performance | relabel | ✅ |
+| 1b | Campaign table shows only campaigns active in the period / currently active (not all history) | Performance | logic | ✅ |
+| 1c | Remove the "Assessment" column | Performance | remove | ✅ |
+| 1d | Remove the "Status" column (static) | Performance | remove | ✅ |
+| 2 | Budget rows + subtext auto from data (Looker); subtext format "Type — ROAS x.xx"; no manual figures | Budget | restructure | ✅ (data-driven `budget` block; source = Looker/manual) |
+| 3a | Rename title → "Performance Max & Asset Group Overview" | PMax | relabel | ✅ |
+| 3b | Replace 5 static cards with an auto asset-group table (Spend, Conversions, Conv Value, ROAS) | PMax | restructure | ✅ |
+| 3c | Commentary below as a blue "info" box (ℹ️) | PMax | add | ✅ |
+| 4 | LTV tables flagged as static — should auto-update | LTV & ROAS | logic | ✅ (LOB now data-driven; kept section; date removed) |
+| 5 | Remove PMax Group Selector entirely | Future Groups | remove | ✅ (+ nav link removed) |
+| 6 | Remove Key Findings commentary (dup of new Slide-3 commentary) | More Insights | remove | ✅ (also removed the stale static summary-tile band — see note) |
+| 7a | Geo breakdown auto-updating | More Insights › Geo | logic | ✅ (Google Ads feed) |
+| 7b | Replace the two green/yellow bubbles with one info commentary field | More Insights › Geo | restructure | ✅ |
+| 7c | Geo showed GA4 conversions (hundreds) vs Google Ads 41.81 — must be Google Ads or clearly GA4-labelled | More Insights › Geo | correctness | ✅ (Google Ads = source of truth) |
+| 7d | Remove the 3 bottom cards (NSW/QLD/Next step) | More Insights › Geo | remove | ✅ |
+| 8a | Landing-page top-4 auto-populating | More Insights › LP | logic | ✅ (GA4 feed) |
+| 8b | Remove static pills ("Traffic quality review" etc.) | More Insights › LP | remove | ✅ |
+| 8c | Not hardcoded to Accountant page / old date range | More Insights › LP | logic | ✅ (page/date no longer hardcoded; feed-driven) |
+| 8d | Info section below = commentary field (headline + paragraph) | More Insights › LP | add | ✅ |
+| 9 | Remove creative "Messaging & Structure Review" section | More Insights | remove | ✅ |
+
+### Judgement calls (please confirm)
+- **Slide 6:** "Remove entirely" — I removed both the Key Findings accordion **and** the
+  5 static summary tiles above it (Accounting ROAS 0.87, Inner West, 23.7%, 85.6%,
+  Brisbane), since they were hardcoded, stale and mixed-source. If you want those tiles
+  back as an auto-populated KPI strip, say so.
+- **Budget (Slide 2):** there is no Looker Studio API to read a budget breakdown. The
+  budget block is now driven by the month's `data.json` (labelled Looker/manual). Confirm
+  the source you want it read from (see `docs/INTEGRATIONS.md` › Looker).
+- **Asset-group table (Slide 3) & LOB (Slide 4):** Google Ads asset-group spend/conv and
+  Looker LOB figures aren't in the reference data, so these render as clearly-labelled
+  placeholders until the real exports/feed are supplied — never fabricated.
 
 > A change already applied from the **written brief** (not the PPT): geography
 > was moved from GA4 to **Google Ads** (source of truth), and GA4 was scoped to

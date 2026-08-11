@@ -45,7 +45,11 @@ async function check(path, label, assertions) {
 await check('/index.html', 'MASTER renders reference data', async (p) => {
   const camp = await p.$$eval('#perf table tbody tr', (r) => r.length);
   const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
-  return { ok: camp === 7 && !!stat && stat !== '—', campRows: camp, firstStat: stat };
+  const budget = await p.$$eval('#budget-rows .brow', (r) => r.length);
+  const pmaxTitle = (await p.textContent('#pmax .sec-title'))?.trim();
+  // active campaigns only (paused hidden); data-driven budget rows; renamed PMax
+  const ok = camp === 5 && !!stat && stat !== '—' && budget === 6 && pmaxTitle === 'Performance Max & Asset Group Overview';
+  return { ok, campRows: camp, firstStat: stat, budgetRows: budget, pmaxTitle };
 });
 
 await check('/reports/2026-07/index.html', 'JULY report renders placeholders', async (p) => {

@@ -378,7 +378,6 @@ tr:hover td{background:#F8FAFC}
   <a href="#budget">Budget</a>
   <a href="#pmax">PMax Strategy</a>
   <a href="#ltv">LTV & ROAS</a>
-  <a href="#future">Future Groups</a>
   <a href="#insights">More Insights</a>
 </nav>
 
@@ -402,11 +401,7 @@ tr:hover td{background:#F8FAFC}
     </span>
     <span id="ctrl-msg" class="ctrl-msg"></span>
   </div>
-  <div class="ctrl-right">
-    <button class="ctrl-btn ctrl-upload" type="button" onclick="document.getElementById('data-file').click()">Upload data</button>
-    <input type="file" id="data-file" accept=".json,application/json" style="display:none" onchange="onUpload(event)">
-    <span id="upload-msg" class="ctrl-msg"></span>
-  </div>
+  <!-- "Upload data" control removed per client request (agency ingests data server-side, not via a client-visible button). -->
 </div>
 
 <!-- KPI BAR -->
@@ -453,69 +448,25 @@ tr:hover td{background:#F8FAFC}
     <div class="stat-card"><div class="stat-label">Clicks</div><div class="stat-val">12,780</div><span class="stat-chg chg-up">↑ +183%</span></div>
     <div class="stat-card"><div class="stat-label">Conversions</div><div class="stat-val">68.75</div><span class="stat-chg chg-dn">↓ −14.6%</span></div>
     <div class="stat-card"><div class="stat-label">Conv. Value</div><div class="stat-val">$479K</div><span class="stat-chg chg-dn">↓ −16.6%</span></div>
-    <div class="stat-card"><div class="stat-label">Total Cost</div><div class="stat-val">$17,895</div><span class="stat-chg chg-good">↓ −3.8%</span></div>
+    <div class="stat-card"><div class="stat-label">Spend</div><div class="stat-val">$17,895</div><span class="stat-chg chg-good">↓ −3.8%</span></div>
     <div class="stat-card"><div class="stat-label">Avg. CPC</div><div class="stat-val">$1.40</div><span class="stat-chg chg-good">↓ −66%</span></div>
   </div>
 
   <div class="tbl-wrap">
     <table>
       <thead><tr>
-        <th>Campaign</th><th>Status</th><th>Cost</th><th>Conversions</th><th>CPA</th><th>Conv. Value</th><th>ROAS</th><th>Assessment</th>
+        <th>Campaign</th><th>Spend</th><th>Conversions</th><th>CPA</th><th>Conv. Value</th><th>ROAS</th>
       </tr></thead>
       <tbody>
-        <tr>
-          <td><strong>Brand</strong></td>
-          <td><span class="bdg bdg-green">Active</span></td>
-          <td class="mono">$7,750</td><td class="mono">57.65</td><td class="mono">$134</td><td class="mono">$38,628</td>
-          <td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">4.98</strong><div class="roas-track"><div class="roas-fill" style="width:100%"></div></div></div></td>
-          <td><span class="bdg bdg-green">✓ Defence strategy</span></td>
-        </tr>
-        <tr>
-          <td><strong>Performance Max</strong></td>
-          <td><span class="bdg bdg-blue">Restructuring</span></td>
-          <td class="mono">$21,088</td><td class="mono">54.10</td><td class="mono">$390</td><td class="mono">$36,146</td>
-          <td><div class="roas-wrap"><strong class="mono" style="color:var(--red)">1.71</strong><div class="roas-track"><div class="roas-fill" style="width:43%;background:var(--red)"></div></div></div></td>
-          <td><span class="bdg bdg-red">Below target — fix in progress</span></td>
-        </tr>
-        <tr>
-          <td><strong>Professional Indemnity</strong></td>
-          <td><span class="bdg bdg-green">Active</span></td>
-          <td class="mono">$1,768</td><td class="mono">6.00</td><td class="mono">$295</td><td class="mono">$4,677</td>
-          <td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">2.65</strong><div class="roas-track"><div class="roas-fill" style="width:66%"></div></div></div></td>
-          <td><span class="bdg bdg-green">✓ Best search ROAS</span></td>
-        </tr>
-        <tr>
-          <td><strong>Accountant Insurance</strong></td>
-          <td><span class="bdg bdg-green">Active — Keep</span></td>
-          <td class="mono">$4,213</td><td class="mono">11.50</td><td class="mono">$366</td><td class="mono">$9,932</td>
-          <td><div class="roas-wrap"><strong class="mono">2.36</strong><div class="roas-track"><div class="roas-fill" style="width:59%"></div></div></div></td>
-          <td><span class="bdg bdg-green">✓ Outperforming PMax group</span></td>
-        </tr>
-        <tr>
-          <td><strong>Public Liability</strong></td>
-          <td><span class="bdg bdg-green">Active</span></td>
-          <td class="mono">$1,159</td><td class="mono">10.00</td><td class="mono">$116</td><td class="mono">$2,767</td>
-          <td><div class="roas-wrap"><strong class="mono">2.39</strong><div class="roas-track"><div class="roas-fill" style="width:60%"></div></div></div></td>
-          <td><span class="bdg bdg-green">✓ Efficient</span></td>
-        </tr>
-        <tr style="opacity:0.6">
-          <td><strong>Engineers Search</strong></td>
-          <td><span class="bdg bdg-gray">Paused</span></td>
-          <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
-          <td><span class="mono" style="color:var(--text-muted)">—</span></td>
-          <td><span class="bdg bdg-gray">Partner conflict</span></td>
-        </tr>
-        <tr style="opacity:0.6">
-          <td><strong>Demand Gen</strong></td>
-          <td><span class="bdg bdg-gray">Paused</span></td>
-          <td class="mono">$1,997</td><td class="mono">0</td><td class="mono">—</td><td class="mono">$0</td>
-          <td><span class="mono" style="color:var(--red)">0</span></td>
-          <td><span class="bdg bdg-gray">Revisit when PMax stable</span></td>
-        </tr>
+        <tr><td><strong>Brand</strong></td><td class="mono">$7,750</td><td class="mono">57.65</td><td class="mono">$134</td><td class="mono">$38,628</td><td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">4.98</strong><div class="roas-track"><div class="roas-fill" style="width:100%"></div></div></div></td></tr>
+        <tr><td><strong>Performance Max</strong></td><td class="mono">$21,088</td><td class="mono">54.10</td><td class="mono">$390</td><td class="mono">$36,146</td><td><div class="roas-wrap"><strong class="mono" style="color:var(--red)">1.71</strong><div class="roas-track"><div class="roas-fill" style="width:43%;background:var(--red)"></div></div></div></td></tr>
+        <tr><td><strong>Professional Indemnity</strong></td><td class="mono">$1,768</td><td class="mono">6.00</td><td class="mono">$295</td><td class="mono">$4,677</td><td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">2.65</strong><div class="roas-track"><div class="roas-fill" style="width:66%"></div></div></div></td></tr>
+        <tr><td><strong>Accountant Insurance</strong></td><td class="mono">$4,213</td><td class="mono">11.50</td><td class="mono">$366</td><td class="mono">$9,932</td><td><div class="roas-wrap"><strong class="mono">2.36</strong><div class="roas-track"><div class="roas-fill" style="width:59%"></div></div></div></td></tr>
+        <tr><td><strong>Public Liability</strong></td><td class="mono">$1,159</td><td class="mono">10.00</td><td class="mono">$116</td><td class="mono">$2,767</td><td><div class="roas-wrap"><strong class="mono">2.39</strong><div class="roas-track"><div class="roas-fill" style="width:60%"></div></div></div></td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note">ℹ️ <strong>Data source:</strong> All figures from Google Ads campaign report (1 Mar–4 May 2026), verified from raw CSV. Conv value is tracked via the income parameter in Google Ads — cross-referencing with Looker Studio income report for full accuracy.</div>
+  <div class="note">ℹ️ <strong>Data source:</strong> Google Ads campaign report for the selected period (only campaigns active in the period are shown). Conversion value is tracked via the income parameter in Google Ads, cross-referenced with the Looker Studio income report.</div>
 </section>
 
 
@@ -523,23 +474,18 @@ tr:hover td{background:#F8FAFC}
 <section class="sec" id="budget">
   <div class="sec-hdr">
     <span class="sec-title">Budget Allocation</span>
-    <span class="sec-sub">$18,000/month · $600/day &nbsp;·&nbsp; <strong>Effective from May 2026</strong></span>
-    <span class="src-chip src-kirsten" title="Budget split is set by Balmer Agency / Kirsten each month. Enter it manually in the month data file.">Kirsten — manual</span>
+    <span class="sec-sub">Monthly budget split by campaign</span>
+    <span class="src-chip src-looker" title="Budget breakdown should come from the Looker Studio budget section; held in the month data file until a live source is wired. See docs/INTEGRATIONS.md.">Looker: budget</span>
+    <span class="src-chip src-kirsten" title="Confirmed / adjusted by Balmer Agency (Kirsten).">Kirsten — manual</span>
   </div>
 
   <div class="budget-layout">
     <div>
       <div class="lbl">Daily & Monthly Breakdown</div>
-      <div class="brow"><div class="brow-dot" style="background:var(--green)"></div><div class="brow-info"><div class="brow-name">Brand Campaign</div><div class="brow-type">Search — Brand defence · ROAS 4.98</div><div class="brow-bar"><div class="brow-bar-fill" style="width:25%;background:var(--green)"></div></div></div><div class="brow-amounts"><div class="brow-day">$150/d</div><div class="brow-mo">$4,500</div></div></div>
-      <div class="brow"><div class="brow-dot" style="background:#0E7A37"></div><div class="brow-info"><div class="brow-name">Performance Max</div><div class="brow-type">PMax — Main conversion driver</div><div class="brow-bar"><div class="brow-bar-fill" style="width:47%;background:#0E7A37"></div></div></div><div class="brow-amounts"><div class="brow-day">$280/d</div><div class="brow-mo">$8,400</div></div></div>
-      <div class="brow"><div class="brow-dot" style="background:#22C55E"></div><div class="brow-info"><div class="brow-name">Professional Indemnity</div><div class="brow-type">Search — Budget Limited, ROAS 2.65 (best search)</div><div class="brow-bar"><div class="brow-bar-fill" style="width:10%;background:#22C55E"></div></div></div><div class="brow-amounts"><div class="brow-day">$60/d</div><div class="brow-mo">$1,800</div></div></div>
-      <div class="brow"><div class="brow-dot" style="background:var(--green)"></div><div class="brow-info"><div class="brow-name">Accountant Insurance</div><div class="brow-type">Search — Keep · ROAS 2.36 outperforms PMax group (0.87)</div><div class="brow-bar"><div class="brow-bar-fill" style="width:8%;background:var(--green)"></div></div></div><div class="brow-amounts"><div class="brow-day">$50/d</div><div class="brow-mo">$1,500</div></div></div>
-      <div class="brow"><div class="brow-dot" style="background:#94A3B8"></div><div class="brow-info"><div class="brow-name">Public Liability</div><div class="brow-type">Search — Maintain current · ROAS 2.39</div><div class="brow-bar"><div class="brow-bar-fill" style="width:7%;background:#94A3B8"></div></div></div><div class="brow-amounts"><div class="brow-day">$40/d</div><div class="brow-mo">$1,200</div></div></div>
-      <div class="brow"><div class="brow-dot" style="background:#CBD5E1"></div><div class="brow-info"><div class="brow-name">Architects</div><div class="brow-type">Search — Small test · Confirmed continue</div><div class="brow-bar"><div class="brow-bar-fill" style="width:5%;background:#CBD5E1"></div></div></div><div class="brow-amounts"><div class="brow-day">$30/d</div><div class="brow-mo">$900</div></div></div>
-      <div class="brow" style="opacity:0.45"><div class="brow-dot" style="background:#E2E8F0"></div><div class="brow-info"><div class="brow-name">Engineers / Demand Gen</div><div class="brow-type">Paused</div></div><div class="brow-amounts"><div class="brow-day" style="color:var(--text-muted)">$0/d</div><div class="brow-mo" style="color:var(--text-muted)">$0</div></div></div>
-      <div class="budget-total">
-        <span class="budget-total-lbl">Total (incl. $600 buffer)</span>
-        <span class="budget-total-val">$18,000 / mo</span>
+      <div id="budget-rows"></div>
+      <div class="budget-total" id="budget-total">
+        <span class="budget-total-lbl">Total</span>
+        <span class="budget-total-val">—</span>
       </div>
     </div>
 
@@ -549,29 +495,12 @@ tr:hover td{background:#F8FAFC}
         <svg viewBox="0 0 160 160" width="140" style="display:block;margin:0 auto">
           <!-- Donut chart: simple arcs -->
           <circle cx="80" cy="80" r="60" fill="none" stroke="#F1F5F9" stroke-width="24"/>
-          <!-- PMax 47% -->
-          <circle cx="80" cy="80" r="60" fill="none" stroke="#00843D" stroke-width="24" stroke-dasharray="177 200" stroke-dashoffset="50" stroke-linecap="butt"/>
-          <!-- Brand 25% -->
-          <circle cx="80" cy="80" r="60" fill="none" stroke="#22C55E" stroke-width="24" stroke-dasharray="94 283" stroke-dashoffset="-127" stroke-linecap="butt"/>
-          <!-- PI 10% -->
-          <circle cx="80" cy="80" r="60" fill="none" stroke="#86EFAC" stroke-width="24" stroke-dasharray="37 340" stroke-dashoffset="-221" stroke-linecap="butt"/>
-          <!-- Accountant 8% -->
-          <circle cx="80" cy="80" r="60" fill="none" stroke="#F59E0B" stroke-width="24" stroke-dasharray="30 347" stroke-dashoffset="-258" stroke-linecap="butt"/>
-          <!-- PL 7% -->
-          <circle cx="80" cy="80" r="60" fill="none" stroke="#94A3B8" stroke-width="24" stroke-dasharray="26 351" stroke-dashoffset="-288" stroke-linecap="butt"/>
-          <!-- Architects 5% -->
-          <circle cx="80" cy="80" r="60" fill="none" stroke="#CBD5E1" stroke-width="24" stroke-dasharray="19 358" stroke-dashoffset="-314" stroke-linecap="butt"/>
-          <text x="80" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A" font-family="Poppins">$18K</text>
+          <!-- Segments + center total rendered by renderBudget() -->
+          <g id="budget-donut-segs"></g>
+          <text x="80" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A" font-family="Poppins" id="budget-donut-total">—</text>
           <text x="80" y="91" text-anchor="middle" font-size="9" fill="#94A3B8" font-family="Poppins">per month</text>
         </svg>
-        <div class="donut-legend">
-          <div class="dl-row"><div class="dl-dot" style="background:#00843D"></div><span class="dl-name">Performance Max</span><span class="dl-pct">47%</span><span class="dl-amt">$8,400</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:#22C55E"></div><span class="dl-name">Brand</span><span class="dl-pct">25%</span><span class="dl-amt">$4,500</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:#86EFAC"></div><span class="dl-name">Prof. Indemnity</span><span class="dl-pct">10%</span><span class="dl-amt">$1,800</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:#F59E0B"></div><span class="dl-name">Accountant Search</span><span class="dl-pct">8%</span><span class="dl-amt">$1,500</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:#94A3B8"></div><span class="dl-name">Public Liability</span><span class="dl-pct">7%</span><span class="dl-amt">$1,200</span></div>
-          <div class="dl-row"><div class="dl-dot" style="background:#CBD5E1"></div><span class="dl-name">Architects</span><span class="dl-pct">5%</span><span class="dl-amt">$900</span></div>
-        </div>
+        <div class="donut-legend" id="budget-legend"></div>
       </div>
     </div>
   </div>
@@ -580,76 +509,27 @@ tr:hover td{background:#F8FAFC}
 <!-- ── 3. PMAX ── -->
 <section class="sec" id="pmax">
   <div class="sec-hdr">
-    <span class="sec-title">Performance Max — Asset Group Strategy</span>
-    <span class="sec-sub">Performance data: <strong>1 Mar – 4 May 2026</strong> &nbsp;·&nbsp; Restructuring from broad General → targeted product groups</span>
-    <span class="src-chip src-gads" title="CPA & ROAS per asset group from Google Ads.">Google Ads: CPA/ROAS</span>
-    <span class="src-chip src-looker" title="LOB average revenue & policy counts from the LOB report in Looker Studio.">Looker: revenue/policies</span>
-    <span class="src-chip src-static" title="Status, priority and analyst commentary are written manually.">Static: commentary</span>
+    <span class="sec-title">Performance Max &amp; Asset Group Overview</span>
+    <span class="sec-sub">Asset group performance for the selected period</span>
+    <span class="src-chip src-gads" title="Spend, conversions, conversion value & ROAS per asset group from Google Ads.">Google Ads</span>
+    <span class="src-chip src-static" title="Commentary below is written by the agency (Kirsten).">Static: commentary</span>
   </div>
-  <div class="groups-grid">
-    <div class="gcard"><div class="gcard-top" style="background:var(--green)"></div><div class="gcard-body">
-      <div class="gcard-status" style="color:var(--green)">✓ Active — Optimising</div>
-      <div class="gcard-name">Accountants</div>
-      <div class="gcard-rev">LOB Avg Revenue $400.62 · 302 policies · Ad Strength: Excellent</div>
-      <div class="gcard-stats">
-        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$442</div></div>
-        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val">0.87</div></div>
-      </div>
-      <div class="gcard-note">Currently being reviewed and optimised. The Accountant Search campaign continues to perform well alongside this group — we are identifying the best channel mix for this product line.</div>
-    </div></div>
-
-    <div class="gcard"><div class="gcard-top" style="background:var(--red)"></div><div class="gcard-body">
-      <div class="gcard-status" style="color:var(--red)">⏸ Pause This Week</div>
-      <div class="gcard-name">Engineers & Construction</div>
-      <div class="gcard-rev">LOB Avg Revenue $738.72 · 89 policies · Ad Strength: Good</div>
-      <div class="gcard-stats">
-        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$440</div></div>
-        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val" style="color:var(--green)">2.19</div></div>
-      </div>
-      <div class="gcard-note">Actually the best performing PMax group (ROAS 2.19), but Confirmed partner conflict — must pause regardless. This $9K/month conv value will need to be replaced by new groups.</div>
-    </div></div>
-
-    <div class="gcard"><div class="gcard-top" style="background:#94A3B8"></div><div class="gcard-body">
-      <div class="gcard-status" style="color:#64748B">Active — Reduce over time</div>
-      <div class="gcard-name">General</div>
-      <div class="gcard-rev">Blended mix · All remaining products · Ad Strength: Excellent</div>
-      <div class="gcard-stats">
-        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$351</div></div>
-        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val">1.93</div></div>
-      </div>
-      <div class="gcard-note">Takes 59% of PMax budget ($12,528). ROAS 1.93 is stable but below target. As new dedicated groups are built, budget will naturally shift away from General toward better-targeted groups.</div>
-    </div></div>
-
-    <div class="gcard" style="border-color:var(--green);border-width:2px"><div class="gcard-top" style="background:linear-gradient(90deg,var(--green),#22C55E)"></div><div class="gcard-body">
-      <div class="gcard-status" style="color:var(--green)">🆕 New — Priority 1</div>
-      <div class="gcard-name">IT Contractors & Consultants</div>
-      <div class="gcard-rev">LOB Avg Revenue $260.97 · <strong style="color:var(--green)">1,065 policies</strong> (largest)</div>
-      <div class="gcard-stats">
-        <div class="gstat"><div class="gstat-lbl">Market Size</div><div class="gstat-val" style="color:var(--green)">Biggest</div></div>
-        <div class="gstat"><div class="gstat-lbl">Max CPA (Yr2)</div><div class="gstat-val">$125</div></div>
-      </div>
-      <div class="gcard-note">Biggest existing customer base — buried in General group. Dedicated group with IT-specific copy and search themes will dramatically improve algorithm targeting. Creative brief ready.</div>
-    </div></div>
-
-    <div class="gcard" style="border-color:#86EFAC;border-width:2px"><div class="gcard-top" style="background:linear-gradient(90deg,#16A34A,#86EFAC)"></div><div class="gcard-body">
-      <div class="gcard-status" style="color:#16A34A">🆕 New — Priority 2</div>
-      <div class="gcard-name">Management Consultants</div>
-      <div class="gcard-rev">LOB Avg Revenue $348.44 · 269 policies</div>
-      <div class="gcard-stats">
-        <div class="gstat"><div class="gstat-lbl">Market Size</div><div class="gstat-val">Strong</div></div>
-        <div class="gstat"><div class="gstat-lbl">Max CPA (Yr2)</div><div class="gstat-val">$174</div></div>
-      </div>
-      <div class="gcard-note">Good volume + above-average AOV. Different messaging to IT — no audience overlap. Build 1 week after IT group to avoid interfering learning phases. Creative brief ready.</div>
-    </div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Asset Group</th><th>Spend</th><th>Conversions</th><th>Conv. Value</th><th>ROAS</th>
+      </tr></thead>
+      <tbody id="pmax-tbl-body"></tbody>
+    </table>
   </div>
-  <div class="note-green">✅ <strong>PMax optimisation in progress:</strong> We are restructuring asset groups to improve targeting precision. New dedicated groups for IT Contractors and Management Consultants are being built to replace the Engineers group and pull budget away from the broad General group — which will progressively lift overall ROAS.</div>
+  <div class="note" id="pmax-commentary">ℹ️ <strong>Commentary:</strong> <span id="pmax-commentary-text">Add this month’s Performance Max commentary in the report data file.</span></div>
 </section>
 
 <!-- ── 5. LTV ── -->
 <section class="sec" id="ltv">
   <div class="sec-hdr">
     <span class="sec-title">LTV & ROAS Calculator</span>
-    <span class="sec-sub">Revenue data: <strong>LOB report (Looker Studio)</strong> &nbsp;·&nbsp; May 2026</span>
+    <span class="sec-sub">Revenue data: <strong>LOB report (Looker Studio)</strong></span>
     <span class="src-chip src-looker" title="Average revenue per line of business from the LOB report in Looker Studio.">Looker: LOB revenue</span>
     <span class="src-chip src-static" title="Retention, cancellation & margin assumptions are fixed inputs; the maths is computed in-browser.">Static: assumptions + calc</span>
   </div>
@@ -672,192 +552,26 @@ tr:hover td{background:#F8FAFC}
   <div class="note">✅ <strong>How to read this table:</strong> Drag the Target ROAS slider to see how CPA changes — and how that directly impacts <strong>Yr 1 Net Profit</strong> and <strong>3yr Net Margin per Customer</strong>. Higher ROAS = lower CPA = more profit per customer. Lower ROAS = higher CPA = more volume but less margin. Revenue data from LOB report (Looker Studio). Gross margin 100%, retention 75%, cancellation 3%.</div>
 </section>
 
-<!-- ── 6. FUTURE GROUPS ── -->
-<section class="sec" id="future">
-  <div class="sec-hdr">
-    <span class="sec-title">PMax Group Selector</span>
-    <span class="sec-sub">Pick up to 3 groups to build next &nbsp;·&nbsp; Based on LOB data (Looker Studio, May 2026)</span>
-    <span class="src-chip src-looker" title="AOV & policy counts from the LOB report in Looker Studio.">Looker: LOB data</span>
-    <span class="src-chip src-static" title="Recommendations, priority ranking and reasons are written manually.">Static: recommendations</span>
-  </div>
-
-  <div id="sel-count-bar" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm);margin-bottom:16px">
-    <span style="font-size:13px;font-weight:600;color:var(--green-dark)">Select up to <strong>3 groups</strong> to build — click to select/deselect</span>
-    <span id="sel-count" style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--green)">0 / 3 selected</span>
-  </div>
-
-  <div class="future-grid" id="group-selector">
-    <div class="fcard sel-card" data-id="it" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--green)">★ Priority 1 — Recommended</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">IT Contractors & Consultants</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$261</strong></div><div class="fstat">Policies <strong>1,065</strong></div><div class="fstat">Max CPA <strong>$125</strong></div></div>
-      <div class="fcard-reason">Biggest existing customer base. Contract compliance is #1 trigger. Copy & brief already complete — fastest to launch.</div>
-    </div>
-    <div class="fcard sel-card" data-id="mc" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--green)">★ Priority 2 — Recommended</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Management Consultants</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$348</strong></div><div class="fstat">Policies <strong>269</strong></div><div class="fstat">Max CPA <strong>$174</strong></div></div>
-      <div class="fcard-reason">Good volume + above-average AOV. Different messaging to IT — no audience overlap. Copy & brief complete.</div>
-    </div>
-    <div class="fcard sel-card" data-id="re" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--blue)">Suggested</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Real Estate Agents</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$499</strong></div><div class="fstat">Policies <strong>16</strong></div><div class="fstat">Max CPA <strong>$249</strong></div></div>
-      <div class="fcard-reason">High AOV is attractive. Risk: only 16 policies — slow algorithm learning. May need 4–6 weeks to stabilise. Messaging: property transaction disputes, licensing requirements.</div>
-    </div>
-    <div class="fcard sel-card" data-id="rc" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--blue)">Suggested</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Recruitment Consultants</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$467</strong></div><div class="fstat">Policies <strong>20–26</strong></div><div class="fstat">Max CPA <strong>$233</strong></div></div>
-      <div class="fcard-reason">Strong AOV, Our Engineers replacement. Messaging: wrongful placement claims, contract requirements. Similar volume risk to Real Estate — build after more established groups.</div>
-    </div>
-    <div class="fcard sel-card" data-id="fm" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--amber)">Caution — Suggested</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Finance / Mortgage Broking</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$424</strong></div><div class="fstat">Policies <strong>13–18</strong></div><div class="fstat">Max CPA <strong>$212</strong></div></div>
-      <div class="fcard-reason">Actual LOB revenue $424 is lower than initial estimates. Very low volume. Highly regulated industry = competitive keywords. Small budget test only.</div>
-    </div>
-    <div class="fcard sel-card" data-id="hc" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--text-muted)">Long Term</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Healthcare Professionals</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$168</strong></div><div class="fstat">Policies <strong>301</strong></div><div class="fstat">Max CPA <strong>$84</strong></div></div>
-      <div class="fcard-reason">Large volume but low AOV makes economics tight. Max CPA ~$84 is very hard to hit in insurance search. Only viable once account ROAS is above 2.5 and landing page is optimised.</div>
-    </div>
-    <div class="fcard sel-card" data-id="tax" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--text-muted)">Long Term</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Tax Agents & Bookkeepers</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$148</strong></div><div class="fstat">Policies <strong>810</strong></div><div class="fstat">Max CPA <strong>$74</strong></div></div>
-      <div class="fcard-reason">Biggest volume in LOB (810 policies) but lowest AOV. Max CPA ~$74 is very difficult. Economics only work at very high scale with extremely efficient execution.</div>
-    </div>
-    <div class="fcard sel-card" data-id="arch" onclick="toggleSel(this)" style="cursor:pointer">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="fcard-pri" style="color:var(--text-muted)">Already Running (Search)</div>
-        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
-      </div>
-      <div class="fcard-name">Architects</div>
-      <div class="fcard-stats"><div class="fstat">AOV <strong>$446</strong></div><div class="fstat">Policies <strong>77–112</strong></div><div class="fstat">Max CPA <strong>$223</strong></div></div>
-      <div class="fcard-reason">Confirmed Architects can continue. Currently in search + General group. Add a dedicated PMax asset group to improve targeting and pull budget away from General.</div>
-    </div>
-  </div>
-
-  <div id="sel-result" style="display:none;margin-top:16px;padding:16px 18px;background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm)">
-    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green-dark);margin-bottom:8px">Your selected groups</div>
-    <div id="sel-result-names" style="font-size:14px;font-weight:600;color:var(--green)"></div>
-    <div style="font-size:12px;color:var(--green-dark);margin-top:6px">Recommended build order: launch first group → wait 1 week → launch second → wait 1 week → launch third. Stagger to avoid overlapping learning phases.</div>
-  </div>
-</section>
-
+<!-- ── PMax Group Selector removed per client request (Slide 5). ── -->
 <!-- ── 7. MORE INSIGHTS ── -->
 <section class="sec" id="insights">
   <div class="sec-hdr">
     <span class="sec-title">More Insights — Accountant Targeting Debrief</span>
-    <span class="sec-sub">Feb – May 2026 · Asset group, landing page & geography analysis</span>
+    <span class="sec-sub">Asset group, landing page &amp; geography analysis</span>
     <span class="src-chip src-gads" title="Geography & conversions from Google Ads (source of truth).">Google Ads: geo</span>
     <span class="src-chip src-ga4" title="Landing-page sessions & engagement from GA4 (property 358319621).">GA4: landing page</span>
-    <span class="src-chip src-static" title="Findings and commentary are written manually.">Static: findings</span>
-  </div>
-
-  <!-- Summary highlights -->
-  <div style="background:var(--green);border-radius:var(--radius);margin-bottom:28px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;overflow:hidden">
-    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Accounting Asset ROAS</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">0.87</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Accounting asset group</div></div>
-    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Growing NSW Location</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">Inner West</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">3 conv · +200%</div></div>
-    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Landing Page Conv. Rate</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">23.7%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Paid Search channel</div></div>
-    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Cross-network Bounce</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">85.6%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Cross-network / likely PMax</div></div>
-    <div style="text-align:center;padding:14px 12px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Top Converting Location</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">Brisbane</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">6 conv · +8%</div></div>
-  </div>
-
-  <!-- Key Findings -->
-  <div style="margin-bottom:32px">
-    <div class="lbl">Key Findings — Accountant Targeting Optimisation Opportunities</div>
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Data: Feb – May 2026 (asset group) · Mar – Apr 2026 (landing page) · 1 Apr – 11 May 2026 (geography)</div>
-
-    <div class="finding">
-      <div class="finding-head" onclick="togInsight(this)">
-        <div class="finding-num">1</div>
-        <div class="finding-title">Cross-network traffic is driving volume, but needs tighter qualification</div>
-        <span class="finding-badge ip-amber">Optimisation Area</span>
-        <div class="finding-chev open">▾</div>
-      </div>
-      <div class="finding-body open">
-        <p>The Accounting asset group has generated meaningful reach and traffic, but the conversion quality is not yet as strong as Search. GA4 shows Cross-network traffic to the accountant landing page delivering high session volume, while Paid Search delivers stronger conversion engagement.</p>
-        <p>Cross-network in GA4 typically includes Performance Max and other Google cross-network campaign activity. To keep the debrief precise, this should be described as <strong>Cross-network / likely PMax traffic</strong> unless confirmed directly by Session campaign or Google Ads campaign name in GA4.</p>
-        <div style="margin-top:12px">
-          <span class="ip ip-amber">Review audience signals</span>
-          <span class="ip ip-amber">Confirm campaign source in GA4</span>
-          <span class="ip ip-blue">Optimise reach quality</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="finding">
-      <div class="finding-head" onclick="togInsight(this)">
-        <div class="finding-num">2</div>
-        <div class="finding-title">Landing page performs strongly for high-intent Paid Search traffic</div>
-        <span class="finding-badge ip-green">Positive Finding</span>
-        <div class="finding-chev">▾</div>
-      </div>
-      <div class="finding-body">
-        <p>The accountants landing page (<code>/professional-indemnity-insurance/accountants-insurance</code>) shows strong engagement from Paid Search visitors, with a 23.7% session key event rate and a lower bounce rate than Cross-network traffic.</p>
-        <p>This indicates the page is capable of converting when users arrive with high intent. The opportunity is to bring more qualified traffic into the page and use the Search learnings to guide cross-network optimisation.</p>
-        <div style="margin-top:12px">
-          <span class="ip ip-green">Paid Search: 23.7% key event rate</span>
-          <span class="ip ip-green">Paid Search: 32.2% bounce rate</span>
-          <span class="ip ip-blue">Use Search as benchmark</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="finding">
-      <div class="finding-head" onclick="togInsight(this)">
-        <div class="finding-num">3</div>
-        <div class="finding-title">Brisbane and selected NSW areas are key locations to monitor</div>
-        <span class="finding-badge ip-blue">Geo Insight</span>
-        <div class="finding-chev">▾</div>
-      </div>
-      <div class="finding-body">
-        <p>From 1 April to 11 May 2026, Brisbane City was the top converting location with 6 conversions. Sydney, Inner West Council and Rouse Hill also contributed conversions, with Inner West Council and Rouse Hill showing growth from smaller bases.</p>
-        <p>This gives a clear direction for monitoring future performance by location, while avoiding over-adjustment before campaign-level and location-level conversion data are reviewed together.</p>
-        <div style="margin-top:12px">
-          <span class="ip ip-green">Brisbane City: 6 conv</span>
-          <span class="ip ip-green">Inner West: +200%</span>
-          <span class="ip ip-blue">Monitor by campaign</span>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Geography -->
   <div style="margin-bottom:32px">
     <div class="lbl">Geographic Performance <span class="src-chip src-gads sm" title="Geographic conversions come from the Google Ads geographic report (/api/ads-geo) — the source of truth for geography. NOT from GA4.">Google Ads · source of truth</span></div>
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">All campaigns · 1 Apr – 11 May 2026 · User location (Google Ads geographic report)</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">All campaigns · User location (Google Ads geographic report)</div>
     <div class="geo-grid">
       <div>
         <div class="lbl">Top Converting Locations</div>
         <div class="card card-body">
           <div class="state-bars" id="insight-state-bars"></div>
-          <div class="note-green" style="margin-top:16px">✅ <strong>Current opportunity:</strong> Brisbane City is the strongest converting location in the current period, while Inner West Council and Rouse Hill are showing positive growth from a smaller base.</div>
-          <div class="note-warn" style="margin-top:8px">ℹ️ <strong>Monitoring point:</strong> Sydney remains relevant, but City of Sydney conversions declined versus the previous period and should be reviewed at campaign and keyword level.</div>
+          <div class="note" id="geo-commentary" style="margin-top:16px">ℹ️ <strong>Commentary:</strong> <span id="geo-commentary-text">Add this month’s geography commentary in the report data file.</span></div>
         </div>
       </div>
       <div>
@@ -870,29 +584,10 @@ tr:hover td{background:#F8FAFC}
         </div>
       </div>
     </div>
-    <div style="margin-top:20px">
-      <div class="lbl">What This Means for Location Optimisation</div>
-      <div class="col3">
-        <div class="card card-body">
-          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">NSW — Key Metro Clusters</div>
-          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">Sydney, Inner West Council and Rouse Hill all generated conversions during 1 Apr – 11 May. Inner West Council and Rouse Hill are showing positive growth and should remain under review for future bid and budget adjustments.</div>
-        </div>
-        <div class="card card-body">
-          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">QLD — Brisbane Lead</div>
-          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">Brisbane City recorded the highest conversion volume in the current period with 6 conversions and growth versus the previous period. It should remain a priority location for monitoring and optimisation.</div>
-        </div>
-        <div class="card card-body">
-          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Next Step — Validate by Campaign</div>
-          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">The location data is account-wide, so the next step is to cut the same report by campaign / asset group to confirm whether the strongest locations are also driving accountant-specific conversions.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Landing Page -->
+\1
   <div style="margin-bottom:32px">
     <div class="lbl">Landing Page Performance <span class="src-chip src-ga4 sm" title="Sessions, key events, bounce & engagement from GA4 (property 358319621). GA4 is used ONLY for landing-page traffic & engagement.">GA4 live · property 358319621</span></div>
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Page: /professional-indemnity-insurance/accountants-insurance · GA4 · Mar – Apr 2026 <span class="feed-status feed-placeholder" id="ga4-feed-status" title="Updates automatically when the GA4 live feed responds.">Feed: not connected</span></div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Landing pages in use during the selected period <span class="feed-status feed-placeholder" id="ga4-feed-status" title="Updates automatically when the GA4 live feed responds.">Feed: not connected</span></div>
     <div id="lp-grid-anchor"></div>
     <div class="lp-grid" id="lp-grid">
       <div class="lp-card" data-channel="crossnet" style="border-top:3px solid var(--red)">
@@ -905,7 +600,6 @@ tr:hover td{background:#F8FAFC}
           <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--red)">85.6%</strong></div>
           <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">5.6 sec</strong></div>
         </div>
-        <span class="lp-pill" style="background:var(--red-bg);color:var(--red)">Traffic quality review</span>
       </div>
       <div class="lp-card" data-channel="paidsearch" style="border-top:3px solid var(--green)">
         <div class="lp-channel">Paid Search</div>
@@ -917,7 +611,6 @@ tr:hover td{background:#F8FAFC}
           <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--green)">32.2%</strong></div>
           <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">78 sec</strong></div>
         </div>
-        <span class="lp-pill" style="background:var(--green-light);color:var(--green-dark)">High quality, high intent</span>
       </div>
       <div class="lp-card" data-channel="direct" style="border-top:3px solid #94A3B8">
         <div class="lp-channel">Direct</div>
@@ -929,7 +622,6 @@ tr:hover td{background:#F8FAFC}
           <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--green)">15.5%</strong></div>
           <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">8.9 sec</strong></div>
         </div>
-        <span class="lp-pill" style="background:#F1F5F9;color:#475569">Brand recall visitors</span>
       </div>
       <div class="lp-card" data-channel="organic" style="border-top:3px solid #94A3B8">
         <div class="lp-channel">Organic Search</div>
@@ -941,87 +633,9 @@ tr:hover td{background:#F8FAFC}
           <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--amber)">60.7%</strong></div>
           <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">8.1 sec</strong></div>
         </div>
-        <span class="lp-pill" style="background:#F1F5F9;color:#475569">Low volume, decent quality</span>
       </div>
     </div>
-    <div class="note" style="margin-top:16px">ℹ️ <strong>The key takeaway:</strong> The accountants landing page converts at 23.7% for Paid Search, which indicates strong relevance for high-intent visitors. Cross-network traffic is driving much higher session volume than Paid Search, but with weaker engagement and conversion quality. The next priority is to confirm the campaign source in GA4 and refine PMax / cross-network audience signals, search themes and asset structure.</div>
-  </div>
-
-  <!-- Asset Group -->
-  <div>
-    <div class="lbl">Accounting Asset Group — Messaging & Structure Review</div>
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">PMax Accounting asset group · Feb – May 2026 · Ad Strength: Excellent</div>
-    <div class="note-warn">⚠️ <strong>Optimisation opportunity:</strong> The asset group has Excellent ad strength (creative quality score) but ROAS 0.87. This suggests the main improvement area is likely <strong>traffic quality and audience matching</strong>, rather than a lack of creative assets. Ad Strength measures asset completeness and relevance, but it does not guarantee the campaign is reaching the highest-intent audience.</div>
-    <div class="col2" style="margin-top:20px">
-      <div>
-        <div class="lbl">Headlines — PI / PL Messaging Split</div>
-        <div class="card" style="overflow:hidden">
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Headline — PI Focused ✓</div>
-            <div class="creative-text">"Trusted PI For Accountants"</div>
-            <span class="creative-flag flag-ok">Correct signal</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Headline — PI Focused ✓</div>
-            <div class="creative-text">"Professional Indemnity Cover"</div>
-            <span class="creative-flag flag-ok">Correct signal</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Headline — PL Message</div>
-            <div class="creative-text">"Accountant PL Insurance"</div>
-            <span class="creative-flag flag-warn">PL-focused message</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Headline — PL Message</div>
-            <div class="creative-text">"PL Insurance for Accountants"</div>
-            <span class="creative-flag flag-warn">PL-focused message</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Headline — PL Message</div>
-            <div class="creative-text">"Accountant Liability Cover"</div>
-            <span class="creative-flag flag-warn">Broad liability message</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none">
-            <div class="creative-type">Headline — Generic</div>
-            <div class="creative-text">"Quick & Easy Insurance"</div>
-            <span class="creative-flag flag-bad">Lower priority</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="lbl">Long Headlines — Product Focus Review</div>
-        <div class="card" style="overflow:hidden">
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Long Headline — PL ⚠️</div>
-            <div class="creative-text">"Public Liability for accountants made simple. Instant online..."</div>
-            <span class="creative-flag flag-warn">PL-focused message</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Long Headline — PI ✓</div>
-            <div class="creative-text">"Get A Quote In Seconds & Secure Your Professional Indemnity"</div>
-            <span class="creative-flag flag-ok">Correct signal</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none">
-            <div class="creative-type">Long Headline — PI ✓</div>
-            <div class="creative-text">"Reliable accountant cover from brokers who understand your practice"</div>
-            <span class="creative-flag flag-ok">Correct signal</span>
-          </div>
-        </div>
-        <div class="lbl" style="margin-top:16px">Descriptions</div>
-        <div class="card" style="overflow:hidden">
-          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
-            <div class="creative-type">Description — PI ✓</div>
-            <div class="creative-text">"Get instant quotes for professional indemnity insurance for accountants."</div>
-            <span class="creative-flag flag-ok">Correct signal</span>
-          </div>
-          <div class="creative-item" style="border-radius:0;border:none">
-            <div class="creative-type">Description — PL ⚠️</div>
-            <div class="creative-text">"We offer tailored public liability insurance for your accounting practice."</div>
-            <span class="creative-flag flag-warn">PL-focused message</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="note" style="margin-top:16px" id="lp-commentary">ℹ️ <strong id="lp-commentary-head">Commentary</strong> — <span id="lp-commentary-text">Add landing-page commentary (headline + paragraph) in the report data file.</span></div>
   </div>
 
 </section>
@@ -1094,8 +708,8 @@ function switchBrief(id, el) {
   el.classList.add('active');
 }
 
-// LTV
-const prods = [
+// LTV — LOB revenue defaults (Looker Studio). Overridden by DATA.lob when supplied (see refresh()).
+const DEFAULT_PRODS = [
   {n:'IT Contractors & Consultants', r:260.97, t:'new2'},
   {n:'Management Consultants', r:348.44, t:'new2'},
   {n:'Real Estate Agents', r:499.37, t:'new3'},
@@ -1105,6 +719,7 @@ const prods = [
   {n:'Public Liability', r:154.22, t:'ex'},
   {n:'Architects', r:433.63, t:'ex'},
 ];
+let prods = DEFAULT_PRODS;
 // Note: Professional Indemnity excluded — no revenue data in LOB report. Architects updated to LOB figure $433.63.
 
 function calc(r,roas,ret,can){
@@ -1303,7 +918,7 @@ var STAT_DEFS = [
   { k: 'clicks', label: 'Clicks', fmt: function(v){ return Math.round(v).toLocaleString(); }, goodDown: false },
   { k: 'conversions', label: 'Conversions', fmt: function(v){ return v.toFixed(2); }, goodDown: false },
   { k: 'convValue', label: 'Conv. Value', fmt: fmtDollarK, goodDown: false },
-  { k: 'cost', label: 'Total Cost', fmt: function(v){ return '$' + Math.round(v).toLocaleString(); }, goodDown: true },
+  { k: 'cost', label: 'Spend', fmt: function(v){ return '$' + Math.round(v).toLocaleString(); }, goodDown: true },
   { k: 'cpc', label: 'Avg. CPC', fmt: function(v){ return '$' + v.toFixed(2); }, goodDown: true }
 ];
 
@@ -1347,23 +962,19 @@ function renderCampaigns(camps){
   camps.forEach(function(c){
     var m = CAMP_META[c.key];
     if (!m) return;
-    if (c.key === 'eng') {
-      html += '<tr style="opacity:0.6"><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td><td class="mono">\u2014</td><td class="mono">\u2014</td><td class="mono">\u2014</td><td class="mono">\u2014</td><td><span class="mono" style="color:var(--text-muted)">\u2014</span></td><td>' + m.assess + '</td></tr>';
-      return;
-    }
-    if (c.key === 'dg') {
-      html += '<tr style="opacity:0.6"><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td><td class="mono">' + fmtDollar(c.cost || 0) + '</td><td class="mono">0</td><td class="mono">\u2014</td><td class="mono">$0</td><td><span class="mono" style="color:var(--red)">0</span></td><td>' + m.assess + '</td></tr>';
-      return;
-    }
+    // Per client request: only show campaigns active in the selected period or
+    // currently active. Skip paused campaigns and any with no spend & no conversions.
+    if (c.paused) return;
+    var hasActivity = (c.cost || 0) > 0 || (c.conv || 0) > 0 || (c.convValue || 0) > 0;
+    if (!hasActivity) return;
     var color = c.roas >= 2.5 ? 'var(--green)' : (c.roas < 2 ? 'var(--red)' : '');
     var w = Math.min(100, Math.round(c.roas / 4 * 100));
     var st = color ? ' style="color:' + color + '"' : '';
     var fill = 'width:' + w + '%' + (c.roas < 2 ? ';background:var(--red)' : '');
     var cpa = c.cpa !== undefined ? c.cpa : Math.round(c.cost / c.conv);
-    html += '<tr><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td>' +
+    html += '<tr><td><strong>' + m.name + '</strong></td>' +
       '<td class="mono">' + fmtDollar(c.cost) + '</td><td class="mono">' + c.conv.toFixed(2) + '</td><td class="mono">' + fmtDollar(cpa) + '</td><td class="mono">' + fmtDollar(c.convValue) + '</td>' +
-      '<td><div class="roas-wrap"><strong class="mono"' + st + '>' + c.roas.toFixed(2) + '</strong><div class="roas-track"><div class="roas-fill" style="' + fill + '"></div></div></div></td>' +
-      '<td>' + m.assess + '</td></tr>';
+      '<td><div class="roas-wrap"><strong class="mono"' + st + '>' + c.roas.toFixed(2) + '</strong><div class="roas-track"><div class="roas-fill" style="' + fill + '"></div></div></div></td></tr>';
   });
   tbody.innerHTML = html;
 }
@@ -1400,6 +1011,9 @@ function renderPeriod(p){
   renderStats(p.stats);
   renderCampaigns(p.campaigns);
   renderGeo(p.geo);
+  renderAssetGroups(p.assetGroups);
+  renderBudget(p.budget || (DATA && DATA.budget), roasMap(p.campaigns));
+  renderCommentaries(p);
 }
 
 /* -- Placeholder mode: used by a new reporting month before real figures exist.
@@ -1424,18 +1038,112 @@ function renderPlaceholders(p){
   var tbody = document.querySelector('#perf table tbody');
   if (tbody) {
     var html = '';
-    CAMP_ORDER.forEach(function(key){
+    ['brand', 'pmax', 'pi', 'acct', 'pl'].forEach(function(key){
       var m = CAMP_META[key]; if (!m) return;
-      html += '<tr style="opacity:0.85"><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td><span class="mono" style="color:var(--text-muted)">' + PH + '</span></td><td><span class="placeholder-tag">Awaiting Google Ads</span></td></tr>';
+      html += '<tr style="opacity:0.85"><td><strong>' + m.name + '</strong></td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td><span class="placeholder-tag">Awaiting Google Ads</span></td></tr>';
     });
     tbody.innerHTML = html;
   }
+  renderAssetGroups(null);
+  renderBudget(null);
+  renderCommentaries(p);
   var bars = document.getElementById('insight-state-bars');
   if (bars) bars.innerHTML = '<div class="note-warn" style="margin:0">⏳ <strong>Awaiting Google Ads geographic report</strong> for this reporting period. Geography is sourced from Google Ads (source of truth), not GA4.</div>';
   var tb = document.getElementById('insight-city-tbody');
   if (tb) tb.innerHTML = '<tr><td colspan="6" style="color:var(--amber);text-align:center;padding:18px">⏳ Awaiting Google Ads geographic report</td></tr>';
+  // Blank the landing-page cards so no stale GA4 figures show before the feed responds.
+  document.querySelectorAll('#lp-grid .lp-card').forEach(function(card){
+    var metric = card.querySelector('.lp-metric'); if (metric) metric.textContent = PH;
+    card.querySelectorAll('div[style*="flex-direction:column"] strong').forEach(function(s){ s.textContent = PH; });
+  });
   setFeedStatus('ads-feed-status', 'placeholder', 'Awaiting Google Ads export');
   setFeedStatus('ga4-feed-status', 'placeholder', 'Awaiting GA4 export');
+}
+
+/* -- Helpers + data-driven Budget / PMax asset-group table / commentary (added per client changes) -- */
+function money(v){ return (v == null || isNaN(v)) ? '—' : '$' + Math.round(v).toLocaleString(); }
+function roasMap(camps){ var m = {}; (camps || []).forEach(function(c){ if (c && c.key && typeof c.roas === 'number') m[c.key] = c.roas; }); return m; }
+
+/* PMax asset-group performance table — Google Ads (spend, conversions, conv value, ROAS) */
+function renderAssetGroups(groups){
+  var tb = document.getElementById('pmax-tbl-body');
+  if (!tb) return;
+  if (!Array.isArray(groups) || !groups.length){
+    tb.innerHTML = '<tr><td colspan="5" style="color:var(--amber);text-align:center;padding:18px">⏳ Awaiting Google Ads asset-group report for this period</td></tr>';
+    return;
+  }
+  var html = '';
+  groups.forEach(function(g){
+    var roas = (typeof g.roas === 'number') ? g.roas : ((g.convValue && g.spend) ? g.convValue / g.spend : null);
+    var color = (roas == null) ? '' : (roas >= 2.5 ? 'var(--green)' : (roas < 2 ? 'var(--red)' : ''));
+    var w = (roas == null) ? 0 : Math.min(100, Math.round(roas / 4 * 100));
+    var st = color ? ' style="color:' + color + '"' : '';
+    var fill = 'width:' + w + '%' + (roas != null && roas < 2 ? ';background:var(--red)' : '');
+    html += '<tr><td><strong>' + g.name + '</strong></td>' +
+      '<td class="mono">' + money(g.spend) + '</td>' +
+      '<td class="mono">' + (g.conv != null ? Number(g.conv).toFixed(2) : '—') + '</td>' +
+      '<td class="mono">' + money(g.convValue) + '</td>' +
+      '<td><div class="roas-wrap"><strong class="mono"' + st + '>' + (roas != null ? roas.toFixed(2) : '—') + '</strong><div class="roas-track"><div class="roas-fill" style="' + fill + '"></div></div></div></td></tr>';
+  });
+  tb.innerHTML = html;
+}
+
+/* Budget breakdown + donut — Looker/manual. Subtext auto-formats as "Type — ROAS x.xx". */
+var BUDGET_COLORS = ['#00843D','#0E7A37','#22C55E','#86EFAC','#F59E0B','#94A3B8','#CBD5E1','#64748B'];
+function renderBudget(budget, roasByKey){
+  var rows = document.getElementById('budget-rows');
+  var totalEl = document.getElementById('budget-total');
+  var segs = document.getElementById('budget-donut-segs');
+  var centre = document.getElementById('budget-donut-total');
+  var legend = document.getElementById('budget-legend');
+  if (!rows) return;
+  if (!Array.isArray(budget) || !budget.length){
+    rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Awaiting budget breakdown (Looker Studio / Kirsten) for this period.</div>';
+    if (totalEl) totalEl.querySelector('.budget-total-val').textContent = '—';
+    if (segs) segs.innerHTML = '';
+    if (centre) centre.textContent = '—';
+    if (legend) legend.innerHTML = '';
+    return;
+  }
+  roasByKey = roasByKey || {};
+  var total = budget.reduce(function(s, b){ return s + (b.monthly || 0); }, 0);
+  var C = 2 * Math.PI * 60, offset = 0, rowHtml = '', legHtml = '', segHtml = '';
+  budget.forEach(function(b, i){
+    var color = b.color || BUDGET_COLORS[i % BUDGET_COLORS.length];
+    var pct = total ? (b.monthly / total * 100) : 0;
+    var roas = (b.key && typeof roasByKey[b.key] === 'number') ? roasByKey[b.key] : b.roas;
+    var roasTxt = (typeof roas === 'number') ? roas.toFixed(2) : '—';
+    var sub = (b.type || '') + ' — ROAS ' + roasTxt;
+    rowHtml += '<div class="brow"><div class="brow-dot" style="background:' + color + '"></div>' +
+      '<div class="brow-info"><div class="brow-name">' + b.name + '</div><div class="brow-type">' + sub + '</div>' +
+      '<div class="brow-bar"><div class="brow-bar-fill" style="width:' + pct.toFixed(0) + '%;background:' + color + '"></div></div></div>' +
+      '<div class="brow-amounts"><div class="brow-day">' + (b.daily != null ? '$' + b.daily + '/d' : '—') + '</div><div class="brow-mo">' + money(b.monthly) + '</div></div></div>';
+    legHtml += '<div class="dl-row"><div class="dl-dot" style="background:' + color + '"></div><span class="dl-name">' + b.name + '</span><span class="dl-pct">' + pct.toFixed(0) + '%</span><span class="dl-amt">' + money(b.monthly) + '</span></div>';
+    var len = C * pct / 100;
+    segHtml += '<circle cx="80" cy="80" r="60" fill="none" stroke="' + color + '" stroke-width="24" stroke-dasharray="' + len.toFixed(1) + ' ' + (C - len).toFixed(1) + '" stroke-dashoffset="' + (-offset).toFixed(1) + '" stroke-linecap="butt" transform="rotate(-90 80 80)"/>';
+    offset += len;
+  });
+  rows.innerHTML = rowHtml;
+  if (totalEl) totalEl.querySelector('.budget-total-val').textContent = money(total) + ' / mo';
+  if (segs) segs.innerHTML = segHtml;
+  if (centre) centre.textContent = (total >= 1000) ? '$' + Math.round(total / 1000) + 'K' : money(total);
+  if (legend) legend.innerHTML = legHtml;
+}
+
+/* Manual commentary fields (Kirsten) — PMax, geography, landing page */
+function renderCommentaries(p){
+  var c = (p && p.commentary) || (DATA && DATA.commentary) || {};
+  var pm = document.getElementById('pmax-commentary-text');
+  if (pm) pm.textContent = c.pmax || 'Add this month’s Performance Max commentary in the report data file.';
+  var geo = document.getElementById('geo-commentary-text');
+  if (geo) geo.textContent = c.geo || 'Add this month’s geography commentary in the report data file.';
+  var lh = document.getElementById('lp-commentary-head'), lt = document.getElementById('lp-commentary-text');
+  if (c.landing && typeof c.landing === 'object'){
+    if (lh) lh.textContent = c.landing.headline || 'Commentary';
+    if (lt) lt.textContent = c.landing.body || '';
+  } else if (typeof c.landing === 'string' && lt){
+    lt.textContent = c.landing;
+  }
 }
 
 /* -- Custom range aggregation (scales daily rates by selected days; compares to previous equal-length window) -- */
@@ -1658,6 +1366,8 @@ function updateHdrDateLatest(){
 /* -- Re-render current selection from DATA (used after data.json fetch or upload; preserves the current date mode) -- */
 function refresh(){
   updateHdrDateLatest();
+  prods = (DATA && Array.isArray(DATA.lob) && DATA.lob.length) ? DATA.lob : DEFAULT_PRODS;
+  upLTV();
   if (curMode === 'monthly') { var m = DATA.months[curMonth] || DATA.months[(DATA.monthOrder || [])[0]]; if (m) renderPeriod(m); }
   else if (curMode === 'last30') { renderPeriod(DATA.last30); }
   else if (curFrom && curTo) { renderPeriod(buildCustom(curFrom, curTo)); }

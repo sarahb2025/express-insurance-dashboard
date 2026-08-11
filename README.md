@@ -27,12 +27,14 @@ back silently to static/placeholder figures.
 | `scripts/render-check.mjs` | Chromium smoke-test (asserts both pages render, no JS errors). | — |
 | `docs/` | Source classification, integration + testing guide, credentials/access, Kirsten change tracker. | — |
 
-> ⚠️ **Pending from you:** the full-page screenshots and **Kirsten's PowerPoint**
-> (requested additions, removals, layout changes) were not available when this
-> was built. This delivery is the faithful reproduction + structure + source
-> labelling + placeholders. Kirsten's changes are tracked in
-> [`docs/KIRSTEN-CHANGES.md`](docs/KIRSTEN-CHANGES.md) and will be applied once
-> those files arrive.
+> ✅ **Kirsten's changes applied (2026-08-11).** The 9-slide PowerPoint and the
+> July 2026 commentary document have been incorporated: renamed sections, removed
+> sections/columns/labels, data-driven Budget + PMax asset-group table, corrected
+> geography source (Google Ads), and manual commentary fields. Every change is
+> logged in [`docs/KIRSTEN-CHANGES.md`](docs/KIRSTEN-CHANGES.md) (with three
+> judgement calls flagged for your confirmation). Kirsten's July commentary is
+> populated in `reports/2026-07/data.json`; Google Ads/GA4 figures remain
+> placeholders until those exports/feeds are supplied.
 
 ---
 
