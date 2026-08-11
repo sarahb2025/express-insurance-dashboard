@@ -475,8 +475,7 @@ tr:hover td{background:#F8FAFC}
   <div class="sec-hdr">
     <span class="sec-title">Budget Allocation</span>
     <span class="sec-sub">Monthly budget split by campaign</span>
-    <span class="src-chip src-looker" title="Budget breakdown should come from the Looker Studio budget section; held in the month data file until a live source is wired. See docs/INTEGRATIONS.md.">Looker: budget</span>
-    <span class="src-chip src-kirsten" title="Confirmed / adjusted by Balmer Agency (Kirsten).">Kirsten — manual</span>
+    <span class="src-chip src-other" title="The original dashboard showed static, hard-coded budget figures with no source label. The live data source is awaiting confirmation. See docs/DATA-SOURCES.md.">Source unconfirmed</span>
   </div>
 
   <div class="budget-layout">
@@ -504,6 +503,7 @@ tr:hover td{background:#F8FAFC}
       </div>
     </div>
   </div>
+  <div style="font-size:11px;color:var(--text-muted);margin-top:14px;line-height:1.6">ℹ️ The original dashboard contained static, hard-coded budget figures with no source label; the live data source is awaiting confirmation. This section is data-driven and ready to connect once the source is confirmed.</div>
 </section>
 
 <!-- ── 3. PMAX ── -->
@@ -1098,7 +1098,7 @@ function renderBudget(budget, roasByKey){
   var legend = document.getElementById('budget-legend');
   if (!rows) return;
   if (!Array.isArray(budget) || !budget.length){
-    rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Awaiting budget breakdown (Looker Studio / Kirsten) for this period.</div>';
+    rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Awaiting budget breakdown for this period — data source to be confirmed.</div>';
     if (totalEl) totalEl.querySelector('.budget-total-val').textContent = '—';
     if (segs) segs.innerHTML = '';
     if (centre) centre.textContent = '—';

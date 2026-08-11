@@ -40,7 +40,7 @@ slides) and `Express_Insurance___July_2026_Commentary.docx` (July manual comment
 | 1b | Campaign table shows only campaigns active in the period / currently active (not all history) | Performance | logic | ✅ |
 | 1c | Remove the "Assessment" column | Performance | remove | ✅ |
 | 1d | Remove the "Status" column (static) | Performance | remove | ✅ |
-| 2 | Budget rows + subtext auto from data (Looker); subtext format "Type — ROAS x.xx"; no manual figures | Budget | restructure | ✅ (data-driven `budget` block; source = Looker/manual) |
+| 2 | Budget rows + subtext auto from data; subtext format "Type — ROAS x.xx"; no manual figures | Budget | restructure | ✅ (data-driven `budget` block; source labelled "Source unconfirmed" — original was static/hard-coded) |
 | 3a | Rename title → "Performance Max & Asset Group Overview" | PMax | relabel | ✅ |
 | 3b | Replace 5 static cards with an auto asset-group table (Spend, Conversions, Conv Value, ROAS) | PMax | restructure | ✅ |
 | 3c | Commentary below as a blue "info" box (ℹ️) | PMax | add | ✅ |
@@ -59,7 +59,7 @@ slides) and `Express_Insurance___July_2026_Commentary.docx` (July manual comment
 
 ### Judgement calls — CONFIRMED by client (2026-08-11), locked for the review version
 1. Key Findings accordion **and** the five state-summary tiles stay **removed** (Slide 6). ✅
-2. Budget breakdown stays labelled **Looker / manual** until Sarah confirms its underlying data source. ✅
+2. Budget breakdown: original reference confirmed to show **static, hard-coded figures with no source label**. Relabelled **"Source unconfirmed"** with a discreet note; kept data-driven and ready to connect once Sarah confirms the true source. Do **not** assert Looker/manual until then. ✅ (updated 2026-08-11)
 3. Asset Group and LOB/LTV figures stay clearly marked **Awaiting data** — no figures fabricated. ✅
 
 ### Original judgement-call notes (for context)
