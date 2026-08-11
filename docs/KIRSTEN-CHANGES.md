@@ -57,7 +57,12 @@ slides) and `Express_Insurance___July_2026_Commentary.docx` (July manual comment
 | 8d | Info section below = commentary field (headline + paragraph) | More Insights › LP | add | ✅ |
 | 9 | Remove creative "Messaging & Structure Review" section | More Insights | remove | ✅ |
 
-### Judgement calls (please confirm)
+### Judgement calls — CONFIRMED by client (2026-08-11), locked for the review version
+1. Key Findings accordion **and** the five state-summary tiles stay **removed** (Slide 6). ✅
+2. Budget breakdown stays labelled **Looker / manual** until Sarah confirms its underlying data source. ✅
+3. Asset Group and LOB/LTV figures stay clearly marked **Awaiting data** — no figures fabricated. ✅
+
+### Original judgement-call notes (for context)
 - **Slide 6:** "Remove entirely" — I removed both the Key Findings accordion **and** the
   5 static summary tiles above it (Accounting ROAS 0.87, Inner West, 23.7%, 85.6%,
   Brisbane), since they were hardcoded, stale and mixed-source. If you want those tiles
