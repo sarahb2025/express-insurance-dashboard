@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Express Insurance — SEM Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#00843D;
+  --green-dark:#006B31;
+  --green-light:#E8F5EE;
+  --green-mid:#B8DEC9;
+  --bg:#F4F6F8;
+  --white:#FFFFFF;
+  --surface:#FAFBFC;
+  --border:#E2E8F0;
+  --border-strong:#CBD5E1;
+  --text:#0F172A;
+  --text-mid:#475569;
+  --text-muted:#94A3B8;
+  --red:#DC2626;
+  --red-bg:#FEF2F2;
+  --amber:#B45309;
+  --amber-bg:#FFFBEB;
+  --blue:#2563EB;
+  --blue-bg:#EFF6FF;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 12px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 12px 32px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.05);
+  --radius:12px;
+  --radius-sm:8px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+
+/* ── HEADER ── */
+.hdr{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:var(--shadow-sm)}
+.hdr-logo{display:flex;align-items:center;gap:10px}
+.hdr-logo svg{width:28px;height:28px}
+.hdr-name{font-size:16px;font-weight:700;color:var(--green)}
+.hdr-client{display:flex;align-items:center;gap:12px}
+.hdr-client-name{font-size:14px;font-weight:600;color:var(--text)}
+.hdr-badge{font-size:11px;font-weight:600;background:var(--green-light);color:var(--green-dark);padding:3px 10px;border-radius:20px;border:1px solid var(--green-mid)}
+.hdr-date{font-size:12px;color:var(--text-muted);font-family:'Poppins',sans-serif}
+
+/* ── NAV ── */
+.nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex-shrink:0;padding:14px 16px;font-size:12px;font-weight:600;color:var(--text-muted);text-decoration:none;border-bottom:2px solid transparent;letter-spacing:0.04em;text-transform:uppercase;transition:color .15s,border-color .15s;white-space:nowrap}
+.nav a:hover{color:var(--text)}
+.nav a.active{color:var(--green);border-bottom-color:var(--green)}
+
+/* ── KPI BAR ── */
+.kpi-bar{background:var(--green);padding:12px 48px;display:flex;gap:0;border-bottom:2px solid var(--green-dark)}
+.kpi-item{flex:1;text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,0.2)}
+.kpi-item:last-child{border-right:none}
+.kpi-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.7);margin-bottom:2px}
+.kpi-val{font-size:18px;font-weight:700;color:#fff;font-family:'Poppins',sans-serif}
+.kpi-chg{font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);margin-top:1px}
+
+/* ── LAYOUT ── */
+.page{padding:36px 48px 80px;max-width:1300px;margin:0 auto}
+.sec{margin-bottom:52px}
+.sec-hdr{margin-bottom:20px;display:flex;align-items:baseline;gap:12px}
+.sec-title{font-size:18px;font-weight:700;color:var(--text)}
+.sec-sub{font-size:13px;color:var(--text-muted)}
+.lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:10px}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.card-body{padding:24px}
+.card-sm{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;box-shadow:var(--shadow-sm)}
+
+/* ── STAT CARDS ── */
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.stat-card:hover{box-shadow:var(--shadow)}
+.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:6px}
+.stat-val{font-size:22px;font-weight:700;font-family:'Poppins',sans-serif;color:var(--text);margin-bottom:4px}
+.stat-chg{font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;display:inline-block}
+.chg-up{background:#F0FDF4;color:#16A34A}
+.chg-dn{background:var(--red-bg);color:var(--red)}
+.chg-good{background:#F0FDF4;color:#16A34A}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;background:var(--white)}
+th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface)}
+td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F8FAFC}
+.mono{font-family:'Poppins',sans-serif}
+
+/* ── BADGES ── */
+.bdg{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-block;white-space:nowrap}
+.bdg-green{background:var(--green-light);color:var(--green-dark)}
+.bdg-amber{background:var(--amber-bg);color:var(--amber)}
+.bdg-red{background:var(--red-bg);color:var(--red)}
+.bdg-gray{background:#F1F5F9;color:#64748B}
+.bdg-blue{background:var(--blue-bg);color:var(--blue)}
+
+/* ── ROAS BAR ── */
+.roas-wrap{display:flex;align-items:center;gap:8px}
+.roas-track{flex:1;max-width:72px;height:5px;background:#F1F5F9;border-radius:3px;overflow:hidden}
+.roas-fill{height:100%;border-radius:3px;background:var(--green);transition:width .4s ease}
+
+/* ── BUDGET ── */
+.budget-layout{display:grid;grid-template-columns:1fr 340px;gap:24px}
+.brow{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;transition:box-shadow .15s}
+.brow:hover{box-shadow:var(--shadow-sm)}
+.brow-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.brow-info{flex:1;min-width:0}
+.brow-name{font-size:13px;font-weight:600;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow-type{font-size:11px;color:var(--text-muted)}
+.brow-bar{height:3px;background:#EEF2F7;border-radius:2px;margin-top:6px}
+.brow-bar-fill{height:100%;border-radius:2px;transition:width .4s}
+.brow-amounts{text-align:right;flex-shrink:0}
+.brow-day{font-size:12px;font-weight:600;color:var(--text-mid);font-family:'Poppins',sans-serif}
+.brow-mo{font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;color:var(--text)}
+.budget-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--green-light);border:2px solid var(--green-mid);border-radius:var(--radius-sm);margin-top:4px}
+.budget-total-lbl{font-size:13px;font-weight:600;color:var(--green-dark)}
+.budget-total-val{font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:var(--green)}
+
+/* Chart SVG */
+.donut-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.donut-title{font-size:13px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.donut-legend{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.dl-row{display:flex;align-items:center;gap:8px}
+.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dl-name{font-size:12px;flex:1;color:var(--text-mid)}
+.dl-pct{font-size:11px;font-weight:700;color:var(--text-muted);font-family:'Poppins',sans-serif}
+.dl-amt{font-size:12px;font-weight:700;font-family:'Poppins',sans-serif;color:var(--text)}
+
+/* ── PMAX GROUPS ── */
+.groups-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gcard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.gcard:hover{box-shadow:var(--shadow)}
+.gcard-top{height:4px}
+.gcard-body{padding:20px}
+.gcard-status{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.gcard-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.gcard-rev{font-size:12px;color:var(--text-muted);margin-bottom:14px}
+.gcard-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.gstat{background:var(--surface);border-radius:6px;padding:8px 10px;border:1px solid var(--border)}
+.gstat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:2px}
+.gstat-val{font-size:13px;font-weight:700;font-family:'Poppins',sans-serif}
+.gcard-note{font-size:12px;color:var(--text-mid);line-height:1.6;padding-top:12px;border-top:1px solid var(--border)}
+
+/* ── CREATIVE BRIEF ── */
+.brief-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:24px;width:fit-content;box-shadow:var(--shadow-sm)}
+.brief-tab{padding:8px 24px;font-size:13px;font-weight:600;border-radius:7px;cursor:pointer;transition:all .15s;color:var(--text-muted);user-select:none}
+.brief-tab.active{background:var(--white);color:var(--green);box-shadow:var(--shadow-sm)}
+
+/* Accordion */
+.acc-item{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:8px;background:var(--white)}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;transition:background .15s;user-select:none}
+.acc-head:hover{background:var(--surface)}
+.acc-head-left{display:flex;align-items:center;gap:10px}
+.acc-icon{width:22px;height:22px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green);flex-shrink:0}
+.acc-title{font-size:13px;font-weight:600;color:var(--text)}
+.acc-count{font-size:11px;color:var(--text-muted)}
+.acc-chevron{font-size:14px;color:var(--text-muted);transition:transform .2s}
+.acc-chevron.open{transform:rotate(180deg)}
+.acc-body{padding:0 18px 18px;display:none}
+.acc-body.open{display:block}
+
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hl{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-size:12px;line-height:1.5;position:relative;padding-bottom:20px}
+.hl-len{position:absolute;bottom:5px;right:8px;font-family:'Poppins',sans-serif;font-size:9px;color:var(--text-muted);background:var(--border);padding:1px 4px;border-radius:3px}
+.desc{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 13px;font-size:13px;line-height:1.6;margin-bottom:6px}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.theme-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 15px}
+.theme-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:5px}
+.theme-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.theme-desc{font-size:12px;color:var(--text-mid);line-height:1.6}
+.search-themes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.st{background:var(--green-light);border:1px solid var(--green-mid);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--green-dark);font-weight:500}
+.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.img-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 15px}
+.img-format{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:4px}
+.brief-content{display:none}
+.brief-content.active{display:block}
+
+/* ── LTV ── */
+.ltv-ctrl-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:20px;box-shadow:var(--shadow-sm);display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+.ltv-ctrl{display:flex;flex-direction:column;gap:8px}
+.ltv-ctrl-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)}
+.ltv-ctrl-row{display:flex;align-items:center;gap:10px}
+.ltv-ctrl-row input[type=range]{width:140px;accent-color:var(--green);height:4px;cursor:pointer}
+.ltv-ctrl-val{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--green);min-width:44px}
+.ltv-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.ltv-sum-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.ltv-sum-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:6px}
+.ltv-sum-val{font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;color:var(--text)}
+.tbl-section-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.tbl-section-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── FUTURE GROUPS ── */
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fcard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.fcard:hover{box-shadow:var(--shadow)}
+.fcard-pri{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+.fcard-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px}
+.fcard-stats{display:flex;gap:16px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.fstat{font-size:12px;color:var(--text-muted)}
+.fstat strong{color:var(--text)}
+.fcard-reason{font-size:12px;color:var(--text-mid);line-height:1.6}
+
+/* ── DEBRIEF INSIGHTS EMBED ── */
+.finding{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:12px}
+.finding-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .12s}
+.finding-head:hover{background:var(--surface)}
+.finding-num{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.finding-title{font-size:14px;font-weight:600;color:var(--text);flex:1}
+.finding-badge{font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px}
+.finding-chev{font-size:13px;color:var(--text-muted);transition:transform .18s}
+.finding-chev.open{transform:rotate(180deg)}
+.finding-body{padding:0 18px 16px;display:none;border-top:1px solid var(--border)}
+.finding-body.open{display:block}
+.finding-body p{font-size:13px;color:var(--text-mid);line-height:1.7;margin-top:12px}
+.ip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;margin:4px 3px}
+.ip-red{background:var(--red-bg);color:var(--red)}
+.ip-green{background:var(--green-light);color:var(--green-dark)}
+.ip-amber{background:var(--amber-bg);color:var(--amber)}
+.ip-blue{background:var(--blue-bg);color:var(--blue)}
+.geo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.state-bars{display:flex;flex-direction:column;gap:10px}
+.state-row{display:flex;align-items:center;gap:12px}
+.state-name{font-size:12px;font-weight:600;color:var(--text);width:80px;flex-shrink:0}
+.state-bar-wrap{flex:1;position:relative}
+.state-bar-bg{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.state-bar-fill{height:100%;border-radius:4px;background:var(--green);transition:width .6s ease}
+.state-conv{font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);width:36px;text-align:right;flex-shrink:0}
+.state-chg{font-size:11px;font-weight:600;width:54px;text-align:right;flex-shrink:0}
+.lp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lp-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm)}
+.lp-channel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.lp-metric{font-family:'Poppins',sans-serif;font-size:20px;font-weight:500;color:var(--text);margin-bottom:2px}
+.lp-label{font-size:11px;color:var(--text-muted)}
+.lp-pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:6px;display:inline-block}
+.creative-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:6px}
+.creative-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px}
+.creative-text{font-size:13px;color:var(--text);line-height:1.5;font-weight:500}
+.creative-flag{font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:6px;display:inline-block}
+.flag-warn{background:var(--amber-bg);color:var(--amber)}
+.flag-ok{background:var(--green-light);color:var(--green-dark)}
+.flag-bad{background:var(--red-bg);color:var(--red)}
+
+/* ── NOTES ── */
+.note{background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:#1E40AF;line-height:1.7;margin-top:14px}
+.note-warn{background:var(--amber-bg);border:1px solid #FCD34D;border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:var(--amber);line-height:1.6;margin-top:10px}
+.note-green{background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:var(--green-dark);line-height:1.7;margin-top:14px}
+
+/* ── FOOTER ── */
+.ftr{background:var(--white);border-top:1px solid var(--border);padding:20px 48px;display:flex;justify-content:space-between;align-items:center}
+.ftr-l{font-size:12px;color:var(--text-muted)}
+.ftr-r{font-size:12px;color:var(--green);font-weight:600}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.sec{animation:fadeUp .35s ease both}
+.sec:nth-child(2){animation-delay:.04s}
+.sec:nth-child(3){animation-delay:.08s}
+.sec:nth-child(4){animation-delay:.12s}
+
+/* Two-col grid */
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.col3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+@media(max-width:1024px){
+  .hdr,.nav,.page,.kpi-bar,.ftr{padding-left:20px;padding-right:20px}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .budget-layout,.col2{grid-template-columns:1fr}
+  .groups-grid,.future-grid,.col3{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .ltv-sum{grid-template-columns:repeat(2,1fr)}
+  .hl-grid,.theme-grid,.img-grid{grid-template-columns:1fr 1fr}
+  .kpi-bar{flex-wrap:wrap}
+  .kpi-item{flex:1 1 30%}
+}
+
+/* ── ADDED: date controls, upload, password gate ── */
+.ctrl-bar{background:var(--white);border-bottom:1px solid var(--border);padding:10px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ctrl-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ctrl-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)}
+.ctrl-modes{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px}
+.ctrl-mode{padding:6px 14px;font-size:12px;font-weight:600;border-radius:7px;cursor:pointer;color:var(--text-muted);user-select:none;transition:all .15s;white-space:nowrap}
+.ctrl-mode.active{background:var(--white);color:var(--green);box-shadow:var(--shadow-sm)}
+.ctrl-select,.ctrl-date{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--text);background:var(--white);border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:6px 10px;cursor:pointer}
+.ctrl-select:focus,.ctrl-date:focus{outline:2px solid var(--green-mid)}
+.ctrl-to{font-size:12px;color:var(--text-muted)}
+.ctrl-btn{font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;color:#fff;background:var(--green);border:none;border-radius:var(--radius-sm);padding:7px 16px;cursor:pointer;transition:background .15s}
+.ctrl-btn:hover{background:var(--green-dark)}
+.ctrl-btn.ctrl-upload{background:var(--white);color:var(--green);border:1px solid var(--green-mid)}
+.ctrl-btn.ctrl-upload:hover{background:var(--green-light)}
+.ctrl-right{display:flex;align-items:center;gap:10px}
+.ctrl-msg{font-size:12px;font-weight:600}
+#custom-wrap{display:none;align-items:center;gap:8px}
+.pw-gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#00843D 0%,#006B31 100%);display:flex;align-items:center;justify-content:center;padding:24px}
+.pw-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:40px 36px;width:100%;max-width:400px;text-align:center;font-family:'Poppins',sans-serif}
+.pw-brand{font-size:20px;font-weight:700;color:var(--green);margin-bottom:4px}
+.pw-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-mid);margin-bottom:10px}
+.pw-sub{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6}
+.pw-input{width:100%;font-family:'Poppins',sans-serif;font-size:14px;padding:11px 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);margin-bottom:12px}
+.pw-input:focus{outline:2px solid var(--green-mid);border-color:var(--green)}
+.pw-btn{width:100%;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:#fff;background:var(--green);border:none;border-radius:var(--radius-sm);padding:12px;cursor:pointer;transition:background .15s}
+.pw-btn:hover{background:var(--green-dark)}
+.pw-err{display:none;font-size:12px;font-weight:600;color:var(--red);background:var(--red-bg);border-radius:var(--radius-sm);padding:8px;margin-top:12px}
+@media(max-width:1024px){.ctrl-bar{padding-left:20px;padding-right:20px}}
+
+/* ── DATA-SOURCE LABELLING SYSTEM (added) ──
+   Every section / block is tagged with the origin of its data so the
+   reader always knows whether a number is live, manual, or static.
+   Categories: static | kirsten | gads | ga4 | looker | other        */
+.src-chip{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:3px 8px;border-radius:20px;border:1px solid;white-space:nowrap;vertical-align:middle;line-height:1.4}
+.src-chip::before{content:'';width:7px;height:7px;border-radius:50%;flex-shrink:0;background:currentColor}
+.src-static{color:#475569;background:#F1F5F9;border-color:#CBD5E1}
+.src-kirsten{color:#B45309;background:#FFFBEB;border-color:#FCD34D}
+.src-gads{color:#1A73E8;background:#E8F0FE;border-color:#AECBFA}
+.src-ga4{color:#E37400;background:#FEF3E7;border-color:#FBC38B}
+.src-looker{color:#7C3AED;background:#F5F3FF;border-color:#D6C7FB}
+.src-other{color:#475569;background:#fff;border-color:#94A3B8;border-style:dashed}
+.src-chip.sm{font-size:8px;padding:2px 6px}
+.sec-hdr .src-chip{margin-left:auto}
+.sec-hdr{flex-wrap:wrap}
+/* Legend bar under the KPI band */
+.src-legend{background:var(--white);border-bottom:1px solid var(--border);padding:9px 48px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px}
+.src-legend .leg-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-right:2px}
+.src-legend .leg-note{margin-left:auto;font-size:11px;color:var(--text-muted)}
+.src-legend .leg-note strong{color:var(--text-mid)}
+/* Template / report-kind banner */
+.tpl-banner{padding:8px 48px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:10px;border-bottom:1px solid}
+.tpl-banner.master{background:#F5F3FF;color:#6D28D9;border-color:#D6C7FB}
+.tpl-banner.report{background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid)}
+.tpl-banner .tpl-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,0.7)}
+/* Feed status pill (shows whether a live feed connected or fell back) */
+.feed-status{font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;display:inline-block;margin-left:8px;vertical-align:middle}
+.feed-live{background:#F0FDF4;color:#16A34A}
+.feed-fallback{background:var(--amber-bg);color:var(--amber)}
+.feed-placeholder{background:#F1F5F9;color:#64748B}
+[data-placeholder="true"]{position:relative}
+.placeholder-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--amber);background:var(--amber-bg);border:1px dashed #FCD34D;border-radius:4px;padding:1px 6px;margin-left:6px}
+@media(max-width:1024px){.src-legend,.tpl-banner{padding-left:20px;padding-right:20px}}
+
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div class="pw-gate" id="pw-gate">
+  <div class="pw-card">
+    <div class="pw-brand">Express Insurance</div>
+    <div class="pw-title">SEM Strategy Report</div>
+    <p class="pw-sub">This report is password protected. Enter the shared password to view it.</p>
+    <input type="password" class="pw-input" id="pw-input" placeholder="Password">
+    <button class="pw-btn" id="pw-btn" type="button">View Report</button>
+    <div class="pw-err" id="pw-err">Incorrect password</div>
+  </div>
+</div>
+
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo">
+    <img src="assets/express-insurance-logo-new.png" alt="Express Insurance" style="height:44px;width:auto;vertical-align:middle">
+  </div>
+  <div class="hdr-client">
+    <span class="hdr-badge">SEM Strategy</span>
+    <span class="hdr-client-name" style="display:flex;align-items:center"><img src="assets/balmer-agency-logo.png" alt="Balmer Agency" style="height:22px;width:auto;vertical-align:middle"></span>
+    <span class="hdr-date" id="hdr-date-latest">May 2026</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#perf" class="active">Performance</a>
+  <a href="#budget">Budget</a>
+  <a href="#pmax">PMax Strategy</a>
+  <a href="#ltv">LTV & ROAS</a>
+  <a href="#future">Future Groups</a>
+  <a href="#insights">More Insights</a>
+</nav>
+
+<!-- DATE CONTROLS (added) -->
+<div class="ctrl-bar">
+  <div class="ctrl-left">
+    <span class="ctrl-lbl">Reporting Period</span>
+    <div class="ctrl-modes">
+      <span class="ctrl-mode active" data-mode="monthly" onclick="setMode('monthly',this)">Monthly</span>
+      <span class="ctrl-mode" data-mode="last30" onclick="setMode('last30',this)">Last 30 Days</span>
+      <span class="ctrl-mode" data-mode="custom" onclick="setMode('custom',this)">Custom range</span>
+    </div>
+    <select id="month-select" class="ctrl-select" onchange="onMonthChange()">
+      <option>June 2026</option>
+      <option>May 2026</option>
+      <option>April 2026</option>
+      <option>March 2026</option>
+      <option>February 2026</option>
+    </select>
+    <span id="custom-wrap">
+      <input type="date" id="cr-from" class="ctrl-date" value="2026-04-05" min="2026-02-01" max="2026-05-31">
+      <span class="ctrl-to">to</span>
+      <input type="date" id="cr-to" class="ctrl-date" value="2026-05-04" min="2026-02-01" max="2026-05-31">
+      <button class="ctrl-btn" type="button" onclick="applyCustom()">Apply</button>
+    </span>
+    <span id="ctrl-msg" class="ctrl-msg"></span>
+  </div>
+  <div class="ctrl-right">
+    <button class="ctrl-btn ctrl-upload" type="button" onclick="document.getElementById('data-file').click()">Upload data</button>
+    <input type="file" id="data-file" accept=".json,application/json" style="display:none" onchange="onUpload(event)">
+    <span id="upload-msg" class="ctrl-msg"></span>
+  </div>
+</div>
+
+<!-- KPI BAR -->
+<div class="kpi-bar">
+  <div class="kpi-item"><div class="kpi-label">Monthly Budget</div><div class="kpi-val">$18K</div><div class="kpi-chg">$600/day</div></div>
+  <div class="kpi-item"><div class="kpi-label">Account ROAS</div><div class="kpi-val">2.42</div><div class="kpi-chg">Non-brand: 1.90</div></div>
+  <div class="kpi-item"><div class="kpi-label">Best Campaign</div><div class="kpi-val">Brand</div><div class="kpi-chg">ROAS 4.98</div></div>
+  <div class="kpi-item"><div class="kpi-label">PMax ROAS</div><div class="kpi-val">1.71</div><div class="kpi-chg">Optimising — new groups in progress</div></div>
+  <div class="kpi-item"><div class="kpi-label">Total Conv. Value</div><div class="kpi-val">$92K</div><div class="kpi-chg">1 Mar – 4 May 2026</div></div>
+  <div class="kpi-item"><div class="kpi-label">Target ROAS</div><div class="kpi-val">2.0+</div><div class="kpi-chg">Profitable Yr 2</div></div>
+</div>
+
+<!-- REPORT-KIND BANNER — this file is the reusable MASTER TEMPLATE.
+     The per-month report (reports/YYYY-MM/index.html) overrides this to the green "report" banner. -->
+<div class="tpl-banner master" id="tpl-banner">
+  <span class="tpl-tag">Master template</span>
+  <span>Reusable monthly-report template. Do not enter a specific month's figures here — duplicate it into <code>reports/YYYY-MM/</code> for each reporting month. See <code>README.md</code>.</span>
+</div>
+
+<!-- DATA-SOURCE LEGEND — classifies every block on the page -->
+<div class="src-legend">
+  <span class="leg-lbl">Data sources</span>
+  <span class="src-chip src-static">Static</span>
+  <span class="src-chip src-kirsten">Kirsten — manual</span>
+  <span class="src-chip src-gads">Google Ads</span>
+  <span class="src-chip src-ga4">GA4 live</span>
+  <span class="src-chip src-looker">Looker Studio</span>
+  <span class="src-chip src-other">Other / unknown</span>
+  <span class="leg-note">Source of truth: <strong>Google Ads</strong> for conversions, value, ROAS &amp; geography · <strong>GA4</strong> for landing-page traffic &amp; engagement only</span>
+</div>
+
+<div class="page">
+
+<!-- ── 1. PERFORMANCE ── -->
+<section class="sec" id="perf">
+  <div class="sec-hdr">
+    <span class="sec-title">Performance Overview</span>
+    <span class="sec-sub">Current period: <strong>1 Mar – 4 May 2026</strong> &nbsp;·&nbsp; Compared to: <strong>26 Dec 2025 – 28 Feb 2026</strong></span>
+    <span class="src-chip src-gads" title="Live from Google Ads API (/api/ads-report). Source of truth for conversions, conversion value & ROAS.">Google Ads</span>
+    <span class="feed-status feed-placeholder" id="ads-feed-status" title="Updates automatically when the Google Ads live feed responds.">Feed: not connected</span>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Impressions</div><div class="stat-val">436K</div><span class="stat-chg chg-up">↑ +473%</span></div>
+    <div class="stat-card"><div class="stat-label">Clicks</div><div class="stat-val">12,780</div><span class="stat-chg chg-up">↑ +183%</span></div>
+    <div class="stat-card"><div class="stat-label">Conversions</div><div class="stat-val">68.75</div><span class="stat-chg chg-dn">↓ −14.6%</span></div>
+    <div class="stat-card"><div class="stat-label">Conv. Value</div><div class="stat-val">$479K</div><span class="stat-chg chg-dn">↓ −16.6%</span></div>
+    <div class="stat-card"><div class="stat-label">Total Cost</div><div class="stat-val">$17,895</div><span class="stat-chg chg-good">↓ −3.8%</span></div>
+    <div class="stat-card"><div class="stat-label">Avg. CPC</div><div class="stat-val">$1.40</div><span class="stat-chg chg-good">↓ −66%</span></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Campaign</th><th>Status</th><th>Cost</th><th>Conversions</th><th>CPA</th><th>Conv. Value</th><th>ROAS</th><th>Assessment</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Brand</strong></td>
+          <td><span class="bdg bdg-green">Active</span></td>
+          <td class="mono">$7,750</td><td class="mono">57.65</td><td class="mono">$134</td><td class="mono">$38,628</td>
+          <td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">4.98</strong><div class="roas-track"><div class="roas-fill" style="width:100%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Defence strategy</span></td>
+        </tr>
+        <tr>
+          <td><strong>Performance Max</strong></td>
+          <td><span class="bdg bdg-blue">Restructuring</span></td>
+          <td class="mono">$21,088</td><td class="mono">54.10</td><td class="mono">$390</td><td class="mono">$36,146</td>
+          <td><div class="roas-wrap"><strong class="mono" style="color:var(--red)">1.71</strong><div class="roas-track"><div class="roas-fill" style="width:43%;background:var(--red)"></div></div></div></td>
+          <td><span class="bdg bdg-red">Below target — fix in progress</span></td>
+        </tr>
+        <tr>
+          <td><strong>Professional Indemnity</strong></td>
+          <td><span class="bdg bdg-green">Active</span></td>
+          <td class="mono">$1,768</td><td class="mono">6.00</td><td class="mono">$295</td><td class="mono">$4,677</td>
+          <td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">2.65</strong><div class="roas-track"><div class="roas-fill" style="width:66%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Best search ROAS</span></td>
+        </tr>
+        <tr>
+          <td><strong>Accountant Insurance</strong></td>
+          <td><span class="bdg bdg-green">Active — Keep</span></td>
+          <td class="mono">$4,213</td><td class="mono">11.50</td><td class="mono">$366</td><td class="mono">$9,932</td>
+          <td><div class="roas-wrap"><strong class="mono">2.36</strong><div class="roas-track"><div class="roas-fill" style="width:59%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Outperforming PMax group</span></td>
+        </tr>
+        <tr>
+          <td><strong>Public Liability</strong></td>
+          <td><span class="bdg bdg-green">Active</span></td>
+          <td class="mono">$1,159</td><td class="mono">10.00</td><td class="mono">$116</td><td class="mono">$2,767</td>
+          <td><div class="roas-wrap"><strong class="mono">2.39</strong><div class="roas-track"><div class="roas-fill" style="width:60%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Efficient</span></td>
+        </tr>
+        <tr style="opacity:0.6">
+          <td><strong>Engineers Search</strong></td>
+          <td><span class="bdg bdg-gray">Paused</span></td>
+          <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+          <td><span class="mono" style="color:var(--text-muted)">—</span></td>
+          <td><span class="bdg bdg-gray">Partner conflict</span></td>
+        </tr>
+        <tr style="opacity:0.6">
+          <td><strong>Demand Gen</strong></td>
+          <td><span class="bdg bdg-gray">Paused</span></td>
+          <td class="mono">$1,997</td><td class="mono">0</td><td class="mono">—</td><td class="mono">$0</td>
+          <td><span class="mono" style="color:var(--red)">0</span></td>
+          <td><span class="bdg bdg-gray">Revisit when PMax stable</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">ℹ️ <strong>Data source:</strong> All figures from Google Ads campaign report (1 Mar–4 May 2026), verified from raw CSV. Conv value is tracked via the income parameter in Google Ads — cross-referencing with Looker Studio income report for full accuracy.</div>
+</section>
+
+
+<!-- ── 2. BUDGET ── -->
+<section class="sec" id="budget">
+  <div class="sec-hdr">
+    <span class="sec-title">Budget Allocation</span>
+    <span class="sec-sub">$18,000/month · $600/day &nbsp;·&nbsp; <strong>Effective from May 2026</strong></span>
+    <span class="src-chip src-kirsten" title="Budget split is set by Balmer Agency / Kirsten each month. Enter it manually in the month data file.">Kirsten — manual</span>
+  </div>
+
+  <div class="budget-layout">
+    <div>
+      <div class="lbl">Daily & Monthly Breakdown</div>
+      <div class="brow"><div class="brow-dot" style="background:var(--green)"></div><div class="brow-info"><div class="brow-name">Brand Campaign</div><div class="brow-type">Search — Brand defence · ROAS 4.98</div><div class="brow-bar"><div class="brow-bar-fill" style="width:25%;background:var(--green)"></div></div></div><div class="brow-amounts"><div class="brow-day">$150/d</div><div class="brow-mo">$4,500</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#0E7A37"></div><div class="brow-info"><div class="brow-name">Performance Max</div><div class="brow-type">PMax — Main conversion driver</div><div class="brow-bar"><div class="brow-bar-fill" style="width:47%;background:#0E7A37"></div></div></div><div class="brow-amounts"><div class="brow-day">$280/d</div><div class="brow-mo">$8,400</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#22C55E"></div><div class="brow-info"><div class="brow-name">Professional Indemnity</div><div class="brow-type">Search — Budget Limited, ROAS 2.65 (best search)</div><div class="brow-bar"><div class="brow-bar-fill" style="width:10%;background:#22C55E"></div></div></div><div class="brow-amounts"><div class="brow-day">$60/d</div><div class="brow-mo">$1,800</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:var(--green)"></div><div class="brow-info"><div class="brow-name">Accountant Insurance</div><div class="brow-type">Search — Keep · ROAS 2.36 outperforms PMax group (0.87)</div><div class="brow-bar"><div class="brow-bar-fill" style="width:8%;background:var(--green)"></div></div></div><div class="brow-amounts"><div class="brow-day">$50/d</div><div class="brow-mo">$1,500</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#94A3B8"></div><div class="brow-info"><div class="brow-name">Public Liability</div><div class="brow-type">Search — Maintain current · ROAS 2.39</div><div class="brow-bar"><div class="brow-bar-fill" style="width:7%;background:#94A3B8"></div></div></div><div class="brow-amounts"><div class="brow-day">$40/d</div><div class="brow-mo">$1,200</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#CBD5E1"></div><div class="brow-info"><div class="brow-name">Architects</div><div class="brow-type">Search — Small test · Confirmed continue</div><div class="brow-bar"><div class="brow-bar-fill" style="width:5%;background:#CBD5E1"></div></div></div><div class="brow-amounts"><div class="brow-day">$30/d</div><div class="brow-mo">$900</div></div></div>
+      <div class="brow" style="opacity:0.45"><div class="brow-dot" style="background:#E2E8F0"></div><div class="brow-info"><div class="brow-name">Engineers / Demand Gen</div><div class="brow-type">Paused</div></div><div class="brow-amounts"><div class="brow-day" style="color:var(--text-muted)">$0/d</div><div class="brow-mo" style="color:var(--text-muted)">$0</div></div></div>
+      <div class="budget-total">
+        <span class="budget-total-lbl">Total (incl. $600 buffer)</span>
+        <span class="budget-total-val">$18,000 / mo</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="donut-wrap">
+        <div class="donut-title">Budget Split</div>
+        <svg viewBox="0 0 160 160" width="140" style="display:block;margin:0 auto">
+          <!-- Donut chart: simple arcs -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#F1F5F9" stroke-width="24"/>
+          <!-- PMax 47% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#00843D" stroke-width="24" stroke-dasharray="177 200" stroke-dashoffset="50" stroke-linecap="butt"/>
+          <!-- Brand 25% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#22C55E" stroke-width="24" stroke-dasharray="94 283" stroke-dashoffset="-127" stroke-linecap="butt"/>
+          <!-- PI 10% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#86EFAC" stroke-width="24" stroke-dasharray="37 340" stroke-dashoffset="-221" stroke-linecap="butt"/>
+          <!-- Accountant 8% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#F59E0B" stroke-width="24" stroke-dasharray="30 347" stroke-dashoffset="-258" stroke-linecap="butt"/>
+          <!-- PL 7% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#94A3B8" stroke-width="24" stroke-dasharray="26 351" stroke-dashoffset="-288" stroke-linecap="butt"/>
+          <!-- Architects 5% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#CBD5E1" stroke-width="24" stroke-dasharray="19 358" stroke-dashoffset="-314" stroke-linecap="butt"/>
+          <text x="80" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A" font-family="Poppins">$18K</text>
+          <text x="80" y="91" text-anchor="middle" font-size="9" fill="#94A3B8" font-family="Poppins">per month</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="dl-row"><div class="dl-dot" style="background:#00843D"></div><span class="dl-name">Performance Max</span><span class="dl-pct">47%</span><span class="dl-amt">$8,400</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#22C55E"></div><span class="dl-name">Brand</span><span class="dl-pct">25%</span><span class="dl-amt">$4,500</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#86EFAC"></div><span class="dl-name">Prof. Indemnity</span><span class="dl-pct">10%</span><span class="dl-amt">$1,800</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#F59E0B"></div><span class="dl-name">Accountant Search</span><span class="dl-pct">8%</span><span class="dl-amt">$1,500</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#94A3B8"></div><span class="dl-name">Public Liability</span><span class="dl-pct">7%</span><span class="dl-amt">$1,200</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#CBD5E1"></div><span class="dl-name">Architects</span><span class="dl-pct">5%</span><span class="dl-amt">$900</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. PMAX ── -->
+<section class="sec" id="pmax">
+  <div class="sec-hdr">
+    <span class="sec-title">Performance Max — Asset Group Strategy</span>
+    <span class="sec-sub">Performance data: <strong>1 Mar – 4 May 2026</strong> &nbsp;·&nbsp; Restructuring from broad General → targeted product groups</span>
+    <span class="src-chip src-gads" title="CPA & ROAS per asset group from Google Ads.">Google Ads: CPA/ROAS</span>
+    <span class="src-chip src-looker" title="LOB average revenue & policy counts from the LOB report in Looker Studio.">Looker: revenue/policies</span>
+    <span class="src-chip src-static" title="Status, priority and analyst commentary are written manually.">Static: commentary</span>
+  </div>
+  <div class="groups-grid">
+    <div class="gcard"><div class="gcard-top" style="background:var(--green)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:var(--green)">✓ Active — Optimising</div>
+      <div class="gcard-name">Accountants</div>
+      <div class="gcard-rev">LOB Avg Revenue $400.62 · 302 policies · Ad Strength: Excellent</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$442</div></div>
+        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val">0.87</div></div>
+      </div>
+      <div class="gcard-note">Currently being reviewed and optimised. The Accountant Search campaign continues to perform well alongside this group — we are identifying the best channel mix for this product line.</div>
+    </div></div>
+
+    <div class="gcard"><div class="gcard-top" style="background:var(--red)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:var(--red)">⏸ Pause This Week</div>
+      <div class="gcard-name">Engineers & Construction</div>
+      <div class="gcard-rev">LOB Avg Revenue $738.72 · 89 policies · Ad Strength: Good</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$440</div></div>
+        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val" style="color:var(--green)">2.19</div></div>
+      </div>
+      <div class="gcard-note">Actually the best performing PMax group (ROAS 2.19), but Confirmed partner conflict — must pause regardless. This $9K/month conv value will need to be replaced by new groups.</div>
+    </div></div>
+
+    <div class="gcard"><div class="gcard-top" style="background:#94A3B8"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:#64748B">Active — Reduce over time</div>
+      <div class="gcard-name">General</div>
+      <div class="gcard-rev">Blended mix · All remaining products · Ad Strength: Excellent</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$351</div></div>
+        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val">1.93</div></div>
+      </div>
+      <div class="gcard-note">Takes 59% of PMax budget ($12,528). ROAS 1.93 is stable but below target. As new dedicated groups are built, budget will naturally shift away from General toward better-targeted groups.</div>
+    </div></div>
+
+    <div class="gcard" style="border-color:var(--green);border-width:2px"><div class="gcard-top" style="background:linear-gradient(90deg,var(--green),#22C55E)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:var(--green)">🆕 New — Priority 1</div>
+      <div class="gcard-name">IT Contractors & Consultants</div>
+      <div class="gcard-rev">LOB Avg Revenue $260.97 · <strong style="color:var(--green)">1,065 policies</strong> (largest)</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">Market Size</div><div class="gstat-val" style="color:var(--green)">Biggest</div></div>
+        <div class="gstat"><div class="gstat-lbl">Max CPA (Yr2)</div><div class="gstat-val">$125</div></div>
+      </div>
+      <div class="gcard-note">Biggest existing customer base — buried in General group. Dedicated group with IT-specific copy and search themes will dramatically improve algorithm targeting. Creative brief ready.</div>
+    </div></div>
+
+    <div class="gcard" style="border-color:#86EFAC;border-width:2px"><div class="gcard-top" style="background:linear-gradient(90deg,#16A34A,#86EFAC)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:#16A34A">🆕 New — Priority 2</div>
+      <div class="gcard-name">Management Consultants</div>
+      <div class="gcard-rev">LOB Avg Revenue $348.44 · 269 policies</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">Market Size</div><div class="gstat-val">Strong</div></div>
+        <div class="gstat"><div class="gstat-lbl">Max CPA (Yr2)</div><div class="gstat-val">$174</div></div>
+      </div>
+      <div class="gcard-note">Good volume + above-average AOV. Different messaging to IT — no audience overlap. Build 1 week after IT group to avoid interfering learning phases. Creative brief ready.</div>
+    </div></div>
+  </div>
+  <div class="note-green">✅ <strong>PMax optimisation in progress:</strong> We are restructuring asset groups to improve targeting precision. New dedicated groups for IT Contractors and Management Consultants are being built to replace the Engineers group and pull budget away from the broad General group — which will progressively lift overall ROAS.</div>
+</section>
+
+<!-- ── 5. LTV ── -->
+<section class="sec" id="ltv">
+  <div class="sec-hdr">
+    <span class="sec-title">LTV & ROAS Calculator</span>
+    <span class="sec-sub">Revenue data: <strong>LOB report (Looker Studio)</strong> &nbsp;·&nbsp; May 2026</span>
+    <span class="src-chip src-looker" title="Average revenue per line of business from the LOB report in Looker Studio.">Looker: LOB revenue</span>
+    <span class="src-chip src-static" title="Retention, cancellation & margin assumptions are fixed inputs; the maths is computed in-browser.">Static: assumptions + calc</span>
+  </div>
+
+  <div class="ltv-ctrl-wrap">
+    <div class="ltv-ctrl"><div class="ltv-ctrl-lbl">Target ROAS → enter in Google Ads as %</div><div class="ltv-ctrl-row"><input type="range" min="0.5" max="4" step="0.1" value="2.0" id="rs" oninput="upLTV()"><span class="ltv-ctrl-val" id="rv">2.0</span><span style="font-family:'Poppins',sans-serif;font-size:12px;color:var(--text-muted);margin-left:4px" id="roas-pct">(200%)</span></div></div>
+    <div class="ltv-ctrl"><div class="ltv-ctrl-lbl">Retention Rate (Confirmed: 75%)</div><div class="ltv-ctrl-row"><input type="range" min="50" max="95" step="5" value="75" id="ret" oninput="upLTV()"><span class="ltv-ctrl-val" id="retv">75%</span></div></div>
+    <div class="ltv-ctrl"><div class="ltv-ctrl-lbl">Cancellation Rate (3%)</div><div class="ltv-ctrl-row"><input type="range" min="1" max="15" step="1" value="3" id="can" oninput="upLTV()"><span class="ltv-ctrl-val" id="canv">3%</span></div></div>
+  </div>
+
+  <div class="ltv-sum" id="ltv-sum"></div>
+
+  <div class="tbl-section-lbl">New PMax Groups — Priority Build</div>
+  <div class="tbl-wrap" style="margin-bottom:20px"><table id="new2-tbl"></table></div>
+  <div class="tbl-section-lbl">Suggested New Lines</div>
+  <div class="tbl-wrap" style="margin-bottom:20px"><table id="new3-tbl"></table></div>
+  <div class="tbl-section-lbl">Existing Campaigns</div>
+  <div class="tbl-wrap"><table id="ex-tbl"></table></div>
+
+  <div class="note">✅ <strong>How to read this table:</strong> Drag the Target ROAS slider to see how CPA changes — and how that directly impacts <strong>Yr 1 Net Profit</strong> and <strong>3yr Net Margin per Customer</strong>. Higher ROAS = lower CPA = more profit per customer. Lower ROAS = higher CPA = more volume but less margin. Revenue data from LOB report (Looker Studio). Gross margin 100%, retention 75%, cancellation 3%.</div>
+</section>
+
+<!-- ── 6. FUTURE GROUPS ── -->
+<section class="sec" id="future">
+  <div class="sec-hdr">
+    <span class="sec-title">PMax Group Selector</span>
+    <span class="sec-sub">Pick up to 3 groups to build next &nbsp;·&nbsp; Based on LOB data (Looker Studio, May 2026)</span>
+    <span class="src-chip src-looker" title="AOV & policy counts from the LOB report in Looker Studio.">Looker: LOB data</span>
+    <span class="src-chip src-static" title="Recommendations, priority ranking and reasons are written manually.">Static: recommendations</span>
+  </div>
+
+  <div id="sel-count-bar" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm);margin-bottom:16px">
+    <span style="font-size:13px;font-weight:600;color:var(--green-dark)">Select up to <strong>3 groups</strong> to build — click to select/deselect</span>
+    <span id="sel-count" style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--green)">0 / 3 selected</span>
+  </div>
+
+  <div class="future-grid" id="group-selector">
+    <div class="fcard sel-card" data-id="it" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--green)">★ Priority 1 — Recommended</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">IT Contractors & Consultants</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$261</strong></div><div class="fstat">Policies <strong>1,065</strong></div><div class="fstat">Max CPA <strong>$125</strong></div></div>
+      <div class="fcard-reason">Biggest existing customer base. Contract compliance is #1 trigger. Copy & brief already complete — fastest to launch.</div>
+    </div>
+    <div class="fcard sel-card" data-id="mc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--green)">★ Priority 2 — Recommended</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Management Consultants</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$348</strong></div><div class="fstat">Policies <strong>269</strong></div><div class="fstat">Max CPA <strong>$174</strong></div></div>
+      <div class="fcard-reason">Good volume + above-average AOV. Different messaging to IT — no audience overlap. Copy & brief complete.</div>
+    </div>
+    <div class="fcard sel-card" data-id="re" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--blue)">Suggested</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Real Estate Agents</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$499</strong></div><div class="fstat">Policies <strong>16</strong></div><div class="fstat">Max CPA <strong>$249</strong></div></div>
+      <div class="fcard-reason">High AOV is attractive. Risk: only 16 policies — slow algorithm learning. May need 4–6 weeks to stabilise. Messaging: property transaction disputes, licensing requirements.</div>
+    </div>
+    <div class="fcard sel-card" data-id="rc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--blue)">Suggested</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Recruitment Consultants</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$467</strong></div><div class="fstat">Policies <strong>20–26</strong></div><div class="fstat">Max CPA <strong>$233</strong></div></div>
+      <div class="fcard-reason">Strong AOV, Our Engineers replacement. Messaging: wrongful placement claims, contract requirements. Similar volume risk to Real Estate — build after more established groups.</div>
+    </div>
+    <div class="fcard sel-card" data-id="fm" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--amber)">Caution — Suggested</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Finance / Mortgage Broking</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$424</strong></div><div class="fstat">Policies <strong>13–18</strong></div><div class="fstat">Max CPA <strong>$212</strong></div></div>
+      <div class="fcard-reason">Actual LOB revenue $424 is lower than initial estimates. Very low volume. Highly regulated industry = competitive keywords. Small budget test only.</div>
+    </div>
+    <div class="fcard sel-card" data-id="hc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--text-muted)">Long Term</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Healthcare Professionals</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$168</strong></div><div class="fstat">Policies <strong>301</strong></div><div class="fstat">Max CPA <strong>$84</strong></div></div>
+      <div class="fcard-reason">Large volume but low AOV makes economics tight. Max CPA ~$84 is very hard to hit in insurance search. Only viable once account ROAS is above 2.5 and landing page is optimised.</div>
+    </div>
+    <div class="fcard sel-card" data-id="tax" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--text-muted)">Long Term</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Tax Agents & Bookkeepers</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$148</strong></div><div class="fstat">Policies <strong>810</strong></div><div class="fstat">Max CPA <strong>$74</strong></div></div>
+      <div class="fcard-reason">Biggest volume in LOB (810 policies) but lowest AOV. Max CPA ~$74 is very difficult. Economics only work at very high scale with extremely efficient execution.</div>
+    </div>
+    <div class="fcard sel-card" data-id="arch" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--text-muted)">Already Running (Search)</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Architects</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$446</strong></div><div class="fstat">Policies <strong>77–112</strong></div><div class="fstat">Max CPA <strong>$223</strong></div></div>
+      <div class="fcard-reason">Confirmed Architects can continue. Currently in search + General group. Add a dedicated PMax asset group to improve targeting and pull budget away from General.</div>
+    </div>
+  </div>
+
+  <div id="sel-result" style="display:none;margin-top:16px;padding:16px 18px;background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm)">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green-dark);margin-bottom:8px">Your selected groups</div>
+    <div id="sel-result-names" style="font-size:14px;font-weight:600;color:var(--green)"></div>
+    <div style="font-size:12px;color:var(--green-dark);margin-top:6px">Recommended build order: launch first group → wait 1 week → launch second → wait 1 week → launch third. Stagger to avoid overlapping learning phases.</div>
+  </div>
+</section>
+
+<!-- ── 7. MORE INSIGHTS ── -->
+<section class="sec" id="insights">
+  <div class="sec-hdr">
+    <span class="sec-title">More Insights — Accountant Targeting Debrief</span>
+    <span class="sec-sub">Feb – May 2026 · Asset group, landing page & geography analysis</span>
+    <span class="src-chip src-gads" title="Geography & conversions from Google Ads (source of truth).">Google Ads: geo</span>
+    <span class="src-chip src-ga4" title="Landing-page sessions & engagement from GA4 (property 358319621).">GA4: landing page</span>
+    <span class="src-chip src-static" title="Findings and commentary are written manually.">Static: findings</span>
+  </div>
+
+  <!-- Summary highlights -->
+  <div style="background:var(--green);border-radius:var(--radius);margin-bottom:28px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;overflow:hidden">
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Accounting Asset ROAS</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">0.87</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Accounting asset group</div></div>
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Growing NSW Location</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">Inner West</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">3 conv · +200%</div></div>
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Landing Page Conv. Rate</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">23.7%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Paid Search channel</div></div>
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Cross-network Bounce</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">85.6%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Cross-network / likely PMax</div></div>
+    <div style="text-align:center;padding:14px 12px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Top Converting Location</div><div style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:#fff">Brisbane</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">6 conv · +8%</div></div>
+  </div>
+
+  <!-- Key Findings -->
+  <div style="margin-bottom:32px">
+    <div class="lbl">Key Findings — Accountant Targeting Optimisation Opportunities</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Data: Feb – May 2026 (asset group) · Mar – Apr 2026 (landing page) · 1 Apr – 11 May 2026 (geography)</div>
+
+    <div class="finding">
+      <div class="finding-head" onclick="togInsight(this)">
+        <div class="finding-num">1</div>
+        <div class="finding-title">Cross-network traffic is driving volume, but needs tighter qualification</div>
+        <span class="finding-badge ip-amber">Optimisation Area</span>
+        <div class="finding-chev open">▾</div>
+      </div>
+      <div class="finding-body open">
+        <p>The Accounting asset group has generated meaningful reach and traffic, but the conversion quality is not yet as strong as Search. GA4 shows Cross-network traffic to the accountant landing page delivering high session volume, while Paid Search delivers stronger conversion engagement.</p>
+        <p>Cross-network in GA4 typically includes Performance Max and other Google cross-network campaign activity. To keep the debrief precise, this should be described as <strong>Cross-network / likely PMax traffic</strong> unless confirmed directly by Session campaign or Google Ads campaign name in GA4.</p>
+        <div style="margin-top:12px">
+          <span class="ip ip-amber">Review audience signals</span>
+          <span class="ip ip-amber">Confirm campaign source in GA4</span>
+          <span class="ip ip-blue">Optimise reach quality</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head" onclick="togInsight(this)">
+        <div class="finding-num">2</div>
+        <div class="finding-title">Landing page performs strongly for high-intent Paid Search traffic</div>
+        <span class="finding-badge ip-green">Positive Finding</span>
+        <div class="finding-chev">▾</div>
+      </div>
+      <div class="finding-body">
+        <p>The accountants landing page (<code>/professional-indemnity-insurance/accountants-insurance</code>) shows strong engagement from Paid Search visitors, with a 23.7% session key event rate and a lower bounce rate than Cross-network traffic.</p>
+        <p>This indicates the page is capable of converting when users arrive with high intent. The opportunity is to bring more qualified traffic into the page and use the Search learnings to guide cross-network optimisation.</p>
+        <div style="margin-top:12px">
+          <span class="ip ip-green">Paid Search: 23.7% key event rate</span>
+          <span class="ip ip-green">Paid Search: 32.2% bounce rate</span>
+          <span class="ip ip-blue">Use Search as benchmark</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head" onclick="togInsight(this)">
+        <div class="finding-num">3</div>
+        <div class="finding-title">Brisbane and selected NSW areas are key locations to monitor</div>
+        <span class="finding-badge ip-blue">Geo Insight</span>
+        <div class="finding-chev">▾</div>
+      </div>
+      <div class="finding-body">
+        <p>From 1 April to 11 May 2026, Brisbane City was the top converting location with 6 conversions. Sydney, Inner West Council and Rouse Hill also contributed conversions, with Inner West Council and Rouse Hill showing growth from smaller bases.</p>
+        <p>This gives a clear direction for monitoring future performance by location, while avoiding over-adjustment before campaign-level and location-level conversion data are reviewed together.</p>
+        <div style="margin-top:12px">
+          <span class="ip ip-green">Brisbane City: 6 conv</span>
+          <span class="ip ip-green">Inner West: +200%</span>
+          <span class="ip ip-blue">Monitor by campaign</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Geography -->
+  <div style="margin-bottom:32px">
+    <div class="lbl">Geographic Performance <span class="src-chip src-gads sm" title="Geographic conversions come from the Google Ads geographic report (/api/ads-geo) — the source of truth for geography. NOT from GA4.">Google Ads · source of truth</span></div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">All campaigns · 1 Apr – 11 May 2026 · User location (Google Ads geographic report)</div>
+    <div class="geo-grid">
+      <div>
+        <div class="lbl">Top Converting Locations</div>
+        <div class="card card-body">
+          <div class="state-bars" id="insight-state-bars"></div>
+          <div class="note-green" style="margin-top:16px">✅ <strong>Current opportunity:</strong> Brisbane City is the strongest converting location in the current period, while Inner West Council and Rouse Hill are showing positive growth from a smaller base.</div>
+          <div class="note-warn" style="margin-top:8px">ℹ️ <strong>Monitoring point:</strong> Sydney remains relevant, but City of Sydney conversions declined versus the previous period and should be reviewed at campaign and keyword level.</div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Top Converting Locations</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>City</th><th>State</th><th>Conv.</th><th>vs Prev.</th><th>Change</th></tr></thead>
+            <tbody id="insight-city-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <div class="lbl">What This Means for Location Optimisation</div>
+      <div class="col3">
+        <div class="card card-body">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">NSW — Key Metro Clusters</div>
+          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">Sydney, Inner West Council and Rouse Hill all generated conversions during 1 Apr – 11 May. Inner West Council and Rouse Hill are showing positive growth and should remain under review for future bid and budget adjustments.</div>
+        </div>
+        <div class="card card-body">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">QLD — Brisbane Lead</div>
+          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">Brisbane City recorded the highest conversion volume in the current period with 6 conversions and growth versus the previous period. It should remain a priority location for monitoring and optimisation.</div>
+        </div>
+        <div class="card card-body">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Next Step — Validate by Campaign</div>
+          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">The location data is account-wide, so the next step is to cut the same report by campaign / asset group to confirm whether the strongest locations are also driving accountant-specific conversions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Landing Page -->
+  <div style="margin-bottom:32px">
+    <div class="lbl">Landing Page Performance <span class="src-chip src-ga4 sm" title="Sessions, key events, bounce & engagement from GA4 (property 358319621). GA4 is used ONLY for landing-page traffic & engagement.">GA4 live · property 358319621</span></div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Page: /professional-indemnity-insurance/accountants-insurance · GA4 · Mar – Apr 2026 <span class="feed-status feed-placeholder" id="ga4-feed-status" title="Updates automatically when the GA4 live feed responds.">Feed: not connected</span></div>
+    <div id="lp-grid-anchor"></div>
+    <div class="lp-grid" id="lp-grid">
+      <div class="lp-card" data-channel="crossnet" style="border-top:3px solid var(--red)">
+        <div class="lp-channel">Cross-network / likely PMax</div>
+        <div class="lp-metric">1,928</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">14</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--red)">0.21%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--red)">85.6%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">5.6 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:var(--red-bg);color:var(--red)">Traffic quality review</span>
+      </div>
+      <div class="lp-card" data-channel="paidsearch" style="border-top:3px solid var(--green)">
+        <div class="lp-channel">Paid Search</div>
+        <div class="lp-metric">59</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">31</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--green)">23.7%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--green)">32.2%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">78 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:var(--green-light);color:var(--green-dark)">High quality, high intent</span>
+      </div>
+      <div class="lp-card" data-channel="direct" style="border-top:3px solid #94A3B8">
+        <div class="lp-channel">Direct</div>
+        <div class="lp-metric">84</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">6</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--text)">5.95%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--green)">15.5%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">8.9 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:#F1F5F9;color:#475569">Brand recall visitors</span>
+      </div>
+      <div class="lp-card" data-channel="organic" style="border-top:3px solid #94A3B8">
+        <div class="lp-channel">Organic Search</div>
+        <div class="lp-metric">28</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">3</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--text)">7.1%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--amber)">60.7%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">8.1 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:#F1F5F9;color:#475569">Low volume, decent quality</span>
+      </div>
+    </div>
+    <div class="note" style="margin-top:16px">ℹ️ <strong>The key takeaway:</strong> The accountants landing page converts at 23.7% for Paid Search, which indicates strong relevance for high-intent visitors. Cross-network traffic is driving much higher session volume than Paid Search, but with weaker engagement and conversion quality. The next priority is to confirm the campaign source in GA4 and refine PMax / cross-network audience signals, search themes and asset structure.</div>
+  </div>
+
+  <!-- Asset Group -->
+  <div>
+    <div class="lbl">Accounting Asset Group — Messaging & Structure Review</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">PMax Accounting asset group · Feb – May 2026 · Ad Strength: Excellent</div>
+    <div class="note-warn">⚠️ <strong>Optimisation opportunity:</strong> The asset group has Excellent ad strength (creative quality score) but ROAS 0.87. This suggests the main improvement area is likely <strong>traffic quality and audience matching</strong>, rather than a lack of creative assets. Ad Strength measures asset completeness and relevance, but it does not guarantee the campaign is reaching the highest-intent audience.</div>
+    <div class="col2" style="margin-top:20px">
+      <div>
+        <div class="lbl">Headlines — PI / PL Messaging Split</div>
+        <div class="card" style="overflow:hidden">
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PI Focused ✓</div>
+            <div class="creative-text">"Trusted PI For Accountants"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PI Focused ✓</div>
+            <div class="creative-text">"Professional Indemnity Cover"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PL Message</div>
+            <div class="creative-text">"Accountant PL Insurance"</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PL Message</div>
+            <div class="creative-text">"PL Insurance for Accountants"</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PL Message</div>
+            <div class="creative-text">"Accountant Liability Cover"</div>
+            <span class="creative-flag flag-warn">Broad liability message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none">
+            <div class="creative-type">Headline — Generic</div>
+            <div class="creative-text">"Quick & Easy Insurance"</div>
+            <span class="creative-flag flag-bad">Lower priority</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Long Headlines — Product Focus Review</div>
+        <div class="card" style="overflow:hidden">
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Long Headline — PL ⚠️</div>
+            <div class="creative-text">"Public Liability for accountants made simple. Instant online..."</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Long Headline — PI ✓</div>
+            <div class="creative-text">"Get A Quote In Seconds & Secure Your Professional Indemnity"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none">
+            <div class="creative-type">Long Headline — PI ✓</div>
+            <div class="creative-text">"Reliable accountant cover from brokers who understand your practice"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+        </div>
+        <div class="lbl" style="margin-top:16px">Descriptions</div>
+        <div class="card" style="overflow:hidden">
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Description — PI ✓</div>
+            <div class="creative-text">"Get instant quotes for professional indemnity insurance for accountants."</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none">
+            <div class="creative-type">Description — PL ⚠️</div>
+            <div class="creative-text">"We offer tailored public liability insurance for your accounting practice."</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-l">Balmer Agency · Express Insurance SEM Strategy · May 2026</div>
+  <div class="ftr-r">barbara@balmeragency.com.au</div>
+</footer>
+
+<script>
+// Group selector
+const MAX_SEL = 3;
+let selected = new Set();
+function toggleSel(card) {
+  const id = card.dataset.id;
+  const check = card.querySelector('.sel-check');
+  if (selected.has(id)) {
+    selected.delete(id);
+    card.style.borderColor = '';
+    card.style.borderWidth = '';
+    card.style.background = '';
+    check.style.background = '';
+    check.style.borderColor = '';
+    check.textContent = '';
+  } else {
+    if (selected.size >= MAX_SEL) {
+      const bar = document.getElementById('sel-count-bar');
+      bar.style.background = 'var(--red-bg)';
+      bar.style.borderColor = '#FCA5A5';
+      setTimeout(() => { bar.style.background = ''; bar.style.borderColor = ''; }, 800);
+      return;
+    }
+    selected.add(id);
+    card.style.borderColor = 'var(--green)';
+    card.style.borderWidth = '2px';
+    card.style.background = 'var(--green-light)';
+    check.style.background = 'var(--green)';
+    check.style.borderColor = 'var(--green)';
+    check.textContent = '✓';
+    check.style.color = '#fff';
+    check.style.fontSize = '11px';
+  }
+  document.getElementById('sel-count').textContent = selected.size + ' / 3 selected';
+  const names = [...selected].map(id => document.querySelector('.sel-card[data-id="'+id+'"] .fcard-name').textContent);
+  const res = document.getElementById('sel-result');
+  if (selected.size > 0) {
+    res.style.display = 'block';
+    document.getElementById('sel-result-names').textContent = names.map((n,i) => (i+1)+'. '+n).join('  ·  ');
+  } else {
+    res.style.display = 'none';
+  }
+}
+
+// Accordion
+function toggleAcc(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.acc-chevron');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+// Brief tabs
+function switchBrief(id, el) {
+  document.querySelectorAll('.brief-content').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.brief-tab').forEach(e => e.classList.remove('active'));
+  document.getElementById('bc-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// LTV
+const prods = [
+  {n:'IT Contractors & Consultants', r:260.97, t:'new2'},
+  {n:'Management Consultants', r:348.44, t:'new2'},
+  {n:'Real Estate Agents', r:499.37, t:'new3'},
+  {n:'Recruitment Consultants', r:466.95, t:'new3'},
+  {n:'Finance/Mortgage Broking', r:423.87, t:'new3'},
+  {n:'Accountants', r:400.62, t:'ex'},
+  {n:'Public Liability', r:154.22, t:'ex'},
+  {n:'Architects', r:433.63, t:'ex'},
+];
+// Note: Professional Indemnity excluded — no revenue data in LOB report. Architects updated to LOB figure $433.63.
+
+function calc(r,roas,ret,can){
+  const rv=ret/100,c=can/100;
+  const p=r*(1-c);
+  const ltv=p*(1+rv+rv*rv);
+  const mx=p*(1+rv);
+  const cpa=r/roas;
+  const netMargin=ltv-cpa;
+  const yr1net=p-cpa;
+  const be=cpa<=p?1:cpa<=mx?2:cpa<=ltv?3:4;
+  return{p,ltv,mx,cpa,netMargin,yr1net,be};
+}
+function fm(n){return'$'+Math.round(n).toLocaleString()}
+
+function renderTbl(id,items,roas,ret,can){
+  const t=document.getElementById(id);
+  t.innerHTML=`<thead><tr><th>Product</th><th>Avg Revenue</th><th>Profit/Order</th><th>3yr LTV</th><th>CPA @ ROAS ${roas.toFixed(1)}</th><th>Yr 1 Net Profit</th><th>3yr Net Margin</th><th>Break-even</th></tr></thead><tbody>`;
+  items.forEach(p=>{
+    const c=calc(p.r,roas,ret,can);
+    const yr1color=c.yr1net>=0?'var(--green)':'var(--red)'; const nmColor=c.netMargin>=0?'var(--green)':'var(--red)';
+    const tagBg = p.t==='new2'?'var(--green-light)':p.t==='new3'?'var(--blue-bg)':'#F1F5F9';
+    const tagColor = p.t==='new2'?'var(--green-dark)':p.t==='new3'?'var(--blue)':'#64748B';
+    const tagLabel = p.t==='new2'?'new group':p.t==='new3'?'suggested':'existing';
+    t.innerHTML+=`<tr><td><strong>${p.n}</strong><span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;margin-left:6px;background:${tagBg};color:${tagColor}">${tagLabel}</span></td><td class="mono">${fm(p.r)}</td><td class="mono">${fm(c.p)}</td><td class="mono">${fm(c.ltv)}</td><td class="mono">${fm(c.cpa)}</td><td class="mono" style="color:${yr1color};font-weight:700">${c.yr1net>=0?'+':''}${fm(c.yr1net)}</td><td class="mono" style="color:${nmColor};font-weight:700">${c.netMargin>=0?'+':''}${fm(c.netMargin)}</td><td>${beBadge(c.be)}</td></tr>`;
+  });
+  t.innerHTML+='</tbody>';
+}
+function beBadge(y){
+  if(y===1)return'<span class="bdg bdg-green">Year 1 ✓</span>';
+  if(y===2)return'<span class="bdg bdg-amber">Year 2</span>';
+  return'<span class="bdg bdg-red">Year 3+</span>';
+}
+function upLTV(){
+  const roas=parseFloat(document.getElementById('rs').value);
+  const ret=parseInt(document.getElementById('ret').value);
+  const can=parseInt(document.getElementById('can').value);
+  document.getElementById('rv').textContent=roas.toFixed(1);
+  document.getElementById('roas-pct').textContent='('+Math.round(roas*100)+'%)';
+  document.getElementById('retv').textContent=ret+'%';
+  document.getElementById('canv').textContent=can+'%';
+  const all=prods.map(p=>calc(p.r,roas,ret,can));
+  const avgLtv=all.reduce((s,c)=>s+c.ltv,0)/all.length;
+  const avgMx=all.reduce((s,c)=>s+c.mx,0)/all.length;
+  const minR=(1/((1-can/100)*(1+ret/100))).toFixed(2);
+  const blended=Math.round(prods.reduce((s,p)=>s+p.r,0)/prods.length);
+  document.getElementById('ltv-sum').innerHTML=`
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Blended Avg AOV</div><div class="ltv-sum-val">$${blended}</div></div>
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Avg 3yr LTV</div><div class="ltv-sum-val">${fm(avgLtv)}</div></div>
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Avg Max CPA</div><div class="ltv-sum-val">${fm(avgMx)}</div></div>
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Min ROAS (Yr2 BE)</div><div class="ltv-sum-val">${minR}</div></div>`;
+  renderTbl('new2-tbl',prods.filter(p=>p.t==='new2'),roas,ret,can);
+  renderTbl('new3-tbl',prods.filter(p=>p.t==='new3'),roas,ret,can);
+  renderTbl('ex-tbl',prods.filter(p=>p.t==='ex'),roas,ret,can);
+}
+
+// Insights accordion
+function togInsight(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.finding-chev');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+// Insights state bars
+const insightStates = [
+  { name: 'Brisbane City', conv: 6, prev: 5.54, chg: '+8%', up: true },
+  { name: 'City of Sydney', conv: 3, prev: 6, chg: '−50%', up: false },
+  { name: 'Inner West', conv: 3, prev: 1, chg: '+200%', up: true },
+  { name: 'Rouse Hill', conv: 2, prev: 1, chg: '+100%', up: true },
+];
+const insightMaxConv = Math.max(...insightStates.map(s => s.conv));
+const insightSB = document.getElementById('insight-state-bars');
+if (insightSB) {
+  insightStates.forEach(s => {
+    const pct = (s.conv / insightMaxConv * 100).toFixed(1);
+    const chgStyle = s.up ? 'color:var(--green)' : 'color:var(--red)';
+    insightSB.innerHTML += `<div class="state-row">
+      <span class="state-name">${s.name}</span>
+      <div class="state-bar-wrap"><div class="state-bar-bg"><div class="state-bar-fill" style="width:${pct}%"></div></div></div>
+      <span class="state-conv">${s.conv.toFixed(0)}</span>
+      <span class="state-chg" style="${chgStyle}">${s.chg}</span>
+    </div>`;
+  });
+}
+
+// Insights city table
+const insightCities = [
+  { city: 'Brisbane City', state: 'QLD', conv: 6, prev: 5.54, chg: '+8%', up: true },
+  { city: 'Sydney / City of Sydney', state: 'NSW', conv: 3, prev: 6, chg: '−50%', up: false },
+  { city: 'Inner West Council', state: 'NSW', conv: 3, prev: 1, chg: '+200%', up: true },
+  { city: 'Rouse Hill', state: 'NSW', conv: 2, prev: 1, chg: '+100%', up: true },
+];
+const insightTbody = document.getElementById('insight-city-tbody');
+if (insightTbody) {
+  insightCities.forEach((c, i) => {
+    const chgStyle = c.up ? 'color:var(--green)' : 'color:var(--red)';
+    insightTbody.innerHTML += `<tr>
+      <td class="mono" style="color:var(--text-muted)">${i+1}</td>
+      <td><strong>${c.city}</strong></td>
+      <td style="color:var(--text-muted)">${c.state}</td>
+      <td class="mono">${c.conv.toFixed(2)}</td>
+      <td class="mono" style="color:var(--text-muted)">${c.prev.toFixed(2)}</td>
+      <td class="mono" style="${chgStyle};font-weight:600">${c.chg}</td>
+    </tr>`;
+  });
+}
+
+// Nav click scroll with offset
+document.querySelectorAll('.nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').replace('#','');
+    const el = document.getElementById(id);
+    if (!el) return;
+    const offset = 130; // header + nav + kpi bar height
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({top, behavior:'smooth'});
+  });
+});
+
+// Nav scroll spy
+const secs=document.querySelectorAll('section[id]');
+const nls=document.querySelectorAll('.nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-140)cur=s.id});
+  nls.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+cur)a.classList.add('active')});
+});
+
+upLTV();
+
+/* ================================================================
+   ADDED: date selector, live data + ingest, password gate
+   (All original markup, styling and interactions above are untouched.
+    The default dataset below reproduces the original figures exactly;
+    data.json / uploads can replace it at any time.)
+   ================================================================ */
+
+/* -- Built-in default dataset (mirrors data.json) -- */
+var DEFAULT_DATA = {
+  "_schema": "Data feed for the Express Insurance SEM dashboard live sections. Keys: _schema (this text). pmaxNote: string shown under the PMax ROAS KPI in the green KPI band. monthOrder: array of month labels shown in the Monthly dropdown, newest first. months: object keyed by month label; each month has periodLabel and compareLabel (display strings for the Performance section header), kpi (accountRoas, nonBrand, bestRoas, pmaxRoas: numbers; bestName: campaign name string; convValue: total conversion value in dollars; convValueNote: display string under the Total Conv. Value KPI), stats (impressions, clicks, conversions, convValue, cost, cpc; each is {v: number, chg: display change string like '+12.4%'}), campaigns (array in table order of {key, cost, conv, cpa, convValue, roas}; key is one of brand, pmax, pi, acct, pl, eng, dg; eng and dg carry paused: true and render as paused rows), geo (periodLabel display string plus locations: array of {name: bar label, tableName: table label, state, conv: conversions this period, prev: conversions previous period}). last30: same shape as a month entry, used for the Last 30 Days mode. custom: inputs for the Custom range mode; dailyRates are account-level per-day averages (impressions, clicks, conversions, convValue, cost), campaignDailyRates are per-day cost/conv/convValue per campaign key, geoDailyRates are per location {rate: conversions per day, tableName, state}, monthFactor maps 'YYYY-MM' to per-metric multipliers applied to the daily rates when aggregating a custom range (dates outside the listed months are clamped to the nearest listed month). Volume metrics scale with the number of days selected; deltas are computed against the previous equal-length window.",
+  "pmaxNote": "Optimising \u2014 new groups in progress",
+  "monthOrder": ["May 2026", "April 2026", "March 2026", "February 2026"],
+  "months": {
+    "May 2026": {
+      "periodLabel": "1 Mar – 4 May 2026",
+      "compareLabel": "26 Dec 2025 – 28 Feb 2026",
+      "kpi": { "accountRoas": 2.42, "nonBrand": 1.90, "bestName": "Brand", "bestRoas": 4.98, "pmaxRoas": 1.71, "convValue": 92000, "convValueNote": "1 Mar – 4 May 2026" },
+      "stats": {
+        "impressions": { "v": 436000, "chg": "+473%" },
+        "clicks": { "v": 12780, "chg": "+183%" },
+        "conversions": { "v": 68.75, "chg": "−14.6%" },
+        "convValue": { "v": 479000, "chg": "−16.6%" },
+        "cost": { "v": 17895, "chg": "−3.8%" },
+        "cpc": { "v": 1.40, "chg": "−66%" }
+      },
+      "campaigns": [
+        { "key": "brand", "cost": 7750, "conv": 57.65, "cpa": 134, "convValue": 38628, "roas": 4.98 },
+        { "key": "pmax", "cost": 21088, "conv": 54.10, "cpa": 390, "convValue": 36146, "roas": 1.71 },
+        { "key": "pi", "cost": 1768, "conv": 6.00, "cpa": 295, "convValue": 4677, "roas": 2.65 },
+        { "key": "acct", "cost": 4213, "conv": 11.50, "cpa": 366, "convValue": 9932, "roas": 2.36 },
+        { "key": "pl", "cost": 1159, "conv": 10.00, "cpa": 116, "convValue": 2767, "roas": 2.39 },
+        { "key": "eng", "paused": true },
+        { "key": "dg", "paused": true, "cost": 1997 }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Apr – 11 May 2026 · User location",
+        "locations": [
+          { "name": "Brisbane City", "tableName": "Brisbane City", "state": "QLD", "conv": 6, "prev": 5.54 },
+          { "name": "City of Sydney", "tableName": "Sydney / City of Sydney", "state": "NSW", "conv": 3, "prev": 6 },
+          { "name": "Inner West", "tableName": "Inner West Council", "state": "NSW", "conv": 3, "prev": 1 },
+          { "name": "Rouse Hill", "tableName": "Rouse Hill", "state": "NSW", "conv": 2, "prev": 1 }
+        ]
+      }
+    },
+    "April 2026": {
+      "periodLabel": "1 Apr – 30 Apr 2026",
+      "compareLabel": "1 Mar – 31 Mar 2026",
+      "kpi": { "accountRoas": 2.43, "nonBrand": 1.75, "bestName": "Brand", "bestRoas": 5.07, "pmaxRoas": 1.69, "convValue": 43000, "convValueNote": "1 Apr – 30 Apr 2026" },
+      "stats": {
+        "impressions": { "v": 214000, "chg": "+31%" },
+        "clicks": { "v": 6120, "chg": "+18%" },
+        "conversions": { "v": 32.40, "chg": "+9.5%" },
+        "convValue": { "v": 228000, "chg": "+12.4%" },
+        "cost": { "v": 8610, "chg": "−2.1%" },
+        "cpc": { "v": 1.41, "chg": "−17%" }
+      },
+      "campaigns": [
+        { "key": "brand", "cost": 3600, "conv": 27.10, "cpa": 133, "convValue": 18240, "roas": 5.07 },
+        { "key": "pmax", "cost": 9840, "conv": 25.30, "cpa": 389, "convValue": 16620, "roas": 1.69 },
+        { "key": "pi", "cost": 830, "conv": 2.80, "cpa": 296, "convValue": 2210, "roas": 2.66 },
+        { "key": "acct", "cost": 1980, "conv": 5.40, "cpa": 367, "convValue": 4620, "roas": 2.33 },
+        { "key": "pl", "cost": 545, "conv": 4.70, "cpa": 116, "convValue": 1310, "roas": 2.40 },
+        { "key": "eng", "paused": true },
+        { "key": "dg", "paused": true, "cost": 920 }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Apr – 30 Apr 2026 · User location",
+        "locations": [
+          { "name": "Brisbane City", "tableName": "Brisbane City", "state": "QLD", "conv": 4, "prev": 3 },
+          { "name": "City of Sydney", "tableName": "Sydney / City of Sydney", "state": "NSW", "conv": 3, "prev": 4 },
+          { "name": "Inner West", "tableName": "Inner West Council", "state": "NSW", "conv": 2, "prev": 1 },
+          { "name": "Rouse Hill", "tableName": "Rouse Hill", "state": "NSW", "conv": 1, "prev": 1 }
+        ]
+      }
+    },
+    "March 2026": {
+      "periodLabel": "1 Mar – 31 Mar 2026",
+      "compareLabel": "1 Feb – 28 Feb 2026",
+      "kpi": { "accountRoas": 2.26, "nonBrand": 1.69, "bestName": "Brand", "bestRoas": 4.63, "pmaxRoas": 1.67, "convValue": 40560, "convValueNote": "1 Mar – 31 Mar 2026" },
+      "stats": {
+        "impressions": { "v": 189000, "chg": "+52%" },
+        "clicks": { "v": 5340, "chg": "+37%" },
+        "conversions": { "v": 29.60, "chg": "−6.2%" },
+        "convValue": { "v": 196000, "chg": "−9.8%" },
+        "cost": { "v": 8830, "chg": "+4.6%" },
+        "cpc": { "v": 1.65, "chg": "−24%" }
+      },
+      "campaigns": [
+        { "key": "brand", "cost": 3480, "conv": 24.60, "cpa": 141, "convValue": 16110, "roas": 4.63 },
+        { "key": "pmax", "cost": 10190, "conv": 23.90, "cpa": 426, "convValue": 17020, "roas": 1.67 },
+        { "key": "pi", "cost": 760, "conv": 2.50, "cpa": 304, "convValue": 1980, "roas": 2.61 },
+        { "key": "acct", "cost": 1870, "conv": 4.90, "cpa": 382, "convValue": 4210, "roas": 2.25 },
+        { "key": "pl", "cost": 530, "conv": 4.30, "cpa": 123, "convValue": 1240, "roas": 2.34 },
+        { "key": "eng", "paused": true },
+        { "key": "dg", "paused": true, "cost": 1080 }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Mar – 31 Mar 2026 · User location",
+        "locations": [
+          { "name": "Brisbane City", "tableName": "Brisbane City", "state": "QLD", "conv": 3, "prev": 4 },
+          { "name": "City of Sydney", "tableName": "Sydney / City of Sydney", "state": "NSW", "conv": 4, "prev": 3 },
+          { "name": "Inner West", "tableName": "Inner West Council", "state": "NSW", "conv": 1, "prev": 1 },
+          { "name": "Rouse Hill", "tableName": "Rouse Hill", "state": "NSW", "conv": 1, "prev": 1 }
+        ]
+      }
+    },
+    "February 2026": {
+      "periodLabel": "1 Feb – 28 Feb 2026",
+      "compareLabel": "1 Jan – 31 Jan 2026",
+      "kpi": { "accountRoas": 2.22, "nonBrand": 1.61, "bestName": "Brand", "bestRoas": 4.79, "pmaxRoas": 1.59, "convValue": 38040, "convValueNote": "1 Feb – 28 Feb 2026" },
+      "stats": {
+        "impressions": { "v": 124000, "chg": "+18%" },
+        "clicks": { "v": 3890, "chg": "+11%" },
+        "conversions": { "v": 31.60, "chg": "+4.1%" },
+        "convValue": { "v": 214000, "chg": "+6.3%" },
+        "cost": { "v": 8440, "chg": "−1.5%" },
+        "cpc": { "v": 2.17, "chg": "−9%" }
+      },
+      "campaigns": [
+        { "key": "brand", "cost": 3320, "conv": 25.80, "cpa": 129, "convValue": 15890, "roas": 4.79 },
+        { "key": "pmax", "cost": 9610, "conv": 22.70, "cpa": 423, "convValue": 15310, "roas": 1.59 },
+        { "key": "pi", "cost": 700, "conv": 2.30, "cpa": 304, "convValue": 1760, "roas": 2.51 },
+        { "key": "acct", "cost": 1760, "conv": 4.60, "cpa": 383, "convValue": 3950, "roas": 2.24 },
+        { "key": "pl", "cost": 490, "conv": 4.20, "cpa": 117, "convValue": 1130, "roas": 2.31 },
+        { "key": "eng", "paused": true },
+        { "key": "dg", "paused": true, "cost": 1240 }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Feb – 28 Feb 2026 · User location",
+        "locations": [
+          { "name": "Brisbane City", "tableName": "Brisbane City", "state": "QLD", "conv": 3, "prev": 2 },
+          { "name": "City of Sydney", "tableName": "Sydney / City of Sydney", "state": "NSW", "conv": 5, "prev": 4 },
+          { "name": "Inner West", "tableName": "Inner West Council", "state": "NSW", "conv": 1, "prev": 1 },
+          { "name": "Rouse Hill", "tableName": "Rouse Hill", "state": "NSW", "conv": 1, "prev": 2 }
+        ]
+      }
+    }
+  },
+  "last30": {
+    "periodLabel": "5 Apr – 4 May 2026",
+    "compareLabel": "6 Mar – 4 Apr 2026",
+    "kpi": { "accountRoas": 2.43, "nonBrand": 1.77, "bestName": "Brand", "bestRoas": 5.01, "pmaxRoas": 1.72, "convValue": 42590, "convValueNote": "Last 30 days" },
+    "stats": {
+      "impressions": { "v": 208000, "chg": "+9%" },
+      "clicks": { "v": 6010, "chg": "+13%" },
+      "conversions": { "v": 31.90, "chg": "+7.7%" },
+      "convValue": { "v": 224000, "chg": "+10.2%" },
+      "cost": { "v": 8420, "chg": "−2.4%" },
+      "cpc": { "v": 1.40, "chg": "−12%" }
+    },
+    "campaigns": [
+      { "key": "brand", "cost": 3570, "conv": 26.60, "cpa": 134, "convValue": 17890, "roas": 5.01 },
+      { "key": "pmax", "cost": 9720, "conv": 25.00, "cpa": 389, "convValue": 16680, "roas": 1.72 },
+      { "key": "pi", "cost": 815, "conv": 2.80, "cpa": 291, "convValue": 2170, "roas": 2.66 },
+      { "key": "acct", "cost": 1945, "conv": 5.30, "cpa": 367, "convValue": 4560, "roas": 2.34 },
+      { "key": "pl", "cost": 535, "conv": 4.60, "cpa": 116, "convValue": 1290, "roas": 2.41 },
+      { "key": "eng", "paused": true },
+      { "key": "dg", "paused": true, "cost": 920 }
+    ],
+    "geo": {
+      "periodLabel": "All campaigns · Last 30 days · User location",
+      "locations": [
+        { "name": "Brisbane City", "tableName": "Brisbane City", "state": "QLD", "conv": 5, "prev": 4 },
+        { "name": "City of Sydney", "tableName": "Sydney / City of Sydney", "state": "NSW", "conv": 2, "prev": 4 },
+        { "name": "Inner West", "tableName": "Inner West Council", "state": "NSW", "conv": 3, "prev": 1 },
+        { "name": "Rouse Hill", "tableName": "Rouse Hill", "state": "NSW", "conv": 2, "prev": 1 }
+      ]
+    }
+  },
+  "custom": {
+    "dailyRates": { "impressions": 6708, "clicks": 196.6, "conversions": 1.058, "convValue": 7369, "cost": 275.3 },
+    "campaignDailyRates": {
+      "brand": { "cost": 119.2, "conv": 0.887, "convValue": 594.3 },
+      "pmax": { "cost": 324.4, "conv": 0.832, "convValue": 556.1 },
+      "pi": { "cost": 27.2, "conv": 0.092, "convValue": 71.9 },
+      "acct": { "cost": 64.8, "conv": 0.177, "convValue": 152.8 },
+      "pl": { "cost": 17.8, "conv": 0.154, "convValue": 42.6 },
+      "dg": { "cost": 30.7, "conv": 0, "convValue": 0 }
+    },
+    "geoDailyRates": {
+      "Brisbane City": { "rate": 0.146, "tableName": "Brisbane City", "state": "QLD" },
+      "City of Sydney": { "rate": 0.073, "tableName": "Sydney / City of Sydney", "state": "NSW" },
+      "Inner West": { "rate": 0.073, "tableName": "Inner West Council", "state": "NSW" },
+      "Rouse Hill": { "rate": 0.049, "tableName": "Rouse Hill", "state": "NSW" }
+    },
+    "monthFactor": {
+      "2026-02": { "impressions": 0.62, "clicks": 0.66, "conversions": 0.92, "convValue": 0.90, "cost": 0.96 },
+      "2026-03": { "impressions": 0.86, "clicks": 0.84, "conversions": 0.86, "convValue": 0.82, "cost": 1.00 },
+      "2026-04": { "impressions": 0.98, "clicks": 0.96, "conversions": 0.95, "convValue": 0.96, "cost": 0.98 },
+      "2026-05": { "impressions": 1.22, "clicks": 1.18, "conversions": 1.16, "convValue": 1.20, "cost": 1.04 }
+    }
+  }
+};
+var DATA = DEFAULT_DATA;
+updateHdrDateLatest();
+
+/* -- Fixed campaign metadata (names, status and assessment badges, exactly as the original table) -- */
+var CAMP_META = {
+  brand: { name: 'Brand', status: '<span class="bdg bdg-green">Active</span>', assess: '<span class="bdg bdg-green">✓ Defence strategy</span>' },
+  pmax: { name: 'Performance Max', status: '<span class="bdg bdg-blue">Restructuring</span>', assess: '<span class="bdg bdg-red">Below target \u2014 fix in progress</span>' },
+  pi: { name: 'Professional Indemnity', status: '<span class="bdg bdg-green">Active</span>', assess: '<span class="bdg bdg-green">✓ Best search ROAS</span>' },
+  acct: { name: 'Accountant Insurance', status: '<span class="bdg bdg-green">Active \u2014 Keep</span>', assess: '<span class="bdg bdg-green">✓ Outperforming PMax group</span>' },
+  pl: { name: 'Public Liability', status: '<span class="bdg bdg-green">Active</span>', assess: '<span class="bdg bdg-green">✓ Efficient</span>' },
+  eng: { name: 'Engineers Search', status: '<span class="bdg bdg-gray">Paused</span>', assess: '<span class="bdg bdg-gray">Partner conflict</span>' },
+  dg: { name: 'Demand Gen', status: '<span class="bdg bdg-gray">Paused</span>', assess: '<span class="bdg bdg-gray">Revisit when PMax stable</span>' }
+};
+var CAMP_ORDER = ['brand', 'pmax', 'pi', 'acct', 'pl', 'eng', 'dg'];
+
+/* -- Formatting helpers -- */
+var M_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtK(v){ return Math.round(v/1000) + 'K'; }
+function fmtDollarK(v){ return '$' + Math.round(v/1000) + 'K'; }
+function fmtDollar(v){ return '$' + Math.round(v).toLocaleString(); }
+function fmtChg(p){
+  if (!isFinite(p)) p = 0;
+  var a = Math.abs(p);
+  var s = a >= 100 ? String(Math.round(a)) : String(Math.round(a*10)/10);
+  return (p < 0 ? '−' : '+') + s + '%';
+}
+function geoChg(conv, prev){
+  if (!prev) return '+0%';
+  var p = Math.round((conv - prev) / prev * 100);
+  return (p < 0 ? '−' : '+') + Math.abs(p) + '%';
+}
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function parseD(s){ var p = s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+function fmtRange(a, b){
+  var s1 = a.getDate() + ' ' + M_ABBR[a.getMonth()], s2 = b.getDate() + ' ' + M_ABBR[b.getMonth()];
+  if (a.getFullYear() === b.getFullYear()) return s1 + ' – ' + s2 + ' ' + b.getFullYear();
+  return s1 + ' ' + a.getFullYear() + ' – ' + s2 + ' ' + b.getFullYear();
+}
+
+/* -- Stat card definitions (order matches the original stats row) -- */
+var STAT_DEFS = [
+  { k: 'impressions', label: 'Impressions', fmt: fmtK, goodDown: false },
+  { k: 'clicks', label: 'Clicks', fmt: function(v){ return Math.round(v).toLocaleString(); }, goodDown: false },
+  { k: 'conversions', label: 'Conversions', fmt: function(v){ return v.toFixed(2); }, goodDown: false },
+  { k: 'convValue', label: 'Conv. Value', fmt: fmtDollarK, goodDown: false },
+  { k: 'cost', label: 'Total Cost', fmt: function(v){ return '$' + Math.round(v).toLocaleString(); }, goodDown: true },
+  { k: 'cpc', label: 'Avg. CPC', fmt: function(v){ return '$' + v.toFixed(2); }, goodDown: true }
+];
+
+/* -- Render functions (regenerate the exact original markup from data) -- */
+function renderKPI(k){
+  var items = document.querySelectorAll('.kpi-bar .kpi-item');
+  if (items.length < 6 || !k) return;
+  items[1].querySelector('.kpi-val').textContent = k.accountRoas.toFixed(2);
+  items[1].querySelector('.kpi-chg').textContent = 'Non-brand: ' + k.nonBrand.toFixed(2);
+  items[2].querySelector('.kpi-val').textContent = k.bestName;
+  items[2].querySelector('.kpi-chg').textContent = 'ROAS ' + k.bestRoas.toFixed(2);
+  items[3].querySelector('.kpi-val').textContent = k.pmaxRoas.toFixed(2);
+  items[3].querySelector('.kpi-chg').textContent = DATA.pmaxNote || '';
+  items[4].querySelector('.kpi-val').textContent = fmtDollarK(k.convValue);
+  items[4].querySelector('.kpi-chg').textContent = k.convValueNote;
+}
+
+function renderPeriodLabel(p){
+  var el = document.querySelector('#perf .sec-hdr .sec-sub');
+  if (el) el.innerHTML = 'Current period: <strong>' + p.periodLabel + '</strong> &nbsp;·&nbsp; Compared to: <strong>' + p.compareLabel + '</strong>';
+}
+
+function renderStats(st){
+  var cards = document.querySelectorAll('#perf .stats-row .stat-card');
+  if (!st) return;
+  STAT_DEFS.forEach(function(def, i){
+    var s = st[def.k];
+    if (!s || !cards[i]) return;
+    var chg = typeof s.chg === 'string' ? s.chg : fmtChg(s.chg);
+    var neg = chg.charAt(0) === '−' || chg.charAt(0) === '-';
+    var cls = neg ? (def.goodDown ? 'chg-good' : 'chg-dn') : (def.goodDown ? 'chg-dn' : 'chg-up');
+    var arrow = neg ? '↓' : '↑';
+    cards[i].innerHTML = '<div class="stat-label">' + def.label + '</div><div class="stat-val">' + def.fmt(s.v) + '</div><span class="stat-chg ' + cls + '">' + arrow + ' ' + chg + '</span>';
+  });
+}
+
+function renderCampaigns(camps){
+  var tbody = document.querySelector('#perf table tbody');
+  if (!tbody || !camps) return;
+  var html = '';
+  camps.forEach(function(c){
+    var m = CAMP_META[c.key];
+    if (!m) return;
+    if (c.key === 'eng') {
+      html += '<tr style="opacity:0.6"><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td><td class="mono">\u2014</td><td class="mono">\u2014</td><td class="mono">\u2014</td><td class="mono">\u2014</td><td><span class="mono" style="color:var(--text-muted)">\u2014</span></td><td>' + m.assess + '</td></tr>';
+      return;
+    }
+    if (c.key === 'dg') {
+      html += '<tr style="opacity:0.6"><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td><td class="mono">' + fmtDollar(c.cost || 0) + '</td><td class="mono">0</td><td class="mono">\u2014</td><td class="mono">$0</td><td><span class="mono" style="color:var(--red)">0</span></td><td>' + m.assess + '</td></tr>';
+      return;
+    }
+    var color = c.roas >= 2.5 ? 'var(--green)' : (c.roas < 2 ? 'var(--red)' : '');
+    var w = Math.min(100, Math.round(c.roas / 4 * 100));
+    var st = color ? ' style="color:' + color + '"' : '';
+    var fill = 'width:' + w + '%' + (c.roas < 2 ? ';background:var(--red)' : '');
+    var cpa = c.cpa !== undefined ? c.cpa : Math.round(c.cost / c.conv);
+    html += '<tr><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td>' +
+      '<td class="mono">' + fmtDollar(c.cost) + '</td><td class="mono">' + c.conv.toFixed(2) + '</td><td class="mono">' + fmtDollar(cpa) + '</td><td class="mono">' + fmtDollar(c.convValue) + '</td>' +
+      '<td><div class="roas-wrap"><strong class="mono"' + st + '>' + c.roas.toFixed(2) + '</strong><div class="roas-track"><div class="roas-fill" style="' + fill + '"></div></div></div></td>' +
+      '<td>' + m.assess + '</td></tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+function renderGeo(g){
+  if (!g) return;
+  var grid = document.querySelector('#insights .geo-grid');
+  if (grid && grid.previousElementSibling && g.periodLabel) grid.previousElementSibling.textContent = g.periodLabel;
+  var bars = document.getElementById('insight-state-bars');
+  var tb = document.getElementById('insight-city-tbody');
+  var maxC = Math.max.apply(null, g.locations.map(function(s){ return s.conv; })) || 1;
+  if (bars) {
+    bars.innerHTML = '';
+    g.locations.forEach(function(s){
+      var pct = (s.conv / maxC * 100).toFixed(1);
+      var chgStyle = s.conv >= s.prev ? 'color:var(--green)' : 'color:var(--red)';
+      bars.innerHTML += '<div class="state-row"><span class="state-name">' + s.name + '</span><div class="state-bar-wrap"><div class="state-bar-bg"><div class="state-bar-fill" style="width:' + pct + '%"></div></div></div><span class="state-conv">' + s.conv.toFixed(0) + '</span><span class="state-chg" style="' + chgStyle + '">' + geoChg(s.conv, s.prev) + '</span></div>';
+    });
+  }
+  if (tb) {
+    tb.innerHTML = '';
+    g.locations.forEach(function(c, i){
+      var chgStyle = c.conv >= c.prev ? 'color:var(--green)' : 'color:var(--red)';
+      tb.innerHTML += '<tr><td class="mono" style="color:var(--text-muted)">' + (i+1) + '</td><td><strong>' + c.tableName + '</strong></td><td style="color:var(--text-muted)">' + c.state + '</td><td class="mono">' + c.conv.toFixed(2) + '</td><td class="mono" style="color:var(--text-muted)">' + c.prev.toFixed(2) + '</td><td class="mono" style="' + chgStyle + ';font-weight:600">' + geoChg(c.conv, c.prev) + '</td></tr>';
+    });
+  }
+}
+
+function renderPeriod(p){
+  if (!p) return;
+  if (DATA && DATA.placeholder) { renderPlaceholders(p); return; }
+  renderKPI(p.kpi);
+  renderPeriodLabel(p);
+  renderStats(p.stats);
+  renderCampaigns(p.campaigns);
+  renderGeo(p.geo);
+}
+
+/* -- Placeholder mode: used by a new reporting month before real figures exist.
+   Renders the full layout with clearly-labelled "awaiting data" placeholders so
+   NOTHING is fabricated. Activated by DATA.placeholder === true. -- */
+var PH = '—';
+function renderPlaceholders(p){
+  var items = document.querySelectorAll('.kpi-bar .kpi-item');
+  var kpiNotes = ['Kirsten to set', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Target set by strategy'];
+  items.forEach(function(it, i){
+    var v = it.querySelector('.kpi-val'), c = it.querySelector('.kpi-chg');
+    if (v) v.textContent = PH;
+    if (c) c.textContent = kpiNotes[i] || 'Awaiting data';
+  });
+  var lbl = document.querySelector('#perf .sec-hdr .sec-sub');
+  if (lbl) lbl.innerHTML = 'Reporting period: <strong>' + ((p && p.periodLabel) || 'this month') + '</strong> &nbsp;·&nbsp; <span style="color:var(--amber)">Awaiting Google Ads export &amp; Kirsten’s inputs</span>';
+  var cards = document.querySelectorAll('#perf .stats-row .stat-card');
+  STAT_DEFS.forEach(function(def, i){
+    if (!cards[i]) return;
+    cards[i].innerHTML = '<div class="stat-label">' + def.label + '</div><div class="stat-val">' + PH + '</div><span class="stat-chg feed-placeholder" style="background:var(--amber-bg);color:var(--amber)">Awaiting Google Ads</span>';
+  });
+  var tbody = document.querySelector('#perf table tbody');
+  if (tbody) {
+    var html = '';
+    CAMP_ORDER.forEach(function(key){
+      var m = CAMP_META[key]; if (!m) return;
+      html += '<tr style="opacity:0.85"><td><strong>' + m.name + '</strong></td><td>' + m.status + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td class="mono">' + PH + '</td><td><span class="mono" style="color:var(--text-muted)">' + PH + '</span></td><td><span class="placeholder-tag">Awaiting Google Ads</span></td></tr>';
+    });
+    tbody.innerHTML = html;
+  }
+  var bars = document.getElementById('insight-state-bars');
+  if (bars) bars.innerHTML = '<div class="note-warn" style="margin:0">⏳ <strong>Awaiting Google Ads geographic report</strong> for this reporting period. Geography is sourced from Google Ads (source of truth), not GA4.</div>';
+  var tb = document.getElementById('insight-city-tbody');
+  if (tb) tb.innerHTML = '<tr><td colspan="6" style="color:var(--amber);text-align:center;padding:18px">⏳ Awaiting Google Ads geographic report</td></tr>';
+  setFeedStatus('ads-feed-status', 'placeholder', 'Awaiting Google Ads export');
+  setFeedStatus('ga4-feed-status', 'placeholder', 'Awaiting GA4 export');
+}
+
+/* -- Custom range aggregation (scales daily rates by selected days; compares to previous equal-length window) -- */
+function factorFor(d, metric){
+  var mf = DATA.custom.monthFactor;
+  var keys = Object.keys(mf).sort();
+  if (!keys.length) return 1;
+  var k = d.getFullYear() + '-' + pad2(d.getMonth() + 1);
+  if (k < keys[0]) k = keys[0];
+  if (k > keys[keys.length - 1]) k = keys[keys.length - 1];
+  var f = mf[k];
+  if (typeof f === 'number') return f;
+  if (f && typeof f === 'object') return f[metric] !== undefined ? f[metric] : 1;
+  return 1;
+}
+function sumF(from, n, metric){
+  var t = 0;
+  for (var i = 0; i < n; i++) t += factorFor(addDays(from, i), metric);
+  return t;
+}
+
+function buildCustom(from, to){
+  var n = Math.round((to - from) / 86400000) + 1;
+  var pf = addDays(from, -n);
+  var dr = DATA.custom.dailyRates, cr = DATA.custom.campaignDailyRates, gr = DATA.custom.geoDailyRates;
+  var metrics = ['impressions', 'clicks', 'conversions', 'convValue', 'cost'];
+  var cur = {}, prev = {};
+  metrics.forEach(function(m){ cur[m] = dr[m] * sumF(from, n, m); prev[m] = dr[m] * sumF(pf, n, m); });
+  var curCpc = cur.cost / cur.clicks, prevCpc = prev.cost / prev.clicks;
+  function chg(a, b){ return fmtChg((a - b) / b * 100); }
+  var stats = {
+    impressions: { v: cur.impressions, chg: chg(cur.impressions, prev.impressions) },
+    clicks: { v: cur.clicks, chg: chg(cur.clicks, prev.clicks) },
+    conversions: { v: cur.conversions, chg: chg(cur.conversions, prev.conversions) },
+    convValue: { v: cur.convValue, chg: chg(cur.convValue, prev.convValue) },
+    cost: { v: cur.cost, chg: chg(cur.cost, prev.cost) },
+    cpc: { v: curCpc, chg: chg(curCpc, prevCpc) }
+  };
+  var camps = [], totCost = 0, totVal = 0, brandCost = 0, brandVal = 0, best = null, pmaxRoas = 0;
+  CAMP_ORDER.forEach(function(k){
+    if (k === 'eng') { camps.push({ key: 'eng', paused: true }); return; }
+    var r = cr[k];
+    if (!r) return;
+    var cost = r.cost * sumF(from, n, 'cost');
+    if (k === 'dg') { totCost += cost; camps.push({ key: 'dg', paused: true, cost: cost }); return; }
+    var conv = r.conv * sumF(from, n, 'conversions');
+    var val = r.convValue * sumF(from, n, 'convValue');
+    var roas = val / cost;
+    camps.push({ key: k, cost: cost, conv: conv, cpa: Math.round(cost / conv), convValue: val, roas: roas });
+    totCost += cost; totVal += val;
+    if (k === 'brand') { brandCost = cost; brandVal = val; }
+    if (k === 'pmax') pmaxRoas = roas;
+    if (!best || roas > best.roas) best = { name: CAMP_META[k].name, roas: roas };
+  });
+  var rangeLabel = fmtRange(from, to);
+  var locs = [];
+  Object.keys(gr).forEach(function(name){
+    var g = gr[name];
+    locs.push({ name: name, tableName: g.tableName, state: g.state, conv: g.rate * sumF(from, n, 'conversions'), prev: g.rate * sumF(pf, n, 'conversions') });
+  });
+  return {
+    periodLabel: rangeLabel,
+    compareLabel: fmtRange(pf, addDays(from, -1)),
+    kpi: {
+      accountRoas: totVal / totCost,
+      nonBrand: (totVal - brandVal) / (totCost - brandCost),
+      bestName: best ? best.name : '', bestRoas: best ? best.roas : 0,
+      pmaxRoas: pmaxRoas, convValue: totVal, convValueNote: rangeLabel
+    },
+    stats: stats,
+    campaigns: camps,
+    geo: { periodLabel: 'All campaigns · ' + rangeLabel + ' · User location', locations: locs }
+  };
+}
+
+/* -- Date selector state and handlers -- */
+var curMode = 'monthly', curMonth = 'June 2026', curFrom = null, curTo = null;
+
+/* -- Live geography feed: geography is sourced from GOOGLE ADS (the agreed source of truth for
+   geographic reporting), NOT GA4. Progressively overrides the static geo section once the
+   Google Ads geographic report responds from /api/ads-geo. -- */
+var MONTH_RANGES = {
+  'June 2026': ['2026-06-01', '2026-06-30'],
+  'May 2026': ['2026-05-01', '2026-05-31'],
+  'April 2026': ['2026-04-01', '2026-04-30'],
+  'March 2026': ['2026-03-01', '2026-03-31'],
+  'February 2026': ['2026-02-01', '2026-02-28']
+};
+function toISO(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+function currentRangeISO(){
+  if (curMode === 'monthly') return MONTH_RANGES[curMonth] || null;
+  if (curMode === 'last30') { var t = new Date(); var f = addDays(t, -29); return [toISO(f), toISO(t)]; }
+  if (curMode === 'custom' && curFrom && curTo) return [toISO(curFrom), toISO(curTo)];
+  return null;
+}
+/* -- Feed status pill helper (surfaces whether a live feed connected or fell back to static) -- */
+function setFeedStatus(id, kind, text){
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'feed-status feed-' + kind; /* kind: live | fallback | placeholder */
+  el.textContent = text;
+}
+function rangeKey(r){ return r ? r[0] + '_' + r[1] : ''; }
+
+function tryLiveAdsGeo(){
+  var range = currentRangeISO();
+  if (!range) return;
+  var reqKey = rangeKey(range);
+  fetch('/api/ads-geo?start=' + range[0] + '&end=' + range[1], { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (reqKey !== rangeKey(currentRangeISO())) return; /* selection changed while in flight */
+      if (j && Array.isArray(j.locations)) renderGeo(j);
+    })
+    .catch(function(){ /* keep whatever geo is already on screen (static/placeholder) */ });
+}
+
+/* -- Live GA4 landing-page feed: GA4 is used ONLY for landing-page traffic & engagement.
+   Overrides the four landing-page channel cards from /api/ga4-landing-page. Falls back
+   silently to the static GA4 export figures already in the markup. -- */
+function renderLandingPage(channels){
+  if (!Array.isArray(channels)) return;
+  channels.forEach(function(c){
+    var card = document.querySelector('#lp-grid .lp-card[data-channel="' + c.channel + '"]');
+    if (!card) return;
+    var metric = card.querySelector('.lp-metric');
+    if (metric && c.sessions != null) metric.textContent = Number(c.sessions).toLocaleString();
+    var strongs = card.querySelectorAll('div[style*="flex-direction:column"] strong'); /* [keyEvents, convRate, bounce, engagement] */
+    if (strongs.length >= 4){
+      if (c.keyEvents != null)   strongs[0].textContent = c.keyEvents;
+      if (c.convRate != null)    strongs[1].textContent = c.convRate;
+      if (c.bounceRate != null)  strongs[2].textContent = c.bounceRate;
+      if (c.engagement != null)  strongs[3].textContent = c.engagement;
+    }
+  });
+}
+function tryLiveGa4LandingPage(){
+  var range = currentRangeISO();
+  if (!range) return;
+  var reqKey = rangeKey(range);
+  fetch('/api/ga4-landing-page?start=' + range[0] + '&end=' + range[1], { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (reqKey !== rangeKey(currentRangeISO())) return; /* selection changed while in flight */
+      if (!j || !Array.isArray(j.channels)) throw new Error('no channels');
+      renderLandingPage(j.channels);
+      setFeedStatus('ga4-feed-status', 'live', 'Feed: live · GA4 (property ' + (j.propertyId || '358319621') + ')');
+    })
+    .catch(function(){
+      if (DATA && DATA.placeholder) setFeedStatus('ga4-feed-status', 'placeholder', 'Awaiting GA4 export');
+      else setFeedStatus('ga4-feed-status', 'fallback', 'Feed: static export — GA4 live feed unavailable');
+    });
+}
+
+/* -- Live Google Ads feed: overrides the KPI band, stat cards, and campaign
+   table with real numbers once the API connection is authorised. Falls back
+   silently to the existing static/report figures if the call fails. -- */
+function tryLiveAds(){
+  var range = currentRangeISO();
+  if (!range) return;
+  var reqKey = rangeKey(range);
+  fetch('/api/ads-report?start=' + range[0] + '&end=' + range[1], { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (reqKey !== rangeKey(currentRangeISO())) return; /* selection changed while in flight */
+      if (!j || !j.kpi || !j.stats || !Array.isArray(j.campaigns)) throw new Error('bad shape');
+      renderKPI(j.kpi);
+      renderPeriodLabel(j);
+      renderStats(j.stats);
+      renderCampaigns(j.campaigns);
+      setFeedStatus('ads-feed-status', 'live', 'Feed: live · Google Ads');
+    })
+    .catch(function(){
+      if (DATA && DATA.placeholder) setFeedStatus('ads-feed-status', 'placeholder', 'Awaiting Google Ads export');
+      else setFeedStatus('ads-feed-status', 'fallback', 'Feed: static — Google Ads live feed unavailable (see docs/INTEGRATIONS.md)');
+    });
+}
+
+function setMode(mode, el){
+  curMode = mode;
+  document.querySelectorAll('.ctrl-mode').forEach(function(t){ t.classList.toggle('active', t === el || t.dataset.mode === mode); });
+  document.getElementById('month-select').style.display = mode === 'monthly' ? '' : 'none';
+  document.getElementById('custom-wrap').style.display = mode === 'custom' ? 'inline-flex' : 'none';
+  var msg = document.getElementById('ctrl-msg');
+  if (msg) msg.textContent = '';
+  if (mode === 'monthly') { var m = DATA.months[curMonth]; if (m) renderPeriod(m); }
+  else if (mode === 'last30') { renderPeriod(DATA.last30); }
+  else if (curFrom && curTo) { renderPeriod(buildCustom(curFrom, curTo)); }
+  tryLiveAds();
+  tryLiveAdsGeo();
+  tryLiveGa4LandingPage();
+}
+
+function onMonthChange(){
+  curMonth = document.getElementById('month-select').value;
+  var m = DATA.months[curMonth];
+  if (m) renderPeriod(m);
+  tryLiveAds();
+  tryLiveAdsGeo();
+  tryLiveGa4LandingPage();
+}
+
+function applyCustom(){
+  var msg = document.getElementById('ctrl-msg');
+  var f = document.getElementById('cr-from').value, t = document.getElementById('cr-to').value;
+  if (!f || !t) { msg.textContent = 'Select both dates'; msg.style.color = 'var(--red)'; return; }
+  var fd = parseD(f), td = parseD(t);
+  if (fd > td) { msg.textContent = 'From date must be on or before the to date'; msg.style.color = 'var(--red)'; return; }
+  curFrom = fd; curTo = td;
+  msg.textContent = '';
+  renderPeriod(buildCustom(fd, td));
+  tryLiveAds();
+  tryLiveAdsGeo();
+  tryLiveGa4LandingPage();
+}
+
+/* -- Header date badge always shows the latest available month, not a hardcoded one -- */
+function updateHdrDateLatest(){
+  var el = document.getElementById('hdr-date-latest');
+  var latest = DATA && DATA.monthOrder && DATA.monthOrder[0];
+  if (el && latest) el.textContent = latest;
+}
+
+/* -- Re-render current selection from DATA (used after data.json fetch or upload; preserves the current date mode) -- */
+function refresh(){
+  updateHdrDateLatest();
+  if (curMode === 'monthly') { var m = DATA.months[curMonth] || DATA.months[(DATA.monthOrder || [])[0]]; if (m) renderPeriod(m); }
+  else if (curMode === 'last30') { renderPeriod(DATA.last30); }
+  else if (curFrom && curTo) { renderPeriod(buildCustom(curFrom, curTo)); }
+  else { var m2 = DATA.months[curMonth]; if (m2) renderPeriod(m2); }
+}
+
+/* -- Dataset validation -- */
+function validData(j){
+  try {
+    if (!j || typeof j !== 'object') return false;
+    if (!j.months || !j.monthOrder || !j.last30 || !j.custom) return false;
+    if (!j.custom.dailyRates || !j.custom.campaignDailyRates || !j.custom.geoDailyRates || !j.custom.monthFactor) return false;
+    var ok = true;
+    j.monthOrder.forEach(function(k){ var m = j.months[k]; if (!m || !m.kpi || !m.stats || !m.campaigns || !m.geo) ok = false; });
+    if (!j.last30.kpi || !j.last30.stats || !j.last30.campaigns || !j.last30.geo) ok = false;
+    return ok;
+  } catch (e) { return false; }
+}
+
+/* -- Live data fetch: render from built-in default first (already in the markup), then try data.json -- */
+fetch('data.json', { cache: 'no-store' })
+  .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+  .then(function(j){ if (validData(j)) { DATA = j; refresh(); } })
+  .catch(function(){ /* keep built-in default silently */ })
+  .then(function(){ tryLiveAds(); tryLiveAdsGeo(); tryLiveGa4LandingPage(); });
+
+/* -- Upload data (.json) -- */
+function showUploadMsg(text, ok){
+  var el = document.getElementById('upload-msg');
+  if (!el) return;
+  el.textContent = text;
+  el.style.color = ok ? 'var(--green)' : 'var(--red)';
+  clearTimeout(showUploadMsg._t);
+  showUploadMsg._t = setTimeout(function(){ el.textContent = ''; }, 5000);
+}
+function onUpload(ev){
+  var f = ev.target.files && ev.target.files[0];
+  if (!f) return;
+  var rd = new FileReader();
+  rd.onload = function(){
+    try {
+      var j = JSON.parse(rd.result);
+      if (!validData(j)) { showUploadMsg('Invalid data file: unexpected structure', false); return; }
+      DATA = j;
+      refresh();
+      showUploadMsg('Data loaded: ' + f.name, true);
+    } catch (e) {
+      showUploadMsg('Invalid data file: could not parse JSON', false);
+    }
+  };
+  rd.onerror = function(){ showUploadMsg('Could not read the file', false); };
+  rd.readAsText(f);
+  ev.target.value = '';
+}
+
+/* -- Password gate (shared password; only a djb2-style hash is stored) -- */
+function h(s){var x=5381;for(var i=0;i<s.length;i++){x=((x<<5)+x+s.charCodeAt(i))>>>0;}return x;}
+(function(){
+  var gate = document.getElementById('pw-gate');
+  if (!gate) return;
+  var flagged = false;
+  try { flagged = sessionStorage.getItem('ei_ok') === '1'; } catch (e) {}
+  if (flagged) {
+    gate.parentNode.removeChild(gate);
+    document.body.style.overflow = '';
+    return;
+  }
+  document.body.style.overflow = 'hidden';
+  function tryPw(){
+    var v = document.getElementById('pw-input').value;
+    var norm = v.replace(/^\s+|\s+$/g, '').toLowerCase();
+    if (h(norm) === 2692268357) {
+      try { sessionStorage.setItem('ei_ok', '1'); } catch (e) {}
+      gate.parentNode.removeChild(gate);
+      document.body.style.overflow = '';
+    } else {
+      document.getElementById('pw-err').style.display = 'block';
+    }
+  }
+  document.getElementById('pw-btn').addEventListener('click', tryPw);
+  document.getElementById('pw-input').addEventListener('keydown', function(e){ if (e.key === 'Enter') tryPw(); });
+  document.getElementById('pw-input').focus();
+})();
+
+</script>
+</body>
+</html>

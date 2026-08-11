@@ -1,0 +1,18 @@
+{
+  "name": "express-insurance-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express Insurance SEM Strategy dashboard — static front end (index.html) plus Vercel serverless feeds for Google Ads and GA4.",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "python3 -m http.server 8099",
+    "test:render": "node scripts/render-check.mjs"
+  },
+  "dependencies": {
+    "@google-analytics/data": "^4.7.0",
+    "google-ads-api": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

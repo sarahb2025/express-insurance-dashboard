@@ -1,0 +1,122 @@
+{
+  "_schema": "July 2026 reporting-month data feed. This is a FILLABLE TEMPLATE. While placeholder=true the dashboard renders clearly-labelled 'awaiting data' cells and fabricates nothing. To publish real figures: (1) set placeholder=false (or remove it), (2) fill every field below from the correct source \u2014 see reports/2026-07/README.md and docs/DATA-SOURCES.md for which source owns which field. Structure matches the root data.json schema.",
+  "placeholder": true,
+  "pmaxNote": "Awaiting Google Ads",
+  "monthOrder": [
+    "July 2026"
+  ],
+  "months": {
+    "July 2026": {
+      "_source": "kpi/stats/campaigns/geo = GOOGLE ADS (source of truth). periodLabel/compareLabel = static display strings.",
+      "periodLabel": "1 \u2013 31 July 2026",
+      "compareLabel": "1 \u2013 30 June 2026",
+      "kpi": {
+        "accountRoas": null,
+        "nonBrand": null,
+        "bestName": null,
+        "bestRoas": null,
+        "pmaxRoas": null,
+        "convValue": null,
+        "convValueNote": "1 \u2013 31 July 2026"
+      },
+      "stats": {
+        "impressions": {
+          "v": null,
+          "chg": null
+        },
+        "clicks": {
+          "v": null,
+          "chg": null
+        },
+        "conversions": {
+          "v": null,
+          "chg": null
+        },
+        "convValue": {
+          "v": null,
+          "chg": null
+        },
+        "cost": {
+          "v": null,
+          "chg": null
+        },
+        "cpc": {
+          "v": null,
+          "chg": null
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pmax",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pi",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "acct",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pl",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "eng",
+          "paused": true
+        },
+        {
+          "key": "dg",
+          "paused": true,
+          "cost": null
+        }
+      ],
+      "geo": {
+        "_source": "GOOGLE ADS geographic report (source of truth for geography, NOT GA4).",
+        "periodLabel": "All campaigns \u00b7 1 \u2013 31 July 2026 \u00b7 User location (Google Ads)",
+        "locations": []
+      }
+    }
+  },
+  "last30": {
+    "periodLabel": "Last 30 days",
+    "compareLabel": "Previous 30 days",
+    "kpi": {},
+    "stats": {},
+    "campaigns": [],
+    "geo": {
+      "locations": []
+    }
+  },
+  "custom": {
+    "dailyRates": {},
+    "campaignDailyRates": {},
+    "geoDailyRates": {},
+    "monthFactor": {}
+  }
+}

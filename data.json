@@ -1,0 +1,839 @@
+{
+  "_schema": "Data feed for the Express Insurance SEM dashboard live sections. Keys: _schema (this text). pmaxNote: string shown under the PMax ROAS KPI in the green KPI band. monthOrder: array of month labels shown in the Monthly dropdown, newest first. months: object keyed by month label; each month has periodLabel and compareLabel (display strings for the Performance section header), kpi (accountRoas, nonBrand, bestRoas, pmaxRoas: numbers; bestName: campaign name string; convValue: total conversion value in dollars; convValueNote: display string under the Total Conv. Value KPI), stats (impressions, clicks, conversions, convValue, cost, cpc; each is {v: number, chg: display change string like '+12.4%'}), campaigns (array in table order of {key, cost, conv, cpa, convValue, roas}; key is one of brand, pmax, pi, acct, pl, eng, dg; eng and dg carry paused: true and render as paused rows), geo (periodLabel display string plus locations: array of {name: bar label, tableName: table label, state, conv: conversions this period, prev: conversions previous period}). last30: same shape as a month entry, used for the Last 30 Days mode. custom: inputs for the Custom range mode; dailyRates are account-level per-day averages (impressions, clicks, conversions, convValue, cost), campaignDailyRates are per-day cost/conv/convValue per campaign key, geoDailyRates are per location {rate: conversions per day, tableName, state}, monthFactor maps 'YYYY-MM' to per-metric multipliers applied to the daily rates when aggregating a custom range (dates outside the listed months are clamped to the nearest listed month). Volume metrics scale with the number of days selected; deltas are computed against the previous equal-length window.",
+  "pmaxNote": "Optimising — new groups in progress",
+  "monthOrder": [
+    "June 2026",
+    "May 2026",
+    "April 2026",
+    "March 2026",
+    "February 2026"
+  ],
+  "months": {
+    "May 2026": {
+      "periodLabel": "1 Mar – 4 May 2026",
+      "compareLabel": "26 Dec 2025 – 28 Feb 2026",
+      "kpi": {
+        "accountRoas": 2.42,
+        "nonBrand": 1.9,
+        "bestName": "Brand",
+        "bestRoas": 4.98,
+        "pmaxRoas": 1.71,
+        "convValue": 92000,
+        "convValueNote": "1 Mar – 4 May 2026"
+      },
+      "stats": {
+        "impressions": {
+          "v": 436000,
+          "chg": "+473%"
+        },
+        "clicks": {
+          "v": 12780,
+          "chg": "+183%"
+        },
+        "conversions": {
+          "v": 68.75,
+          "chg": "−14.6%"
+        },
+        "convValue": {
+          "v": 479000,
+          "chg": "−16.6%"
+        },
+        "cost": {
+          "v": 17895,
+          "chg": "−3.8%"
+        },
+        "cpc": {
+          "v": 1.4,
+          "chg": "−66%"
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": 7750,
+          "conv": 57.65,
+          "cpa": 134,
+          "convValue": 38628,
+          "roas": 4.98
+        },
+        {
+          "key": "pmax",
+          "cost": 21088,
+          "conv": 54.1,
+          "cpa": 390,
+          "convValue": 36146,
+          "roas": 1.71
+        },
+        {
+          "key": "pi",
+          "cost": 1768,
+          "conv": 6.0,
+          "cpa": 295,
+          "convValue": 4677,
+          "roas": 2.65
+        },
+        {
+          "key": "acct",
+          "cost": 4213,
+          "conv": 11.5,
+          "cpa": 366,
+          "convValue": 9932,
+          "roas": 2.36
+        },
+        {
+          "key": "pl",
+          "cost": 1159,
+          "conv": 10.0,
+          "cpa": 116,
+          "convValue": 2767,
+          "roas": 2.39
+        },
+        {
+          "key": "eng",
+          "paused": true
+        },
+        {
+          "key": "dg",
+          "paused": true,
+          "cost": 1997
+        }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Apr – 11 May 2026 · User location",
+        "locations": [
+          {
+            "name": "Brisbane City",
+            "tableName": "Brisbane City",
+            "state": "QLD",
+            "conv": 6,
+            "prev": 5.54
+          },
+          {
+            "name": "City of Sydney",
+            "tableName": "Sydney / City of Sydney",
+            "state": "NSW",
+            "conv": 3,
+            "prev": 6
+          },
+          {
+            "name": "Inner West",
+            "tableName": "Inner West Council",
+            "state": "NSW",
+            "conv": 3,
+            "prev": 1
+          },
+          {
+            "name": "Rouse Hill",
+            "tableName": "Rouse Hill",
+            "state": "NSW",
+            "conv": 2,
+            "prev": 1
+          }
+        ]
+      }
+    },
+    "April 2026": {
+      "periodLabel": "1 Apr – 30 Apr 2026",
+      "compareLabel": "1 Mar – 31 Mar 2026",
+      "kpi": {
+        "accountRoas": 2.43,
+        "nonBrand": 1.75,
+        "bestName": "Brand",
+        "bestRoas": 5.07,
+        "pmaxRoas": 1.69,
+        "convValue": 43000,
+        "convValueNote": "1 Apr – 30 Apr 2026"
+      },
+      "stats": {
+        "impressions": {
+          "v": 214000,
+          "chg": "+31%"
+        },
+        "clicks": {
+          "v": 6120,
+          "chg": "+18%"
+        },
+        "conversions": {
+          "v": 32.4,
+          "chg": "+9.5%"
+        },
+        "convValue": {
+          "v": 228000,
+          "chg": "+12.4%"
+        },
+        "cost": {
+          "v": 8610,
+          "chg": "−2.1%"
+        },
+        "cpc": {
+          "v": 1.41,
+          "chg": "−17%"
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": 3600,
+          "conv": 27.1,
+          "cpa": 133,
+          "convValue": 18240,
+          "roas": 5.07
+        },
+        {
+          "key": "pmax",
+          "cost": 9840,
+          "conv": 25.3,
+          "cpa": 389,
+          "convValue": 16620,
+          "roas": 1.69
+        },
+        {
+          "key": "pi",
+          "cost": 830,
+          "conv": 2.8,
+          "cpa": 296,
+          "convValue": 2210,
+          "roas": 2.66
+        },
+        {
+          "key": "acct",
+          "cost": 1980,
+          "conv": 5.4,
+          "cpa": 367,
+          "convValue": 4620,
+          "roas": 2.33
+        },
+        {
+          "key": "pl",
+          "cost": 545,
+          "conv": 4.7,
+          "cpa": 116,
+          "convValue": 1310,
+          "roas": 2.4
+        },
+        {
+          "key": "eng",
+          "paused": true
+        },
+        {
+          "key": "dg",
+          "paused": true,
+          "cost": 920
+        }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Apr – 30 Apr 2026 · User location",
+        "locations": [
+          {
+            "name": "Brisbane City",
+            "tableName": "Brisbane City",
+            "state": "QLD",
+            "conv": 4,
+            "prev": 3
+          },
+          {
+            "name": "City of Sydney",
+            "tableName": "Sydney / City of Sydney",
+            "state": "NSW",
+            "conv": 3,
+            "prev": 4
+          },
+          {
+            "name": "Inner West",
+            "tableName": "Inner West Council",
+            "state": "NSW",
+            "conv": 2,
+            "prev": 1
+          },
+          {
+            "name": "Rouse Hill",
+            "tableName": "Rouse Hill",
+            "state": "NSW",
+            "conv": 1,
+            "prev": 1
+          }
+        ]
+      }
+    },
+    "March 2026": {
+      "periodLabel": "1 Mar – 31 Mar 2026",
+      "compareLabel": "1 Feb – 28 Feb 2026",
+      "kpi": {
+        "accountRoas": 2.26,
+        "nonBrand": 1.69,
+        "bestName": "Brand",
+        "bestRoas": 4.63,
+        "pmaxRoas": 1.67,
+        "convValue": 40560,
+        "convValueNote": "1 Mar – 31 Mar 2026"
+      },
+      "stats": {
+        "impressions": {
+          "v": 189000,
+          "chg": "+52%"
+        },
+        "clicks": {
+          "v": 5340,
+          "chg": "+37%"
+        },
+        "conversions": {
+          "v": 29.6,
+          "chg": "−6.2%"
+        },
+        "convValue": {
+          "v": 196000,
+          "chg": "−9.8%"
+        },
+        "cost": {
+          "v": 8830,
+          "chg": "+4.6%"
+        },
+        "cpc": {
+          "v": 1.65,
+          "chg": "−24%"
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": 3480,
+          "conv": 24.6,
+          "cpa": 141,
+          "convValue": 16110,
+          "roas": 4.63
+        },
+        {
+          "key": "pmax",
+          "cost": 10190,
+          "conv": 23.9,
+          "cpa": 426,
+          "convValue": 17020,
+          "roas": 1.67
+        },
+        {
+          "key": "pi",
+          "cost": 760,
+          "conv": 2.5,
+          "cpa": 304,
+          "convValue": 1980,
+          "roas": 2.61
+        },
+        {
+          "key": "acct",
+          "cost": 1870,
+          "conv": 4.9,
+          "cpa": 382,
+          "convValue": 4210,
+          "roas": 2.25
+        },
+        {
+          "key": "pl",
+          "cost": 530,
+          "conv": 4.3,
+          "cpa": 123,
+          "convValue": 1240,
+          "roas": 2.34
+        },
+        {
+          "key": "eng",
+          "paused": true
+        },
+        {
+          "key": "dg",
+          "paused": true,
+          "cost": 1080
+        }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Mar – 31 Mar 2026 · User location",
+        "locations": [
+          {
+            "name": "Brisbane City",
+            "tableName": "Brisbane City",
+            "state": "QLD",
+            "conv": 3,
+            "prev": 4
+          },
+          {
+            "name": "City of Sydney",
+            "tableName": "Sydney / City of Sydney",
+            "state": "NSW",
+            "conv": 4,
+            "prev": 3
+          },
+          {
+            "name": "Inner West",
+            "tableName": "Inner West Council",
+            "state": "NSW",
+            "conv": 1,
+            "prev": 1
+          },
+          {
+            "name": "Rouse Hill",
+            "tableName": "Rouse Hill",
+            "state": "NSW",
+            "conv": 1,
+            "prev": 1
+          }
+        ]
+      }
+    },
+    "February 2026": {
+      "periodLabel": "1 Feb – 28 Feb 2026",
+      "compareLabel": "1 Jan – 31 Jan 2026",
+      "kpi": {
+        "accountRoas": 2.22,
+        "nonBrand": 1.61,
+        "bestName": "Brand",
+        "bestRoas": 4.79,
+        "pmaxRoas": 1.59,
+        "convValue": 38040,
+        "convValueNote": "1 Feb – 28 Feb 2026"
+      },
+      "stats": {
+        "impressions": {
+          "v": 124000,
+          "chg": "+18%"
+        },
+        "clicks": {
+          "v": 3890,
+          "chg": "+11%"
+        },
+        "conversions": {
+          "v": 31.6,
+          "chg": "+4.1%"
+        },
+        "convValue": {
+          "v": 214000,
+          "chg": "+6.3%"
+        },
+        "cost": {
+          "v": 8440,
+          "chg": "−1.5%"
+        },
+        "cpc": {
+          "v": 2.17,
+          "chg": "−9%"
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": 3320,
+          "conv": 25.8,
+          "cpa": 129,
+          "convValue": 15890,
+          "roas": 4.79
+        },
+        {
+          "key": "pmax",
+          "cost": 9610,
+          "conv": 22.7,
+          "cpa": 423,
+          "convValue": 15310,
+          "roas": 1.59
+        },
+        {
+          "key": "pi",
+          "cost": 700,
+          "conv": 2.3,
+          "cpa": 304,
+          "convValue": 1760,
+          "roas": 2.51
+        },
+        {
+          "key": "acct",
+          "cost": 1760,
+          "conv": 4.6,
+          "cpa": 383,
+          "convValue": 3950,
+          "roas": 2.24
+        },
+        {
+          "key": "pl",
+          "cost": 490,
+          "conv": 4.2,
+          "cpa": 117,
+          "convValue": 1130,
+          "roas": 2.31
+        },
+        {
+          "key": "eng",
+          "paused": true
+        },
+        {
+          "key": "dg",
+          "paused": true,
+          "cost": 1240
+        }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Feb – 28 Feb 2026 · User location",
+        "locations": [
+          {
+            "name": "Brisbane City",
+            "tableName": "Brisbane City",
+            "state": "QLD",
+            "conv": 3,
+            "prev": 2
+          },
+          {
+            "name": "City of Sydney",
+            "tableName": "Sydney / City of Sydney",
+            "state": "NSW",
+            "conv": 5,
+            "prev": 4
+          },
+          {
+            "name": "Inner West",
+            "tableName": "Inner West Council",
+            "state": "NSW",
+            "conv": 1,
+            "prev": 1
+          },
+          {
+            "name": "Rouse Hill",
+            "tableName": "Rouse Hill",
+            "state": "NSW",
+            "conv": 1,
+            "prev": 2
+          }
+        ]
+      }
+    },
+    "June 2026": {
+      "periodLabel": "1 - 30 Jun 2026",
+      "compareLabel": "1 - 31 May 2026 (indicative)",
+      "kpi": {
+        "accountRoas": 1.77,
+        "nonBrand": 1.33,
+        "bestName": "Brand",
+        "bestRoas": 3.11,
+        "pmaxRoas": 1.09,
+        "convValue": 32877.88,
+        "convValueNote": "June 2026"
+      },
+      "stats": {
+        "conversions": {
+          "v": 41.81,
+          "chg": "-39.2%"
+        },
+        "convValue": {
+          "v": 32877.88,
+          "chg": "vs May (baseline not directly comparable)"
+        },
+        "cost": {
+          "v": 18603.81,
+          "chg": "+4.0%"
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": 4560.22,
+          "conv": 19.81,
+          "cpa": 230.2,
+          "convValue": 14182.28,
+          "roas": 3.11
+        },
+        {
+          "key": "pmax",
+          "cost": 7893.01,
+          "conv": 14,
+          "cpa": 563.79,
+          "convValue": 8635.24,
+          "roas": 1.09
+        },
+        {
+          "key": "pi",
+          "cost": 2004.13,
+          "conv": 4,
+          "cpa": 501.03,
+          "convValue": 5030.37,
+          "roas": 2.51
+        },
+        {
+          "key": "acct",
+          "cost": 3704.68,
+          "conv": 2,
+          "cpa": 1852.34,
+          "convValue": 3704.68,
+          "roas": 1.0
+        },
+        {
+          "key": "pl",
+          "cost": 441.77,
+          "conv": 2,
+          "cpa": 220.88,
+          "convValue": 1325.31,
+          "roas": 3.0
+        },
+        {
+          "key": "eng",
+          "cost": null,
+          "conv": 0,
+          "cpa": null,
+          "convValue": 0,
+          "roas": 0
+        },
+        {
+          "key": "dg",
+          "cost": 0,
+          "conv": 0,
+          "cpa": null,
+          "convValue": 0,
+          "roas": 0
+        }
+      ],
+      "geo": {
+        "periodLabel": "All campaigns · 1 Apr – 11 May 2026 · User location",
+        "locations": [
+          {
+            "name": "Brisbane City",
+            "tableName": "Brisbane City",
+            "state": "QLD",
+            "conv": 6,
+            "prev": 5.54
+          },
+          {
+            "name": "City of Sydney",
+            "tableName": "Sydney / City of Sydney",
+            "state": "NSW",
+            "conv": 3,
+            "prev": 6
+          },
+          {
+            "name": "Inner West",
+            "tableName": "Inner West Council",
+            "state": "NSW",
+            "conv": 3,
+            "prev": 1
+          },
+          {
+            "name": "Rouse Hill",
+            "tableName": "Rouse Hill",
+            "state": "NSW",
+            "conv": 2,
+            "prev": 1
+          }
+        ]
+      }
+    }
+  },
+  "last30": {
+    "periodLabel": "5 Apr – 4 May 2026",
+    "compareLabel": "6 Mar – 4 Apr 2026",
+    "kpi": {
+      "accountRoas": 2.43,
+      "nonBrand": 1.77,
+      "bestName": "Brand",
+      "bestRoas": 5.01,
+      "pmaxRoas": 1.72,
+      "convValue": 42590,
+      "convValueNote": "Last 30 days"
+    },
+    "stats": {
+      "impressions": {
+        "v": 208000,
+        "chg": "+9%"
+      },
+      "clicks": {
+        "v": 6010,
+        "chg": "+13%"
+      },
+      "conversions": {
+        "v": 31.9,
+        "chg": "+7.7%"
+      },
+      "convValue": {
+        "v": 224000,
+        "chg": "+10.2%"
+      },
+      "cost": {
+        "v": 8420,
+        "chg": "−2.4%"
+      },
+      "cpc": {
+        "v": 1.4,
+        "chg": "−12%"
+      }
+    },
+    "campaigns": [
+      {
+        "key": "brand",
+        "cost": 3570,
+        "conv": 26.6,
+        "cpa": 134,
+        "convValue": 17890,
+        "roas": 5.01
+      },
+      {
+        "key": "pmax",
+        "cost": 9720,
+        "conv": 25.0,
+        "cpa": 389,
+        "convValue": 16680,
+        "roas": 1.72
+      },
+      {
+        "key": "pi",
+        "cost": 815,
+        "conv": 2.8,
+        "cpa": 291,
+        "convValue": 2170,
+        "roas": 2.66
+      },
+      {
+        "key": "acct",
+        "cost": 1945,
+        "conv": 5.3,
+        "cpa": 367,
+        "convValue": 4560,
+        "roas": 2.34
+      },
+      {
+        "key": "pl",
+        "cost": 535,
+        "conv": 4.6,
+        "cpa": 116,
+        "convValue": 1290,
+        "roas": 2.41
+      },
+      {
+        "key": "eng",
+        "paused": true
+      },
+      {
+        "key": "dg",
+        "paused": true,
+        "cost": 920
+      }
+    ],
+    "geo": {
+      "periodLabel": "All campaigns · Last 30 days · User location",
+      "locations": [
+        {
+          "name": "Brisbane City",
+          "tableName": "Brisbane City",
+          "state": "QLD",
+          "conv": 5,
+          "prev": 4
+        },
+        {
+          "name": "City of Sydney",
+          "tableName": "Sydney / City of Sydney",
+          "state": "NSW",
+          "conv": 2,
+          "prev": 4
+        },
+        {
+          "name": "Inner West",
+          "tableName": "Inner West Council",
+          "state": "NSW",
+          "conv": 3,
+          "prev": 1
+        },
+        {
+          "name": "Rouse Hill",
+          "tableName": "Rouse Hill",
+          "state": "NSW",
+          "conv": 2,
+          "prev": 1
+        }
+      ]
+    }
+  },
+  "custom": {
+    "dailyRates": {
+      "impressions": 6708,
+      "clicks": 196.6,
+      "conversions": 1.058,
+      "convValue": 7369,
+      "cost": 275.3
+    },
+    "campaignDailyRates": {
+      "brand": {
+        "cost": 119.2,
+        "conv": 0.887,
+        "convValue": 594.3
+      },
+      "pmax": {
+        "cost": 324.4,
+        "conv": 0.832,
+        "convValue": 556.1
+      },
+      "pi": {
+        "cost": 27.2,
+        "conv": 0.092,
+        "convValue": 71.9
+      },
+      "acct": {
+        "cost": 64.8,
+        "conv": 0.177,
+        "convValue": 152.8
+      },
+      "pl": {
+        "cost": 17.8,
+        "conv": 0.154,
+        "convValue": 42.6
+      },
+      "dg": {
+        "cost": 30.7,
+        "conv": 0,
+        "convValue": 0
+      }
+    },
+    "geoDailyRates": {
+      "Brisbane City": {
+        "rate": 0.146,
+        "tableName": "Brisbane City",
+        "state": "QLD"
+      },
+      "City of Sydney": {
+        "rate": 0.073,
+        "tableName": "Sydney / City of Sydney",
+        "state": "NSW"
+      },
+      "Inner West": {
+        "rate": 0.073,
+        "tableName": "Inner West Council",
+        "state": "NSW"
+      },
+      "Rouse Hill": {
+        "rate": 0.049,
+        "tableName": "Rouse Hill",
+        "state": "NSW"
+      }
+    },
+    "monthFactor": {
+      "2026-02": {
+        "impressions": 0.62,
+        "clicks": 0.66,
+        "conversions": 0.92,
+        "convValue": 0.9,
+        "cost": 0.96
+      },
+      "2026-03": {
+        "impressions": 0.86,
+        "clicks": 0.84,
+        "conversions": 0.86,
+        "convValue": 0.82,
+        "cost": 1.0
+      },
+      "2026-04": {
+        "impressions": 0.98,
+        "clicks": 0.96,
+        "conversions": 0.95,
+        "convValue": 0.96,
+        "cost": 0.98
+      },
+      "2026-05": {
+        "impressions": 1.22,
+        "clicks": 1.18,
+        "conversions": 1.16,
+        "convValue": 1.2,
+        "cost": 1.04
+      }
+    }
+  }
+}
