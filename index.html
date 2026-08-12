@@ -479,8 +479,8 @@ tr:hover td{background:#F8FAFC}
 <section class="sec" id="budget">
   <div class="sec-hdr">
     <span class="sec-title">Budget Allocation</span>
-    <span class="sec-sub">Monthly budget split by campaign</span>
-    <span class="src-chip src-other" title="The original dashboard showed static, hard-coded budget figures with no source label. The live data source is awaiting confirmation. See docs/DATA-SOURCES.md.">Source unconfirmed</span>
+    <span class="sec-sub">Total fixed at $18,000/month · split from the Looker Studio budget breakdown</span>
+    <span class="src-chip src-looker" title="Confirmed by Sarah: per-campaign split comes from the Looker Studio budget breakdown. Total budget is fixed at $18,000/month; the split is populated at month-end.">Looker: budget</span>
   </div>
 
   <div class="budget-layout">
@@ -508,7 +508,7 @@ tr:hover td{background:#F8FAFC}
       </div>
     </div>
   </div>
-  <div style="font-size:11px;color:var(--text-muted);margin-top:14px;line-height:1.6">ℹ️ The original dashboard contained static, hard-coded budget figures with no source label; the live data source is awaiting confirmation. This section is data-driven and ready to connect once the source is confirmed.</div>
+  <div style="font-size:11px;color:var(--text-muted);margin-top:14px;line-height:1.6">ℹ️ Total budget is fixed at $18,000/month. The per-campaign split comes from the Looker Studio budget breakdown and is populated at month-end; ROAS shown per row is live from Google Ads.</div>
 </section>
 
 <!-- ── 3. PMAX ── -->
@@ -1191,7 +1191,7 @@ function renderPeriod(p){
   renderCampaigns(p.campaigns);
   renderGeo(p.geo);
   renderAssetGroups(p.assetGroups);
-  renderBudget(p.budget || (DATA && DATA.budget), roasMap(p.campaigns));
+  renderBudget(p.budget || (DATA && DATA.budget), roasMap(p.campaigns), p.budgetTotal || (DATA && DATA.budgetTotal));
   renderCommentaries(p);
 }
 
@@ -1224,7 +1224,7 @@ function renderPlaceholders(p){
     tbody.innerHTML = html;
   }
   renderAssetGroups(null);
-  renderBudget(null);
+  renderBudget(null, null, (p && p.budgetTotal) || (DATA && DATA.budgetTotal));
   renderCommentaries(p);
   var bars = document.getElementById('insight-state-bars');
   if (bars) bars.innerHTML = '<div class="note-warn" style="margin:0">⏳ <strong>Awaiting Google Ads geographic report</strong> for this reporting period. Geography is sourced from Google Ads (source of truth), not GA4.</div>';
@@ -1269,7 +1269,7 @@ function renderAssetGroups(groups){
 
 /* Budget breakdown + donut — Looker/manual. Subtext auto-formats as "Type — ROAS x.xx". */
 var BUDGET_COLORS = ['#00843D','#0E7A37','#22C55E','#86EFAC','#F59E0B','#94A3B8','#CBD5E1','#64748B'];
-function renderBudget(budget, roasByKey){
+function renderBudget(budget, roasByKey, fixedTotal){
   var rows = document.getElementById('budget-rows');
   var totalEl = document.getElementById('budget-total');
   var segs = document.getElementById('budget-donut-segs');
@@ -1277,10 +1277,17 @@ function renderBudget(budget, roasByKey){
   var legend = document.getElementById('budget-legend');
   if (!rows) return;
   if (!Array.isArray(budget) || !budget.length){
-    rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Awaiting budget breakdown for this period — data source to be confirmed.</div>';
-    if (totalEl) totalEl.querySelector('.budget-total-val').textContent = '—';
+    // No per-campaign split yet. If the fixed total is known, show it and note the split is pending.
+    if (fixedTotal){
+      rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Total budget fixed at ' + money(fixedTotal) + '/month. The per-campaign split (Looker Studio budget breakdown) is populated at month-end.</div>';
+      if (totalEl) totalEl.querySelector('.budget-total-val').textContent = money(fixedTotal) + ' / mo';
+      if (centre) centre.textContent = fixedTotal >= 1000 ? '$' + Math.round(fixedTotal / 1000) + 'K' : money(fixedTotal);
+    } else {
+      rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Awaiting budget breakdown for this period.</div>';
+      if (totalEl) totalEl.querySelector('.budget-total-val').textContent = '—';
+      if (centre) centre.textContent = '—';
+    }
     if (segs) segs.innerHTML = '';
-    if (centre) centre.textContent = '—';
     if (legend) legend.innerHTML = '';
     return;
   }

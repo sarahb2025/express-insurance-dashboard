@@ -74,10 +74,14 @@ Export as **CSV** or share the GA4 exploration.
 - **If refreshing:** average revenue + policy count per line of business.
 - **Maps to:** `lob[]` = `{n, r, t}` (name, avg revenue, type: new2 | new3 | ex).
 
-## D. Budget breakdown — source unconfirmed
-- Not an export yet: **Sarah to confirm the true source** (see `DATA-SOURCES.md`).
-  Once confirmed, supply per-campaign daily + monthly budget → `budget[]` =
-  `{name, type, key, daily, monthly}`.
+## D. Budget breakdown — Looker Studio (confirmed)
+- **Total is fixed at $18,000/month** (`budgetTotal`). The per-campaign **split**
+  comes from the **Looker Studio budget breakdown** and is provided **at
+  month-end**.
+- At month-end, supply per campaign: name · type (Search/PMax) · key
+  (brand/pmax/pi/acct/pl/…) · daily budget · monthly budget → `budget[]` =
+  `{name, type, key, daily, monthly}`. Percentages, donut and total are computed;
+  ROAS in each row is pulled live from Google Ads.
 
 ---
 

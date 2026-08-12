@@ -57,17 +57,17 @@ period / currently active** (paused + no-activity campaigns are hidden).
 
 | Element | Source |
 |---------|--------|
-| Rows, per-campaign daily/monthly, %s, donut, total | **Other / unknown — source unconfirmed** — driven by the `budget` array in `data.json` |
+| Per-campaign split (rows, daily/monthly, %s, donut) | **Looker Studio** (budget breakdown) — `budget[]` in `data.json` |
+| Total budget ($18,000/month, fixed) | **Static / confirmed** — `budgetTotal` |
 | Row subtext, auto-formatted **"Type — ROAS x.xx"** | **Static** format · ROAS pulled live from the campaign of matching `key` (**Google Ads**) |
 
-**Source status:** the **original dashboard showed static, hard-coded budget
-figures with no source label** (unlike Performance/LTV/Group Selector, which each
-cited a source). Kirsten's Slide 2 note *asked* whether it should come from Looker
-Studio, but that is a request, not a confirmation — so the section is labelled
-**"Source unconfirmed"** and carries a discreet note to that effect. It is fully
-data-driven and ready to connect the moment the true source is confirmed by Sarah;
-do **not** assert Looker/manual until then. `budget[]` items:
-`{name, type, key, daily, monthly[, color]}`.
+**Source status — confirmed by Sarah (2026-08-11):** connect to the **Looker
+Studio budget breakdown**. The **total is fixed at $18,000/month**; the
+per-campaign split is provided from Looker **at month-end**. Until the split is
+in, the section shows the fixed $18k total and notes the split is pending (no
+figures fabricated). *(History: the original dashboard hard-coded these figures
+with no source label; this is now resolved.)* `budget[]` items:
+`{name, type, key, daily, monthly[, color]}`; `budgetTotal`: number.
 
 ## 3. Performance Max & Asset Group Overview  (`#pmax`)
 
@@ -118,6 +118,6 @@ date range — it is feed-driven.
 - Geography (converting locations) → **Google Ads only** (not GA4).
 - Landing-page sessions / key events / bounce / engagement → **GA4 only.**
 - Line-of-business average revenue → **Looker Studio.**
-- Budget breakdown → **source unconfirmed** (original was static/hard-coded; awaiting Sarah's confirmation).
+- Budget split → **Looker Studio** (total fixed at $18k; split provided at month-end).
 - Confirmed rates and all commentary → **Kirsten (manual).**
 - Structure, targets, calculator maths → **Static.**

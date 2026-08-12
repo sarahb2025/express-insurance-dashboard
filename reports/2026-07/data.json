@@ -117,5 +117,6 @@
     "campaignDailyRates": {},
     "geoDailyRates": {},
     "monthFactor": {}
-  }
+  },
+  "budgetTotal": 18000
 }

@@ -109,10 +109,11 @@ AREA_OF_INTEREST). Adjust the GAQL if the account reports at region level.
 
 ---
 
-## Feed 4 — Looker Studio (LOB report)  ·  no direct API
+## Feed 4 — Looker Studio (LOB report + budget breakdown)  ·  no direct API
 
-**Powers:** average revenue & policy counts in *PMax Strategy*, *LTV & ROAS*, and
-*PMax Group Selector*.
+**Powers:** average revenue & policy counts in *LTV & ROAS*, and — confirmed by
+Sarah — the **Budget** per-campaign split (total fixed at $18,000/month; split
+provided at month-end via `budget[]`).
 
 **Reality:** Looker Studio has **no supported API to read rendered report
 values**. These figures are transcribed manually from the LOB report today (last

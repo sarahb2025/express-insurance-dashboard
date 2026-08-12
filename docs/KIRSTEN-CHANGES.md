@@ -59,7 +59,7 @@ slides) and `Express_Insurance___July_2026_Commentary.docx` (July manual comment
 
 ### Judgement calls — CONFIRMED by client (2026-08-11), locked for the review version
 1. Key Findings accordion **and** the five state-summary tiles stay **removed** (Slide 6). ✅
-2. Budget breakdown: original reference confirmed to show **static, hard-coded figures with no source label**. Relabelled **"Source unconfirmed"** with a discreet note; kept data-driven and ready to connect once Sarah confirms the true source. Do **not** assert Looker/manual until then. ✅ (updated 2026-08-11)
+2. Budget breakdown: original reference showed static, hard-coded figures with no source label. **Sarah confirmed (2026-08-11): connect to the Looker Studio budget breakdown; total is fixed at $18,000/month; the split is provided at month-end.** Section relabelled **"Looker: budget"**, shows the fixed $18k with the split marked pending until month-end (no fabrication). ✅
 3. Asset Group and LOB/LTV figures stay clearly marked **Awaiting data** — no figures fabricated. ✅
 
 ### Original judgement-call notes (for context)
