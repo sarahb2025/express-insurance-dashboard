@@ -41,8 +41,9 @@ variable **names and status**, never values.
 
 | Variable | Required | What it holds |
 |----------|:---:|---------------|
-| `GA4_PROPERTY_ID` | ✅ | `358319621` (not secret) |
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | ✅ | the service-account key JSON (raw or base64) |
+| `GA4_PROPERTY_ID` | ✅ | `358319621` (not secret) — exists Prod-only, **add to Preview** |
+| `GA4_SA_EMAIL` | ✅ | service-account client_email — **reuse existing**, add to Preview |
+| `GA4_SA_PRIVATE_KEY` | ✅ | service-account private_key — **reuse existing**, add to Preview |
 | `GOOGLE_ADS_DEVELOPER_TOKEN` | ✅ | MCC developer token |
 | `GOOGLE_ADS_CLIENT_ID` | ✅ | OAuth client ID |
 | `GOOGLE_ADS_CLIENT_SECRET` | ✅ | OAuth client secret |
@@ -62,7 +63,8 @@ unticked). Save.
 **Or CLI** (from the project, prompts for each value — nothing is written to disk):
 ```bash
 vercel env add GA4_PROPERTY_ID preview
-vercel env add GOOGLE_SERVICE_ACCOUNT_JSON preview
+vercel env add GA4_SA_EMAIL preview
+vercel env add GA4_SA_PRIVATE_KEY preview
 vercel env add GOOGLE_ADS_DEVELOPER_TOKEN preview
 vercel env add GOOGLE_ADS_CLIENT_ID preview
 vercel env add GOOGLE_ADS_CLIENT_SECRET preview

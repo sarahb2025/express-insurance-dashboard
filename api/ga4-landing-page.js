@@ -13,8 +13,10 @@
  *
  * CREDENTIALS (env vars only — never commit secrets):
  *   GA4_PROPERTY_ID                    e.g. 358319621  (confirmed live on the current deployment)
- *   GOOGLE_SERVICE_ACCOUNT_JSON        full service-account key JSON (raw or base64),
- *                                      OR set GOOGLE_APPLICATION_CREDENTIALS to a key file path.
+ *   GA4_SA_EMAIL + GA4_SA_PRIVATE_KEY  service-account client_email + private_key
+ *                                      (reuses the existing project's variables), OR
+ *   GOOGLE_SERVICE_ACCOUNT_JSON        full service-account key JSON (raw or base64), OR
+ *   GOOGLE_APPLICATION_CREDENTIALS     a key file path.
  * The service account must be granted "Viewer" on the GA4 property.
  * See docs/CREDENTIALS-AND-ACCESS.md and docs/INTEGRATIONS.md.
  *
@@ -33,12 +35,22 @@ const CHANNEL_MAP = {
 };
 
 function loadCredentials() {
+  // Preferred: reuse the existing separate service-account vars (client_email + private_key).
+  // Private keys stored in env vars usually carry literal "\n" — normalise to real newlines.
+  if (process.env.GA4_SA_EMAIL && process.env.GA4_SA_PRIVATE_KEY) {
+    return { credentials: {
+      client_email: process.env.GA4_SA_EMAIL,
+      private_key: process.env.GA4_SA_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    } };
+  }
+  // Alternative: a full service-account key JSON (raw or base64).
   const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
   if (raw) {
     const text = raw.trim().startsWith('{') ? raw : Buffer.from(raw, 'base64').toString('utf8');
     return { credentials: JSON.parse(text) };
   }
-  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) return {}; // client picks up the key file path itself
+  // Alternative: GOOGLE_APPLICATION_CREDENTIALS file path (the client picks it up itself).
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) return {};
   return null;
 }
 
@@ -52,7 +64,7 @@ module.exports = async function handler(req, res) {
   if (!propertyId || creds === null) {
     res.status(501).json({
       error: 'GA4 landing-page feed not configured',
-      missing: [!propertyId && 'GA4_PROPERTY_ID', creds === null && 'GOOGLE_SERVICE_ACCOUNT_JSON (or GOOGLE_APPLICATION_CREDENTIALS)'].filter(Boolean),
+      missing: [!propertyId && 'GA4_PROPERTY_ID', creds === null && 'GA4_SA_EMAIL + GA4_SA_PRIVATE_KEY (or GOOGLE_SERVICE_ACCOUNT_JSON / GOOGLE_APPLICATION_CREDENTIALS)'].filter(Boolean),
       docs: 'docs/CREDENTIALS-AND-ACCESS.md',
     });
     return;

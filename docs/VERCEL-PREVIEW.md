@@ -41,21 +41,27 @@ values.
 Add each to the **Preview** environment (leave Production untouched). Owners are in
 `docs/CREDENTIALS-AND-ACCESS.md`.
 
-| # | Variable | Required | Notes |
-|---|----------|:---:|-------|
-| 1 | `GA4_PROPERTY_ID` | ✅ | `358319621` (not secret) |
-| 2 | `GOOGLE_SERVICE_ACCOUNT_JSON` | ✅ | SA key JSON (raw or base64); SA has **Viewer** on the GA4 property |
-| 3 | `GOOGLE_ADS_DEVELOPER_TOKEN` | ✅ | from the MCC (API Center) |
-| 4 | `GOOGLE_ADS_CLIENT_ID` | ✅ | OAuth client |
-| 5 | `GOOGLE_ADS_CLIENT_SECRET` | ✅ | OAuth client |
-| 6 | `GOOGLE_ADS_REFRESH_TOKEN` | ✅ | **the regenerated token** (old one is `invalid_grant`) |
-| 7 | `GOOGLE_ADS_CUSTOMER_ID` | ✅ | digits only, no dashes |
-| 8 | `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | ⬜ | only if accessed via an MCC |
-| 9 | `GOOGLE_ADS_CAMPAIGN_MAP` | ⬜ | JSON name→key map, only if live names differ from the heuristic |
+| # | Variable | Required | In existing project? | Notes |
+|---|----------|:---:|---|-------|
+| 1 | `GA4_PROPERTY_ID` | ✅ | ✅ Prod only → **add to Preview** | `358319621` (not secret) |
+| 2 | `GA4_SA_EMAIL` | ✅ | ✅ Prod only → **add to Preview** | service-account client_email (reused) |
+| 3 | `GA4_SA_PRIVATE_KEY` | ✅ | ✅ Prod only → **add to Preview** | service-account private_key (reused); the code accepts it as stored |
+| 4 | `GOOGLE_ADS_DEVELOPER_TOKEN` | ✅ | ✅ Prod + Preview | from the MCC (API Center) |
+| 5 | `GOOGLE_ADS_CLIENT_ID` | ✅ | ✅ Prod + Preview | OAuth client |
+| 6 | `GOOGLE_ADS_CLIENT_SECRET` | ✅ | ❔ verifying | OAuth client |
+| 7 | `GOOGLE_ADS_REFRESH_TOKEN` | ✅ | ❔ verifying | **regenerate** (old one is `invalid_grant`) |
+| 8 | `GOOGLE_ADS_CUSTOMER_ID` | ✅ | ✅ Prod + Preview | digits only, no dashes |
+| 9 | `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | ⬜ | ✅ Prod + Preview | only if via an MCC |
+| 10 | `GOOGLE_ADS_CAMPAIGN_MAP` | ⬜ | — | JSON name→key map, only if live names differ |
 
-These nine cover **all four** Google Ads endpoints (`ads-report`, `ads-geo`,
-`ads-asset-groups`) and the GA4 endpoint (`ga4-landing-page`) — no per-endpoint
-extras.
+GA4 credentials: the branch code **reuses the existing** `GA4_SA_EMAIL` +
+`GA4_SA_PRIVATE_KEY` (a `GOOGLE_SERVICE_ACCOUNT_JSON` blob still works as an
+alternative). These cover **all four** Google Ads endpoints (`ads-report`,
+`ads-geo`, `ads-asset-groups`) and the GA4 endpoint (`ga4-landing-page`).
+
+> The three GA4 vars currently exist **Production-only** — they must be **added to
+> Preview** (same values) for the Preview build to pull GA4. Adding a Preview-scoped
+> copy does not change the Production variables.
 
 ### Add them safely (values entered at the prompt, never stored here)
 ```bash

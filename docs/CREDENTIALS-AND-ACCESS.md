@@ -26,7 +26,8 @@ GA4 data from this property).*
 | Var | Value | Who supplies |
 |-----|-------|--------------|
 | `GA4_PROPERTY_ID` | `358319621` | known |
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | the service-account key JSON (raw or base64) | developer creates; **secret** |
+| `GA4_SA_EMAIL` + `GA4_SA_PRIVATE_KEY` | **existing** service-account client_email + private_key (reused; code reads these directly) | already provisioned; **secret** |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | *(alternative)* full key JSON (raw or base64) | developer; **secret** |
 | `GOOGLE_APPLICATION_CREDENTIALS` | *(local dev alt.)* path to the key file | developer |
 
 ---
