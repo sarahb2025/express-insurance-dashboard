@@ -36,7 +36,7 @@ written but **not deployed** and **no credentials set**:
 | Google Ads endpoints (`ads-report.js`, `ads-geo.js`) | 🟡 Code ready, not deployed | Need all Google Ads credentials below. |
 | Google Ads **refresh token** | ❌ Broken | `invalid_grant` — expired/revoked. Must be regenerated. |
 | Google Ads dev token / client ID / secret / customer ID | ❔ Missing here | Not in this environment; must be provided as env vars. |
-| **PMax asset-group live feed** | ❌ **Missing (not built)** | No endpoint returns asset-group rows yet; the table only reads stored data. **Build task** (see §2.3). |
+| **PMax asset-group live feed** | ✅ **Built (this branch)** | `api/ads-asset-groups.js` + `tryLiveAssetGroups()` + feed-status pill; unit-tested. Needs the same Google Ads credentials as the other Ads feeds — no new env var. (see §2.3) |
 | Period-over-period % change on stat cards | 🟡 Partial | `ads-report.js` returns values; deltas need a second (prior-period) query. Minor enhancement. |
 | npm dependencies | 🟡 Declared, not installed | `@google-analytics/data`, `google-ads-api` — `npm install`. |
 | Vercel env vars | ❌ Empty | Must be set (Preview + Production) — never in the repo. |
@@ -62,13 +62,25 @@ code for KPIs/campaigns/geography — just supply credentials. Confirm the
 campaign-name→key mapping against the real account and set `GOOGLE_ADS_CAMPAIGN_MAP`
 if names differ from the heuristic.
 
-### 2.3 Build task — PMax asset-group feed (missing)
-The asset-group table needs a new endpoint, e.g. `api/ads-asset-groups.js`, GAQL on
-the `asset_group` resource:
-`SELECT asset_group.name, metrics.cost_micros, metrics.conversions, metrics.conversions_value FROM asset_group WHERE segments.date BETWEEN … AND campaign.advertising_channel_type = 'PERFORMANCE_MAX'`,
-plus a small `tryLiveAssetGroups()` in the dashboard that maps the result to
-`renderAssetGroups([...])`. **I can build this on request** — it's ~1 endpoint + one
-frontend hook; it does not need any new credential beyond §2.1.
+### 2.3 PMax asset-group feed — BUILT (2026-08-12)
+- **Endpoint:** `api/ads-asset-groups.js` — GAQL on the `asset_group` resource:
+  `SELECT asset_group.name, campaign.name, metrics.cost_micros, metrics.conversions,
+  metrics.conversions_value FROM asset_group WHERE segments.date BETWEEN <start> AND
+  <end> AND campaign.advertising_channel_type = 'PERFORMANCE_MAX'`. Aggregates per
+  asset group → `{name, spend, conv, convValue, roas}` (ROAS = value/spend, guarded
+  against divide-by-zero), sorted by conversion value. Uses the shared
+  `lib/google-ads.js` client; **no new env var** (§2.1 credentials only).
+- **Frontend:** `tryLiveAssetGroups()` fetches `/api/ads-asset-groups`, calls
+  `renderAssetGroups()`, and sets the `#pmax-feed-status` pill
+  (live / static-fallback / awaiting). Wired into every date-mode handler and the
+  initial load.
+- **Error handling:** 400 (missing dates), 501 (not configured, lists missing env),
+  500 (API/auth error). On any failure the table keeps its "Awaiting Google Ads
+  asset-group report" row — never fabricated.
+- **Tests / validation:** `node scripts/test-asset-groups.js` (12 offline assertions
+  on the aggregation math — no creds needed). Live check once credentialed:
+  `curl -s ".../api/ads-asset-groups?start=2026-07-01&end=2026-07-31" | jq '.assetGroups'`
+  and confirm the table + pill go live.
 
 ---
 
@@ -137,6 +149,6 @@ Google Ads numbers. If a feed fails it falls back to placeholders and the pill s
 | Regenerate Google Ads refresh token; dev token; customer/MCC IDs | Balmer / Google Ads account + MCC admin |
 | Google Cloud project, OAuth client, GA4 service account | Developer (us) |
 | Grant service account **Viewer** on GA4 `358319621` | GA4 Admin |
-| Build the PMax asset-group endpoint + hook | Developer (us) — on request |
+| Build the PMax asset-group endpoint + hook | Developer (us) — ✅ done (this branch) |
 | Set env vars in Vercel; trigger Preview; production deploy | Whoever holds Vercel project access + your go-ahead |
 | Monthly commentary | Omdigi (Kirsten) |

@@ -48,6 +48,10 @@ If accessed via a manager account, also the **MCC / login customer ID**
   `https://www.googleapis.com/auth/adwords`. **⚠️ The current one is invalid
   (`invalid_grant`) and must be regenerated.**
 
+These same credentials power all four Google Ads endpoints — `/api/ads-report`
+(KPIs, campaigns), `/api/ads-geo` (geography), and `/api/ads-asset-groups` (PMax
+asset groups). No endpoint needs an additional secret.
+
 **Env vars**
 | Var | Value | Who supplies |
 |-----|-------|--------------|

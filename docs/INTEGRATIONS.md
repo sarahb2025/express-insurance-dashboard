@@ -87,6 +87,24 @@ publishing deltas (marked with a NOTE in `api/ads-report.js`).
 
 ---
 
+## Feed 3b — Google Ads PMax asset groups  ·  `GET /api/ads-asset-groups`
+
+**Powers:** the *Performance Max & Asset Group Overview* table (Spend,
+Conversions, Conv. Value, ROAS per asset group). **Source of truth: Google Ads.**
+
+**Connect:** same credentials as Feed 2 (`getCustomer()` shared) — no new env var.
+GAQL runs on the `asset_group` resource filtered to
+`campaign.advertising_channel_type = 'PERFORMANCE_MAX'`.
+
+**Test**
+```bash
+node scripts/test-asset-groups.js   # offline: 12 assertions on the aggregation, no creds
+curl -s "http://localhost:3000/api/ads-asset-groups?start=2026-07-01&end=2026-07-31" | jq '.assetGroups'
+# 200 => [{name, spend, conv, convValue, roas}, ...];  501 => env missing;  500 => API/auth error
+```
+On the page, the PMax "Feed" pill flips to **live** and the table fills; on failure it
+keeps the "Awaiting Google Ads asset-group report" row.
+
 ## Feed 3 — Google Ads geography  ·  `GET /api/ads-geo`
 
 **Powers:** *Geographic Performance* (converting locations bars + city table).

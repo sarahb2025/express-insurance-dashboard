@@ -513,6 +513,7 @@ tr:hover td{background:#F8FAFC}
     <span class="sec-sub">Asset group performance for the selected period</span>
     <span class="src-chip src-gads" title="Spend, conversions, conversion value & ROAS per asset group from Google Ads.">Google Ads</span>
     <span class="src-chip src-static" title="Commentary below is written by the agency (Kirsten).">Static: commentary</span>
+    <span class="feed-status feed-placeholder" id="pmax-feed-status" title="Updates automatically when the Google Ads asset-group feed responds.">Feed: not connected</span>
   </div>
   <div class="tbl-wrap">
     <table>
@@ -1057,6 +1058,7 @@ function renderPlaceholders(p){
     card.querySelectorAll('div[style*="flex-direction:column"] strong').forEach(function(s){ s.textContent = PH; });
   });
   setFeedStatus('ads-feed-status', 'placeholder', 'Awaiting Google Ads export');
+  setFeedStatus('pmax-feed-status', 'placeholder', 'Awaiting Google Ads asset-group report');
   setFeedStatus('ga4-feed-status', 'placeholder', 'Awaiting GA4 export');
 }
 
@@ -1301,6 +1303,27 @@ function tryLiveGa4LandingPage(){
     });
 }
 
+/* -- Live Google Ads feed: PMax asset-group table (spend, conversions, conv value, ROAS).
+   Overrides the asset-group table from /api/ads-asset-groups. Falls back to the
+   placeholder/awaiting row if the call fails. -- */
+function tryLiveAssetGroups(){
+  var range = currentRangeISO();
+  if (!range) return;
+  var reqKey = rangeKey(range);
+  fetch('/api/ads-asset-groups?start=' + range[0] + '&end=' + range[1], { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+    .then(function(j){
+      if (reqKey !== rangeKey(currentRangeISO())) return; /* selection changed while in flight */
+      if (!j || !Array.isArray(j.assetGroups)) throw new Error('bad shape');
+      renderAssetGroups(j.assetGroups);
+      setFeedStatus('pmax-feed-status', 'live', 'Feed: live · Google Ads');
+    })
+    .catch(function(){
+      if (DATA && DATA.placeholder) setFeedStatus('pmax-feed-status', 'placeholder', 'Awaiting Google Ads asset-group report');
+      else setFeedStatus('pmax-feed-status', 'fallback', 'Feed: static — Google Ads asset-group feed unavailable');
+    });
+}
+
 /* -- Live Google Ads feed: overrides the KPI band, stat cards, and campaign
    table with real numbers once the API connection is authorised. Falls back
    silently to the existing static/report figures if the call fails. -- */
@@ -1338,6 +1361,7 @@ function setMode(mode, el){
   tryLiveAds();
   tryLiveAdsGeo();
   tryLiveGa4LandingPage();
+  tryLiveAssetGroups();
 }
 
 function onMonthChange(){
@@ -1347,6 +1371,7 @@ function onMonthChange(){
   tryLiveAds();
   tryLiveAdsGeo();
   tryLiveGa4LandingPage();
+  tryLiveAssetGroups();
 }
 
 function applyCustom(){
@@ -1361,6 +1386,7 @@ function applyCustom(){
   tryLiveAds();
   tryLiveAdsGeo();
   tryLiveGa4LandingPage();
+  tryLiveAssetGroups();
 }
 
 /* -- Header date badge always shows the latest available month, not a hardcoded one -- */
@@ -1399,7 +1425,7 @@ fetch('data.json', { cache: 'no-store' })
   .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
   .then(function(j){ if (validData(j)) { DATA = j; refresh(); } })
   .catch(function(){ /* keep built-in default silently */ })
-  .then(function(){ tryLiveAds(); tryLiveAdsGeo(); tryLiveGa4LandingPage(); });
+  .then(function(){ tryLiveAds(); tryLiveAdsGeo(); tryLiveGa4LandingPage(); tryLiveAssetGroups(); });
 
 /* -- Upload data (.json) -- */
 function showUploadMsg(text, ok){

@@ -73,7 +73,7 @@ with no source label; this is now resolved.)* `budget[]` items:
 
 | Element | Source |
 |---------|--------|
-| Asset-group table — Asset Group, Spend, Conversions, Conv. Value, ROAS | **Google Ads** (`months[m].assetGroups[]`) |
+| Asset-group table — Asset Group, Spend, Conversions, Conv. Value, ROAS | **Google Ads** — live via `/api/ads-asset-groups`, or `months[m].assetGroups[]` |
 | Commentary (blue ℹ️ info box) | **Kirsten — manual** (`commentary.pmax`) |
 
 Changes: renamed from "Performance Max — Asset Group Strategy"; the five static
