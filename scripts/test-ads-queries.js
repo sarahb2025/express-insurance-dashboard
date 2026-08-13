@@ -50,4 +50,10 @@ ok('ads-asset-groups filters PERFORMANCE_MAX', ag.includes("advertising_channel_
 ['metrics.cost_micros', 'metrics.conversions', 'metrics.conversions_value']
   .forEach((f) => ok(`ads-asset-groups selects ${f}`, ag.includes(f)));
 
+// 3) Best-campaign name mapping: API must return a full name, not the internal key.
+const lib = require('../lib/google-ads.js');
+ok('lib exports CAMPAIGN_NAMES', lib.CAMPAIGN_NAMES && typeof lib.CAMPAIGN_NAMES === 'object');
+ok('CAMPAIGN_NAMES.pl = Public Liability', lib.CAMPAIGN_NAMES.pl === 'Public Liability');
+ok('ads-report maps best campaign key via CAMPAIGN_NAMES', report.includes('CAMPAIGN_NAMES[a.key]'));
+
 console.log(`ads query/resource checks: ${passed} assertions passed`);

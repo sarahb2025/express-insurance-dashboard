@@ -9,7 +9,7 @@
  * If unconfigured -> 501; if the API call fails -> 500 (both keep the dashboard's
  * static/placeholder figures — nothing is fabricated). See docs/INTEGRATIONS.md.
  */
-const { getCustomer, campaignKeyFor, sendError } = require('../lib/google-ads');
+const { getCustomer, campaignKeyFor, sendError, CAMPAIGN_NAMES } = require('../lib/google-ads');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
     const campaigns = Object.values(byKey).map((a) => {
       const roas = a.cost ? a.convValue / a.cost : 0;
       if (a.key === 'pmax') pmaxRoas = roas;
-      if (a.key !== 'brand' && (!best || roas > best.roas)) best = { name: a.key, roas };
+      if (a.key !== 'brand' && (!best || roas > best.roas)) best = { name: CAMPAIGN_NAMES[a.key] || a.key, roas };
       return { key: a.key, cost: Math.round(a.cost), conv: a.conv, cpa: a.conv ? Math.round(a.cost / a.conv) : 0, convValue: Math.round(a.convValue), roas };
     });
 

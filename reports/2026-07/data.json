@@ -1,7 +1,7 @@
 {
   "_schema": "July 2026 data feed. placeholder:true \u2192 the dashboard renders 'awaiting data' cells and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are awaited from the export. Commentary is Kirsten's manual July input (from the July 2026 commentary document). To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
   "placeholder": true,
-  "pmaxNote": "Awaiting Google Ads",
+  "pmaxNote": "Optimising \u2014 new groups in progress",
   "monthOrder": [
     "July 2026"
   ],

@@ -417,7 +417,7 @@ tr:hover td{background:#F8FAFC}
 <!-- REPORT-KIND BANNER — this is the July 2026 reporting-month report, generated from the master template. -->
 <div class="tpl-banner report" id="tpl-banner">
   <span class="tpl-tag">Reporting month</span>
-  <span><strong>July 2026</strong> — generated from the master template. All live figures are placeholders until Google Ads, GA4 and Kirsten's manual inputs are supplied. See <code>reports/2026-07/README.md</code>.</span>
+  <span><strong>July 2026</strong> — Google Ads and GA4 figures are pulled live. Kirsten's manual commentary and the Looker budget split may remain pending. See <code>reports/2026-07/README.md</code>.</span>
 </div>
 
 <!-- DATA-SOURCE LEGEND — classifies every block on the page -->
@@ -900,7 +900,7 @@ function fmtChg(p){
   return (p < 0 ? '−' : '+') + s + '%';
 }
 function geoChg(conv, prev){
-  if (!prev) return '+0%';
+  if (!prev) return 'new'; // no conversions in the previous period — label rather than a misleading +0%
   var p = Math.round((conv - prev) / prev * 100);
   return (p < 0 ? '−' : '+') + Math.abs(p) + '%';
 }
@@ -924,17 +924,32 @@ var STAT_DEFS = [
 ];
 
 /* -- Render functions (regenerate the exact original markup from data) -- */
+// Map an internal campaign key (brand/pmax/pi/acct/pl/…) to its full display name.
+function campaignName(v){ return (v && CAMP_META[v]) ? CAMP_META[v].name : v; }
+
 function renderKPI(k){
   var items = document.querySelectorAll('.kpi-bar .kpi-item');
   if (items.length < 6 || !k) return;
+  renderBudgetKPI();
   items[1].querySelector('.kpi-val').textContent = k.accountRoas.toFixed(2);
   items[1].querySelector('.kpi-chg').textContent = 'Non-brand: ' + k.nonBrand.toFixed(2);
-  items[2].querySelector('.kpi-val').textContent = k.bestName;
+  items[2].querySelector('.kpi-val').textContent = campaignName(k.bestName);
   items[2].querySelector('.kpi-chg').textContent = 'ROAS ' + k.bestRoas.toFixed(2);
   items[3].querySelector('.kpi-val').textContent = k.pmaxRoas.toFixed(2);
   items[3].querySelector('.kpi-chg').textContent = DATA.pmaxNote || '';
   items[4].querySelector('.kpi-val').textContent = fmtDollarK(k.convValue);
   items[4].querySelector('.kpi-chg').textContent = k.convValueNote;
+}
+
+// Monthly Budget KPI: fixed total from data; the per-campaign split comes from Looker at month-end.
+function renderBudgetKPI(){
+  var items = document.querySelectorAll('.kpi-bar .kpi-item');
+  if (!items.length) return;
+  var v = items[0].querySelector('.kpi-val'), c = items[0].querySelector('.kpi-chg');
+  if (DATA && DATA.budgetTotal) {
+    if (v) v.textContent = fmtDollarK(DATA.budgetTotal);
+    if (c) c.textContent = 'Split pending · Looker';
+  }
 }
 
 function renderPeriodLabel(p){
@@ -948,11 +963,20 @@ function renderStats(st){
   STAT_DEFS.forEach(function(def, i){
     var s = st[def.k];
     if (!s || !cards[i]) return;
-    var chg = typeof s.chg === 'string' ? s.chg : fmtChg(s.chg);
-    var neg = chg.charAt(0) === '−' || chg.charAt(0) === '-';
-    var cls = neg ? (def.goodDown ? 'chg-good' : 'chg-dn') : (def.goodDown ? 'chg-dn' : 'chg-up');
-    var arrow = neg ? '↓' : '↑';
-    cards[i].innerHTML = '<div class="stat-label">' + def.label + '</div><div class="stat-val">' + def.fmt(s.v) + '</div><span class="stat-chg ' + cls + '">' + arrow + ' ' + chg + '</span>';
+    var hasChg = (typeof s.chg === 'string' && s.chg !== '') || (typeof s.chg === 'number' && isFinite(s.chg));
+    var badge;
+    if (!hasChg) {
+      // Previous-period comparison not available (e.g. Google Ads feed without a prior-period query).
+      // Show a neutral label rather than a misleading +0%.
+      badge = '<span class="stat-chg" style="background:#F1F5F9;color:#64748B" title="Previous-period comparison not available">vs prev n/a</span>';
+    } else {
+      var chg = typeof s.chg === 'string' ? s.chg : fmtChg(s.chg);
+      var neg = chg.charAt(0) === '−' || chg.charAt(0) === '-';
+      var cls = neg ? (def.goodDown ? 'chg-good' : 'chg-dn') : (def.goodDown ? 'chg-dn' : 'chg-up');
+      var arrow = neg ? '↓' : '↑';
+      badge = '<span class="stat-chg ' + cls + '">' + arrow + ' ' + chg + '</span>';
+    }
+    cards[i].innerHTML = '<div class="stat-label">' + def.label + '</div><div class="stat-val">' + def.fmt(s.v) + '</div>' + badge;
   });
 }
 
@@ -1026,6 +1050,11 @@ function renderPlaceholders(p){
   var kpiNotes = ['Kirsten to set', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Target set by strategy'];
   items.forEach(function(it, i){
     var v = it.querySelector('.kpi-val'), c = it.querySelector('.kpi-chg');
+    if (i === 0 && DATA && DATA.budgetTotal) { // Monthly Budget: fixed total known even without live feeds
+      if (v) v.textContent = fmtDollarK(DATA.budgetTotal);
+      if (c) c.textContent = 'Split pending · Looker';
+      return;
+    }
     if (v) v.textContent = PH;
     if (c) c.textContent = kpiNotes[i] || 'Awaiting data';
   });

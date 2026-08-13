@@ -56,7 +56,38 @@ await check('/reports/2026-07/index.html', 'JULY report renders placeholders', a
   const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
   const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
   const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
-  return { ok: kpi === '—' && stat === '—' && banner, kpi, stat, banner };
+  const budgetKpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(1) .kpi-val'))?.trim();
+  const bannerNoPlaceholderClaim = !(await p.textContent('#tpl-banner'))?.includes('all live figures are placeholders');
+  return {
+    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' && bannerNoPlaceholderClaim,
+    kpi, stat, banner, budgetKpi, bannerNoPlaceholderClaim,
+  };
+});
+
+await check('/reports/2026-07/index.html', 'JULY live-render display fixes', async (p) => {
+  // Simulate a live Google Ads feed response and exercise the render path
+  const r = await p.evaluate(() => {
+    renderKPI({ accountRoas: 2.1, nonBrand: 1.8, bestName: 'pl', bestRoas: 2.4, pmaxRoas: 1.9, convValue: 90000, convValueNote: '1 – 31 July 2026' });
+    renderStats({ impressions: { v: 436000, chg: null }, clicks: { v: 12780, chg: null }, conversions: { v: 60, chg: null }, convValue: { v: 90000, chg: null }, cost: { v: 18000, chg: null }, cpc: { v: 1.4, chg: null } });
+    const item = (n) => document.querySelector(`.kpi-bar .kpi-item:nth-child(${n})`);
+    const firstBadge = document.querySelector('#perf .stats-row .stat-card:first-child .stat-chg')?.textContent.trim();
+    return {
+      monthlyBudget: item(1).querySelector('.kpi-val').textContent.trim(),
+      bestCampaign: item(3).querySelector('.kpi-val').textContent.trim(),
+      pmaxNote: item(4).querySelector('.kpi-chg').textContent.trim(),
+      firstStatBadge: firstBadge,
+      geoChgNew: geoChg(3, 0),
+      geoChgReal: geoChg(6, 5),
+    };
+  });
+  const ok =
+    r.monthlyBudget === '$18K' &&
+    r.bestCampaign === 'Public Liability' &&          // key 'pl' mapped to full name
+    r.pmaxNote === 'Optimising — new groups in progress' &&  // no "Awaiting Google Ads"
+    r.firstStatBadge === 'vs prev n/a' &&             // null chg labelled, not +0%
+    !r.firstStatBadge.includes('+0%') &&
+    r.geoChgNew === 'new' && /%$/.test(r.geoChgReal);
+  return { ok, ...r };
 });
 
 await browser.close();
