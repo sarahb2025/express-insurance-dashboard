@@ -129,7 +129,9 @@ module.exports = async function handler(req, res) {
       dimensionFilter: {
         filter: {
           fieldName: 'landingPagePlusQueryString',
-          stringFilter: { matchType: 'BEGINS_WITH', value: LANDING_PAGE_PATH },
+          // caseSensitive:false — GA4 string filters default to case-sensitive, a common
+          // cause of zero rows when the stored path casing differs.
+          stringFilter: { matchType: 'BEGINS_WITH', value: LANDING_PAGE_PATH, caseSensitive: false },
         },
       },
     });
@@ -149,12 +151,32 @@ module.exports = async function handler(req, res) {
     // the row count, and the raw GA4 channel-group names (mapped + unmapped). No credentials.
     if (req.query && (req.query.debug === '1' || req.query.debug === 'true')) {
       const groups = rows.map((r) => (r.dimensionValues && r.dimensionValues[0] ? r.dimensionValues[0].value : null));
+      // Also fetch the actual top landing pages (unfiltered) so the correct path is
+      // visible in one call — report data only (page paths + session counts).
+      let topLandingPages;
+      try {
+        const [lp] = await client.runReport({
+          property: `properties/${propertyId}`,
+          dateRanges: [{ startDate: start, endDate: end }],
+          dimensions: [{ name: 'landingPagePlusQueryString' }],
+          metrics: [{ name: 'sessions' }],
+          orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+          limit: 15,
+        });
+        topLandingPages = (lp.rows || []).map((r) => ({
+          path: r.dimensionValues[0].value,
+          sessions: Number(r.metricValues[0].value) || 0,
+        }));
+      } catch (e) {
+        topLandingPages = { error: String(e && e.message || e) };
+      }
       payload._debug = {
         landingPagePath: LANDING_PAGE_PATH,
         rowCount: rows.length,
         channelGroupsReturned: groups,
         mappedChannels: channels.map((c) => c.channel),
         unmappedGroups: groups.filter((g) => !CHANNEL_ALIASES[normChannel(g)]),
+        topLandingPages,
       };
     }
 
