@@ -176,3 +176,29 @@ Fix chain that got here (all branch-only, no Production changes):
 
 Next: on-dashboard visual/data validation (see `docs/FINAL-VALIDATION-CHECKLIST.md`).
 Nothing merged or promoted to Production.
+
+---
+
+## 7. GA4 landing-page finding (2026-08-13) — likely wrong property
+
+`?debug=1` on the live GA4 endpoint (property **358319621**) for July:
+- `rowCount: 0` for `/professional-indemnity-insurance/accountants-insurance`.
+- `topLandingPages` (unfiltered, top by sessions) contained **only** two legacy
+  quote-app paths, 1 session each:
+  `/ka/express_psw_web/index.php/accountants/process` and
+  `/ka/express_psw_web/index.php/public_liability_insurance/process`.
+
+**Interpretation:** this property contains **no marketing-site landing pages at all**
+(not the accountants page, nor any other) — only a legacy `express_psw_web/index.php`
+quote application. That is inconsistent with Omdigi's ~160 paid sessions to the
+accountants page, so those sessions live in a **different GA4 property** (the one
+tracking the marketing website). Most likely **358319621 is the wrong property** for
+the landing-page section (it appears to track the legacy quote app); a tracking gap on
+an otherwise-correct property is less likely (we'd expect other marketing pages to
+appear, and they don't).
+
+**Do NOT** map the dashboard to the legacy `/ka/.../process` paths.
+
+**Blocked on:** the GA4 property ID (and data stream) that tracks the marketing site,
+plus the exact landing-page path as stored there. Google Ads feeds are unaffected;
+only the GA4 landing-page section is blocked. See the credential-request note.
