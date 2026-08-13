@@ -1507,7 +1507,14 @@ function tryLiveGa4LandingPage(){
       if (reqKey !== rangeKey(currentRangeISO())) return; /* selection changed while in flight */
       if (!j || !Array.isArray(j.channels)) throw new Error('no channels');
       renderLandingPage(j.channels);
-      setFeedStatus('ga4-feed-status', 'live', 'Feed: live · GA4 (property ' + (j.propertyId || '358319621') + ')');
+      /* Safe diagnostic (report data only, no credentials): how many channel cards were filled. */
+      try { console.info('[ga4-landing-page] channels returned:', j.channels.length, j.channels.map(function(c){ return c.channel; })); } catch (e) {}
+      if (j.channels.length) {
+        setFeedStatus('ga4-feed-status', 'live', 'Feed: live · GA4 (property ' + (j.propertyId || '358319621') + ')');
+      } else {
+        /* 200 but no rows matched the landing-page filter — don't imply populated data */
+        setFeedStatus('ga4-feed-status', 'fallback', 'Feed: live · GA4 returned 0 rows for this landing page — check the page path');
+      }
     })
     .catch(function(){
       if (DATA && DATA.placeholder) setFeedStatus('ga4-feed-status', 'placeholder', 'Awaiting GA4 export');

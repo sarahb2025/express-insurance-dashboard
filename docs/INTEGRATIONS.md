@@ -39,10 +39,20 @@ curl -s "http://localhost:3000/api/ga4-landing-page?start=2026-05-01&end=2026-05
 On the page, open *More Insights* → the "GA4 live" pill next to *Landing Page
 Performance* should read **live**; the four cards update.
 
-**Note:** the reference dashboard hard-codes the four landing-page cards from a
-GA4 export (Mar–Apr 2026). Until this feed is deployed those static numbers show,
-labelled GA4. The `landingPagePlusQueryString` filter targets
-`/professional-indemnity-insurance/accountants-insurance`.
+**Note:** the `landingPagePlusQueryString` filter targets
+`/professional-indemnity-insurance/accountants-insurance` (override with
+`GA4_LANDING_PAGE_PATH` if the path in GA4 differs). Channel matching is tolerant of
+case/hyphen/spacing.
+
+**If the pill says live but all four cards are blank:** the report returned 200 with
+zero matching rows. Diagnose with the safe debug flag (report data only — channel
+names + counts, no credentials):
+```bash
+curl -s ".../api/ga4-landing-page?start=2026-07-01&end=2026-07-31&debug=1" | jq '._debug'
+# { landingPagePath, rowCount, channelGroupsReturned, mappedChannels, unmappedGroups }
+```
+- `rowCount: 0` → the landing-page filter matched nothing → fix `GA4_LANDING_PAGE_PATH`.
+- rows present but `unmappedGroups` non-empty → a channel name the map doesn't cover.
 
 ---
 

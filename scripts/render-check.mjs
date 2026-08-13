@@ -90,6 +90,25 @@ await check('/reports/2026-07/index.html', 'JULY live-render display fixes', asy
   return { ok, ...r };
 });
 
+await check('/reports/2026-07/index.html', 'JULY landing-page cards fill from a live GA4 response', async (p) => {
+  const r = await p.evaluate(() => {
+    renderLandingPage([
+      { channel: 'crossnet', sessions: 1928, keyEvents: 14, convRate: '0.73%', bounceRate: '85.6%', engagement: '5.6 sec' },
+      { channel: 'paidsearch', sessions: 160, keyEvents: 31, convRate: '19.4%', bounceRate: '32.2%', engagement: '99 sec' },
+      { channel: 'direct', sessions: 84, keyEvents: 6, convRate: '7.1%', bounceRate: '15.5%', engagement: '8.9 sec' },
+      { channel: 'organic', sessions: 28, keyEvents: 3, convRate: '10.7%', bounceRate: '60.7%', engagement: '8.1 sec' },
+    ]);
+    const read = (ch) => {
+      const card = document.querySelector(`#lp-grid .lp-card[data-channel="${ch}"]`);
+      const strongs = card.querySelectorAll('div[style*="flex-direction:column"] strong');
+      return { sessions: card.querySelector('.lp-metric').textContent.trim(), keyEvents: strongs[0].textContent.trim() };
+    };
+    return { crossnet: read('crossnet'), paidsearch: read('paidsearch'), direct: read('direct'), organic: read('organic') };
+  });
+  const filled = ['crossnet', 'paidsearch', 'direct', 'organic'].every((c) => r[c].sessions !== '—' && r[c].keyEvents !== '—');
+  return { ok: filled && r.paidsearch.sessions === '160', ...r };
+});
+
 await browser.close();
 console.log(failures === 0 ? '\nAll render checks passed.' : `\n${failures} render check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

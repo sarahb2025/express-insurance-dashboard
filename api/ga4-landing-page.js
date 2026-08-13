@@ -24,15 +24,47 @@
  * If unconfigured this returns HTTP 501 and the dashboard keeps its placeholders.
  */
 
-const LANDING_PAGE_PATH = '/professional-indemnity-insurance/accountants-insurance';
+// Landing page to report on. Overridable without a code change if the path differs
+// in GA4 (e.g. a trailing slash or a different URL structure).
+const LANDING_PAGE_PATH = process.env.GA4_LANDING_PAGE_PATH || '/professional-indemnity-insurance/accountants-insurance';
 
-// GA4 default channel grouping -> the four cards in the dashboard
-const CHANNEL_MAP = {
-  'Cross-network': 'crossnet',
-  'Paid Search': 'paidsearch',
-  'Direct': 'direct',
-  'Organic Search': 'organic',
+// GA4 default channel group -> the four dashboard cards. Matching is tolerant of
+// case, hyphens and spacing so small naming differences don't drop rows.
+const CHANNEL_ALIASES = {
+  crossnetwork: 'crossnet',
+  paidsearch: 'paidsearch',
+  direct: 'direct',
+  organicsearch: 'organic',
 };
+function normChannel(s) { return String(s == null ? '' : s).toLowerCase().replace(/[\s\-_/]+/g, ''); }
+
+// Pure mapping of GA4 report rows -> the dashboard's channel cards. Exported for
+// offline testing. Rows are the runReport rows with dimension
+// [sessionDefaultChannelGroup] and metrics [sessions, keyEvents, bounceRate,
+// averageSessionDuration] in that order.
+function mapChannels(rows) {
+  const out = [];
+  const seen = {};
+  for (const row of rows || []) {
+    const dv = row.dimensionValues || [];
+    const group = dv[0] ? dv[0].value : '';
+    const channel = CHANNEL_ALIASES[normChannel(group)];
+    if (!channel || seen[channel]) continue; // only the four tracked channels; first row wins
+    seen[channel] = true;
+    const mv = row.metricValues || [];
+    const num = (i) => Number(mv[i] && mv[i].value) || 0;
+    const sessions = num(0), keyEvents = num(1), bounce = num(2), engSec = num(3);
+    out.push({
+      channel,
+      sessions,
+      keyEvents,
+      convRate: sessions ? (keyEvents / sessions * 100).toFixed(2) + '%' : '0%',
+      bounceRate: (bounce * 100).toFixed(1) + '%',
+      engagement: engSec >= 60 ? Math.round(engSec) + ' sec' : engSec.toFixed(1) + ' sec',
+    });
+  }
+  return out;
+}
 
 function loadCredentials() {
   // Preferred: reuse the existing separate service-account vars (client_email + private_key).
@@ -102,34 +134,36 @@ module.exports = async function handler(req, res) {
       },
     });
 
-    const channels = [];
-    for (const row of report.rows || []) {
-      const group = row.dimensionValues[0].value;
-      const channel = CHANNEL_MAP[group];
-      if (!channel) continue; // only the four tracked channels
-      const sessions = Number(row.metricValues[0].value) || 0;
-      const keyEvents = Number(row.metricValues[1].value) || 0;
-      const bounce = Number(row.metricValues[2].value) || 0;
-      const engSec = Number(row.metricValues[3].value) || 0;
-      channels.push({
-        channel,
-        sessions,
-        keyEvents,
-        convRate: sessions ? (keyEvents / sessions * 100).toFixed(2) + '%' : '0%',
-        bounceRate: (bounce * 100).toFixed(1) + '%',
-        engagement: engSec >= 60 ? Math.round(engSec) + ' sec' : engSec.toFixed(1) + ' sec',
-      });
-    }
+    const rows = report.rows || [];
+    const channels = mapChannels(rows);
 
-    res.status(200).json({
+    const payload = {
       page: LANDING_PAGE_PATH,
       propertyId,
       periodLabel: `${start} – ${end}`,
       source: 'ga4-live',
       channels,
-    });
+    };
+
+    // Safe diagnostics (?debug=1): report data only — the landing-page filter used,
+    // the row count, and the raw GA4 channel-group names (mapped + unmapped). No credentials.
+    if (req.query && (req.query.debug === '1' || req.query.debug === 'true')) {
+      const groups = rows.map((r) => (r.dimensionValues && r.dimensionValues[0] ? r.dimensionValues[0].value : null));
+      payload._debug = {
+        landingPagePath: LANDING_PAGE_PATH,
+        rowCount: rows.length,
+        channelGroupsReturned: groups,
+        mappedChannels: channels.map((c) => c.channel),
+        unmappedGroups: groups.filter((g) => !CHANNEL_ALIASES[normChannel(g)]),
+      };
+    }
+
+    res.status(200).json(payload);
   } catch (err) {
     // Mirror real failures honestly (auth, permissions, quota) — dashboard keeps placeholders.
     res.status(500).json({ error: 'GA4 request failed', detail: String(err && err.message || err) });
   }
 };
+
+// Exported for offline unit testing (no network/credentials).
+module.exports.mapChannels = mapChannels;
