@@ -28,6 +28,11 @@
 // in GA4 (e.g. a trailing slash or a different URL structure).
 const LANDING_PAGE_PATH = process.env.GA4_LANDING_PAGE_PATH || '/professional-indemnity-insurance/accountants-insurance';
 
+// Channel-group dimension. Omdigi's GA4 report uses "Session primary channel group"
+// (sessionPrimaryChannelGroup); the Data API default here is sessionDefaultChannelGroup.
+// Override to match the exact report once the property is confirmed.
+const CHANNEL_DIMENSION = process.env.GA4_CHANNEL_DIMENSION || 'sessionDefaultChannelGroup';
+
 // GA4 default channel group -> the four dashboard cards. Matching is tolerant of
 // case, hyphens and spacing so small naming differences don't drop rows.
 const CHANNEL_ALIASES = {
@@ -119,7 +124,7 @@ module.exports = async function handler(req, res) {
     const [report] = await client.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [{ startDate: start, endDate: end }],
-      dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+      dimensions: [{ name: CHANNEL_DIMENSION }],
       metrics: [
         { name: 'sessions' },
         { name: 'keyEvents' },
