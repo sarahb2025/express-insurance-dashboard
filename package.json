@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vercel dev",
     "start": "python3 -m http.server 8099",
-    "test:units": "node scripts/test-asset-groups.js",
+    "test:units": "node scripts/test-asset-groups.js && node scripts/test-ads-env.js",
     "test:render": "node scripts/render-check.mjs"
   },
   "dependencies": {
