@@ -44,9 +44,10 @@ const CHANNEL_ALIASES = {
 function normChannel(s) { return String(s == null ? '' : s).toLowerCase().replace(/[\s\-_/]+/g, ''); }
 
 // Pure mapping of GA4 report rows -> the dashboard's channel cards. Exported for
-// offline testing. Rows are the runReport rows with dimension
-// [sessionDefaultChannelGroup] and metrics [sessions, keyEvents, bounceRate,
-// averageSessionDuration] in that order.
+// offline testing. Rows are the runReport rows with the channel-group dimension and
+// metrics [sessions, keyEvents, sessionKeyEventRate, bounceRate, averageSessionDuration]
+// in that order. Conv. Rate uses GA4's Session key event rate (% of sessions with a
+// key event) to match the GA4 report — NOT keyEvents/sessions.
 function mapChannels(rows) {
   const out = [];
   const seen = {};
@@ -58,12 +59,12 @@ function mapChannels(rows) {
     seen[channel] = true;
     const mv = row.metricValues || [];
     const num = (i) => Number(mv[i] && mv[i].value) || 0;
-    const sessions = num(0), keyEvents = num(1), bounce = num(2), engSec = num(3);
+    const sessions = num(0), keyEvents = num(1), keyEventRate = num(2), bounce = num(3), engSec = num(4);
     out.push({
       channel,
       sessions,
       keyEvents,
-      convRate: sessions ? (keyEvents / sessions * 100).toFixed(2) + '%' : '0%',
+      convRate: (keyEventRate * 100).toFixed(2) + '%', // GA4 "Session key event rate"
       bounceRate: (bounce * 100).toFixed(1) + '%',
       engagement: engSec >= 60 ? Math.round(engSec) + ' sec' : engSec.toFixed(1) + ' sec',
     });
@@ -128,6 +129,7 @@ module.exports = async function handler(req, res) {
       metrics: [
         { name: 'sessions' },
         { name: 'keyEvents' },
+        { name: 'sessionKeyEventRate' },
         { name: 'bounceRate' },
         { name: 'averageSessionDuration' },
       ],
