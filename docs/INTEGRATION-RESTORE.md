@@ -153,3 +153,26 @@ Google Ads numbers. If a feed fails it falls back to placeholders and the pill s
 | Build the PMax asset-group endpoint + hook | Developer (us) — ✅ done (this branch) |
 | Set env vars in Vercel; trigger Preview; production deploy | Whoever holds Vercel project access + your go-ahead |
 | Monthly commentary | Omdigi (Kirsten) |
+
+---
+
+## 6. Validation log
+
+**2026-08-13 — Preview endpoint validation: PASS.** On the protected Vercel Preview
+(Deployment Protection on; Production untouched), all four feeds return HTTP 200:
+
+| Endpoint | Result |
+|---|---|
+| `/api/ads-report` | ✅ 200 |
+| `/api/ads-geo` | ✅ 200 |
+| `/api/ads-asset-groups` | ✅ 200 |
+| `/api/ga4-landing-page` | ✅ 200 |
+
+Fix chain that got here (all branch-only, no Production changes):
+1. GA4 credential reuse (`GA4_SA_EMAIL` + `GA4_SA_PRIVATE_KEY`).
+2. Trim whitespace on Google Ads scalar env vars (fixed `illegal metadata characters`).
+3. Regenerated Google Ads refresh token against the Preview client (fixed `invalid_grant`).
+4. `google-ads-api` `^17` → `^24.1.0`, Google Ads API v16 → v24 (fixed `UNIMPLEMENTED`).
+
+Next: on-dashboard visual/data validation (see `docs/FINAL-VALIDATION-CHECKLIST.md`).
+Nothing merged or promoted to Production.
