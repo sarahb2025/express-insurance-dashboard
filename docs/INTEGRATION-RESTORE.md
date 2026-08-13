@@ -39,6 +39,7 @@ written but **not deployed** and **no credentials set**:
 | **PMax asset-group live feed** | ✅ **Built (this branch)** | `api/ads-asset-groups.js` + `tryLiveAssetGroups()` + feed-status pill; unit-tested. Needs the same Google Ads credentials as the other Ads feeds — no new env var. (see §2.3) |
 | Period-over-period % change on stat cards | 🟡 Partial | `ads-report.js` returns values; deltas need a second (prior-period) query. Minor enhancement. |
 | npm dependencies | 🟡 Declared, not installed | `@google-analytics/data`, `google-ads-api` — `npm install`. |
+| Google Ads client library version | ✅ Fixed on branch | Was `^17` (targets the long-sunset Google Ads API **v16** → `12 UNIMPLEMENTED: GRPC target method can't be resolved`). Bumped to **`^24.1.0`** (Google Ads API **v24**). Library interface (`GoogleAdsApi`/`Customer.query`) and all GAQL are unchanged. |
 | Vercel env vars | ❌ Empty | Must be set (Preview + Production) — never in the repo. |
 
 ---
