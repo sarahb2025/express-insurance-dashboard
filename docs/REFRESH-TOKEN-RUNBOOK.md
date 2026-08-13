@@ -86,6 +86,30 @@ loaded, `bash scripts/check-preview-env.sh` prints each as `[SET]`/`[MISSING]`
 
 ---
 
+## Troubleshooting — `invalid_grant` at token refresh
+
+Symptom: `Getting metadata from plugin failed with error: invalid_grant` (after the
+whitespace-trim fix). This is the **OAuth token refresh** failing — before any Ads
+API call — so the **developer token and customer ID are not the cause**. Google
+returns `invalid_client` when the client ID/secret are wrong, vs **`invalid_grant`**
+when the **refresh token** itself is rejected (invalid/expired/revoked, or **not
+issued by the client whose ID+secret are in Preview**).
+
+Isolate it with a value-free check (prints only an error code):
+```bash
+curl -s -d client_id="$GOOGLE_ADS_CLIENT_ID" -d client_secret="$GOOGLE_ADS_CLIENT_SECRET" \
+     -d refresh_token="$GOOGLE_ADS_REFRESH_TOKEN" -d grant_type=refresh_token \
+     https://oauth2.googleapis.com/token | grep -o '"error"[^,]*'
+```
+- `invalid_grant` → regenerate the refresh token with the **exact Preview client**
+  (section A), ensure the consent screen is **"In production"**, update the token on
+  Preview only.
+- `invalid_client` → fix the Client ID/Secret on Preview.
+- no output (200) → OAuth is fine; investigate the Ads response separately.
+
+Value-free "same client?" check: `printf %s "$GOOGLE_ADS_CLIENT_ID" | sha256sum` and
+compare the hash to the client used in the Playground.
+
 ## D. Guardrails
 
 - Adding env vars **does not deploy** and does not change Production values.
