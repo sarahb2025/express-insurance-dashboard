@@ -13,18 +13,20 @@ function ok(name, cond) { assert.ok(cond, name); passed++; }
 function eq(name, a, b) { assert.strictEqual(a, b, name); passed++; }
 
 // GA4 runReport row shape: dimension [channelGroup],
-// metrics [sessions, keyEvents, sessionKeyEventRate(0..1), bounceRate(0..1), averageSessionDuration(sec)]
-const row = (group, s, ke, keRate, bounce, eng) => ({
+// metrics [sessions, keyEvents, sessionKeyEventRate(0..1), bounceRate(0..1), userEngagementDuration(TOTAL sec)]
+// Avg. Engagement is userEngagementDuration/sessions formatted mm:ss.
+const row = (group, s, ke, keRate, bounce, engTotal) => ({
   dimensionValues: [{ value: group }],
-  metricValues: [{ value: String(s) }, { value: String(ke) }, { value: String(keRate) }, { value: String(bounce) }, { value: String(eng) }],
+  metricValues: [{ value: String(s) }, { value: String(ke) }, { value: String(keRate) }, { value: String(bounce) }, { value: String(engTotal) }],
 });
 
-// 1) Exact GA4 channel-group names (values mirror Omdigi's July report)
+// 1) Exact GA4 channel-group names (values mirror Omdigi's July report).
+// engTotal = per-session seconds × sessions (Paid Search 129s×100, Cross-network 47s×60, etc.)
 const out = mapChannels([
-  row('Cross-network', 60, 1, 0.0167, 0.65, 47),
-  row('Paid Search', 100, 71, 0.25, 0.25, 129),
-  row('Direct', 12, 3, 0.1667, 0.3333, 86),
-  row('Organic Search', 3, 8, 0.6667, 0, 490),
+  row('Cross-network', 60, 1, 0.0167, 0.65, 47 * 60),
+  row('Paid Search', 100, 71, 0.25, 0.25, 129 * 100),
+  row('Direct', 12, 3, 0.1667, 0.3333, 86 * 12),
+  row('Organic Search', 3, 8, 0.6667, 0, 490 * 3),
 ]);
 eq('maps all four channels', out.length, 4);
 const by = Object.fromEntries(out.map((c) => [c.channel, c]));
@@ -33,22 +35,24 @@ eq('paidsearch sessions', by.paidsearch.sessions, 100);
 eq('paidsearch keyEvents', by.paidsearch.keyEvents, 71);
 eq('paidsearch convRate = session key event rate (25%), not keyEvents/sessions', by.paidsearch.convRate, '25.00%');
 eq('paidsearch bounceRate', by.paidsearch.bounceRate, '25.0%');
-eq('paidsearch engagement (>=60s rounded)', by.paidsearch.engagement, '129 sec');
+eq('paidsearch engagement mm:ss (2m09s)', by.paidsearch.engagement, '2:09');
+eq('crossnet engagement mm:ss (0:47)', by.crossnet.engagement, '0:47');
+eq('direct engagement mm:ss (1:26)', by.direct.engagement, '1:26');
+eq('organic engagement mm:ss (8:10)', by.organic.engagement, '8:10');
 eq('crossnet convRate uses the GA4 rate (1.67%)', by.crossnet.convRate, '1.67%');
-eq('crossnet engagement (<60s, one decimal)', by.crossnet.engagement, '47.0 sec');
 
 // 2) Tolerant matching — casing / hyphen / spacing variants still map
 const variants = mapChannels([
-  row('cross-network', 10, 1, 0.1, 0.5, 30),
-  row('PAID SEARCH', 10, 1, 0.1, 0.5, 30),
-  row('organic search', 10, 1, 0.1, 0.5, 30),
-  row('Direct', 10, 1, 0.1, 0.5, 30),
+  row('cross-network', 10, 1, 0.1, 0.5, 300),
+  row('PAID SEARCH', 10, 1, 0.1, 0.5, 300),
+  row('organic search', 10, 1, 0.1, 0.5, 300),
+  row('Direct', 10, 1, 0.1, 0.5, 300),
 ]);
 eq('variants all map', variants.length, 4);
 ok('variant channels correct', ['crossnet', 'paidsearch', 'direct', 'organic'].every((k) => variants.some((c) => c.channel === k)));
 
 // 3) Unmapped channel groups are skipped (not blanked/errored)
-const mixed = mapChannels([row('Referral', 5, 0, 0, 0.9, 2), row('Email', 3, 0, 0, 0.9, 2), row('Direct', 7, 1, 0.14, 0.1, 20)]);
+const mixed = mapChannels([row('Referral', 5, 0, 0, 0.9, 2), row('Email', 3, 0, 0, 0.9, 2), row('Direct', 7, 1, 0.14, 0.1, 140)]);
 eq('only mapped channels kept', mixed.length, 1);
 eq('kept channel is direct', mixed[0].channel, 'direct');
 

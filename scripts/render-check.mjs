@@ -58,9 +58,16 @@ await check('/reports/2026-07/index.html', 'JULY report renders placeholders', a
   const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
   const budgetKpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(1) .kpi-val'))?.trim();
   const bannerNoPlaceholderClaim = !(await p.textContent('#tpl-banner'))?.includes('all live figures are placeholders');
+  const bodyText = await p.textContent('body');
+  const noStrayBackref = !bodyText.includes('\\1'); // the old regex artifact must be gone
+  // Landing Page section must be a sibling of Geography, not nested inside it
+  const lpNotNestedInGeo = await p.evaluate(() => {
+    const lp = document.getElementById('lp-grid');
+    return lp ? !lp.closest('#insight-state-bars') : true;
+  });
   return {
-    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' && bannerNoPlaceholderClaim,
-    kpi, stat, banner, budgetKpi, bannerNoPlaceholderClaim,
+    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' && bannerNoPlaceholderClaim && noStrayBackref && lpNotNestedInGeo,
+    kpi, stat, banner, budgetKpi, bannerNoPlaceholderClaim, noStrayBackref, lpNotNestedInGeo,
   };
 });
 
@@ -93,10 +100,10 @@ await check('/reports/2026-07/index.html', 'JULY live-render display fixes', asy
 await check('/reports/2026-07/index.html', 'JULY landing-page cards fill from a live GA4 response', async (p) => {
   const r = await p.evaluate(() => {
     renderLandingPage([
-      { channel: 'crossnet', sessions: 1928, keyEvents: 14, convRate: '0.73%', bounceRate: '85.6%', engagement: '5.6 sec' },
-      { channel: 'paidsearch', sessions: 160, keyEvents: 31, convRate: '19.4%', bounceRate: '32.2%', engagement: '99 sec' },
-      { channel: 'direct', sessions: 84, keyEvents: 6, convRate: '7.1%', bounceRate: '15.5%', engagement: '8.9 sec' },
-      { channel: 'organic', sessions: 28, keyEvents: 3, convRate: '10.7%', bounceRate: '60.7%', engagement: '8.1 sec' },
+      { channel: 'crossnet', sessions: 1928, keyEvents: 14, convRate: '0.73%', bounceRate: '85.6%', engagement: '0:47' },
+      { channel: 'paidsearch', sessions: 160, keyEvents: 31, convRate: '19.4%', bounceRate: '32.2%', engagement: '2:09' },
+      { channel: 'direct', sessions: 84, keyEvents: 6, convRate: '7.1%', bounceRate: '15.5%', engagement: '1:26' },
+      { channel: 'organic', sessions: 28, keyEvents: 3, convRate: '10.7%', bounceRate: '60.7%', engagement: '8:10' },
     ]);
     const read = (ch) => {
       const card = document.querySelector(`#lp-grid .lp-card[data-channel="${ch}"]`);
