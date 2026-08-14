@@ -41,6 +41,16 @@ eq('direct engagement mm:ss (1:26)', by.direct.engagement, '1:26');
 eq('organic engagement mm:ss (8:10)', by.organic.engagement, '8:10');
 eq('crossnet convRate uses the GA4 rate (1.67%)', by.crossnet.convRate, '1.67%');
 
+// 1b) Fractional seconds are FLOORED (truncated) to match GA4's display, not rounded.
+const frac = Object.fromEntries(
+  mapChannels([
+    row('Cross-network', 10, 1, 0.1, 0.5, 476), // 47.6s/session -> 0:47 (not 0:48)
+    row('Paid Search', 10, 1, 0.1, 0.5, 1299),  // 129.9s/session -> 2:09 (not 2:10)
+  ]).map((c) => [c.channel, c]),
+);
+eq('47.6s floors to 0:47', frac.crossnet.engagement, '0:47');
+eq('129.9s floors to 2:09', frac.paidsearch.engagement, '2:09');
+
 // 2) Tolerant matching — casing / hyphen / spacing variants still map
 const variants = mapChannels([
   row('cross-network', 10, 1, 0.1, 0.5, 300),

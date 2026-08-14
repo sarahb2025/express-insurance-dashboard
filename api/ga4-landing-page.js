@@ -44,8 +44,10 @@ const CHANNEL_ALIASES = {
 function normChannel(s) { return String(s == null ? '' : s).toLowerCase().replace(/[\s\-_/]+/g, ''); }
 
 // Format a duration in seconds as mm:ss (e.g. 129 -> "2:09", 47 -> "0:47").
+// Floor (truncate) fractional seconds to match how GA4 displays engagement time
+// (47.6s shows as 0:47, not 0:48).
 function fmtDuration(sec) {
-  const t = Math.max(0, Math.round(sec));
+  const t = Math.max(0, Math.floor(sec));
   const m = Math.floor(t / 60);
   return m + ':' + String(t % 60).padStart(2, '0');
 }
