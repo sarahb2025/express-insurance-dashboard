@@ -90,8 +90,8 @@ if names differ from the heuristic.
 ### 3.1 Credentials to obtain
 | Env var | What it is | Who provides |
 |---|---|---|
-| `GA4_PROPERTY_ID` | `358319621` (known) | — |
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | Service-account key JSON (raw or base64) for a Google Cloud project with the **Google Analytics Data API** enabled | **Developer** creates the SA; **GA4 Admin** grants it **Viewer** on property `358319621` |
+| `GA4_PROPERTY_ID` | `387516214` (marketing site — *Express Insurance Brokers Pty Ltd 2.0*) | — |
+| `GA4_SA_EMAIL` + `GA4_SA_PRIVATE_KEY` (or `GOOGLE_SERVICE_ACCOUNT_JSON`) | Service-account credential for a project with the **Google Analytics Data API** enabled | **GA4 Admin** grants the SA **Viewer** on property `387516214` |
 
 ### 3.2 Wire-up (already coded)
 `ga4-landing-page.js` runs a `runReport` on `sessionDefaultChannelGroup`, filtered to
@@ -149,7 +149,7 @@ Google Ads numbers. If a feed fails it falls back to placeholders and the pill s
 |---|---|
 | Regenerate Google Ads refresh token; dev token; customer/MCC IDs | Balmer / Google Ads account + MCC admin |
 | Google Cloud project, OAuth client, GA4 service account | Developer (us) |
-| Grant service account **Viewer** on GA4 `358319621` | GA4 Admin |
+| Grant service account **Viewer** on GA4 `387516214` (marketing site) | GA4 Admin |
 | Build the PMax asset-group endpoint + hook | Developer (us) — ✅ done (this branch) |
 | Set env vars in Vercel; trigger Preview; production deploy | Whoever holds Vercel project access + your go-ahead |
 | Monthly commentary | Omdigi (Kirsten) |
@@ -202,3 +202,13 @@ appear, and they don't).
 **Blocked on:** the GA4 property ID (and data stream) that tracks the marketing site,
 plus the exact landing-page path as stored there. Google Ads feeds are unaffected;
 only the GA4 landing-page section is blocked. See the credential-request note.
+
+**RESOLVED (2026-08-13):** the correct property is **`387516214`** — *Express Insurance
+Brokers Pty Ltd 2.0* (the marketing site). Its GA4 report shows the accountants page
+with 175 sessions in July (100 Paid Search + 60 Cross-network = the ~160 paid). The
+path `/professional-indemnity-insurance/accountants-insurance` matches as-is. To
+finish, on **Preview** set `GA4_PROPERTY_ID=387516214`,
+`GA4_CHANNEL_DIMENSION=sessionPrimaryChannelGroup` (to match the report's "Session
+primary channel group"), grant the service account **Viewer** on `387516214`, rebuild,
+and re-run `?debug=1` (expect `rowCount` ≥ 4). `358319621` remains the legacy quote-app
+property — not used.

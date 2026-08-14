@@ -13,7 +13,7 @@ reflects the layout **after Kirsten's requested changes** (see
 | **Static** | Hard-coded content: copy, structure, fixed assumptions. Changes only when the file is edited. |
 | **Kirsten — manual** | Numbers/decisions/commentary supplied by Balmer Agency / Kirsten each month (typed into the month `data.json`). |
 | **Google Ads** | Live from the Google Ads API. **Source of truth for conversions, conversion value, ROAS, and geography.** |
-| **GA4** | Live from GA4 (property `358319621`). **Used only for landing-page traffic & engagement.** |
+| **GA4** | Live from GA4 (property `387516214`). **Used only for landing-page traffic & engagement.** |
 | **Looker Studio** | From the LOB report / budget breakdown in Looker Studio. Currently transcribed into `data.json` (no direct report API). |
 | **Other / unknown** | Source not yet confirmed. |
 
@@ -99,7 +99,7 @@ Looker API exists, so they carry the last transcribed LOB values until refreshed
 |-----------|--------|
 | **Geographic Performance** (bars + city table) | **Google Ads** — *source of truth for geography.* `/api/ads-geo` |
 | Geography commentary (single ℹ️ field) | **Kirsten — manual** (`commentary.geo`) |
-| **Landing Page Performance** (4 channel cards) | **GA4** (property `358319621`) — landing-page traffic & engagement only. `/api/ga4-landing-page` |
+| **Landing Page Performance** (4 channel cards) | **GA4** (property `387516214`) — landing-page traffic & engagement only. `/api/ga4-landing-page` |
 | Landing-page commentary (headline + paragraph) | **Kirsten — manual** (`commentary.landing`) |
 
 Changes: the 5-tile summary band, the Key Findings accordion, the two

@@ -50,14 +50,14 @@ the project directory:
 ```bash
 vercel env add GOOGLE_ADS_REFRESH_TOKEN preview   # the NEW token from section A
 vercel env add GOOGLE_ADS_CLIENT_SECRET  preview   # same as Production — from the OAuth client
-vercel env add GA4_PROPERTY_ID           preview   # 358319621 (not secret)
+vercel env add GA4_PROPERTY_ID           preview   # 387516214 (not secret)
 vercel env add GA4_SA_EMAIL              preview   # client_email from the GA4 service-account key
 vercel env add GA4_SA_PRIVATE_KEY        preview   # private_key from the same key file (paste as-is)
 ```
 
 Get each value **from its original source**, not by extracting Production:
 - `GOOGLE_ADS_CLIENT_SECRET` → Google Cloud → Credentials → the OAuth client.
-- `GA4_PROPERTY_ID` → literally `358319621`.
+- `GA4_PROPERTY_ID` → literally `387516214`.
 - `GA4_SA_EMAIL` / `GA4_SA_PRIVATE_KEY` → the service-account JSON key file
   (`client_email` and `private_key`).
 

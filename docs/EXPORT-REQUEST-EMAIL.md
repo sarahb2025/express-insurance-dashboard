@@ -30,7 +30,7 @@ and location)
    Region/State), using **"User location"**, for July and June. Columns: City ·
    Region/State · Conversions.
 
-**From GA4** (property 358319621 — landing-page traffic only)
+**From GA4** (property 387516214 — landing-page traffic only)
 
 4. **Landing-page performance by channel**, July. Dimension: Session default
    channel group (Cross-network, Paid Search, Direct, Organic Search). Filter to

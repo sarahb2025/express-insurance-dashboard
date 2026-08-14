@@ -35,13 +35,13 @@ variable **names and status**, never values.
 3. In a Google Cloud project with the **Google Analytics Data API** enabled, create
    a **service account** and download its JSON key.
 4. In GA4 → Admin → Property Access Management, grant that service account
-   **Viewer** on property **`358319621`**.
+   **Viewer** on property **`387516214`**.
 
 ## 2. Environment variables — add to the **Preview** environment only
 
 | Variable | Required | What it holds |
 |----------|:---:|---------------|
-| `GA4_PROPERTY_ID` | ✅ | `358319621` (not secret) — exists Prod-only, **add to Preview** |
+| `GA4_PROPERTY_ID` | ✅ | `387516214` (not secret) — exists Prod-only, **add to Preview** |
 | `GA4_SA_EMAIL` | ✅ | service-account client_email — **reuse existing**, add to Preview |
 | `GA4_SA_PRIVATE_KEY` | ✅ | service-account private_key — **reuse existing**, add to Preview |
 | `GOOGLE_ADS_DEVELOPER_TOKEN` | ✅ | MCC developer token |

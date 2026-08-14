@@ -43,8 +43,9 @@ Add each to the **Preview** environment (leave Production untouched). Owners are
 
 | # | Variable | Required | In existing project? | Notes |
 |---|----------|:---:|---|-------|
-| 1 | `GA4_PROPERTY_ID` | ✅ | ✅ Prod only → **add to Preview** | `358319621` (not secret) |
-| 2 | `GA4_SA_EMAIL` | ✅ | ✅ Prod only → **add to Preview** | service-account client_email (reused) |
+| 1 | `GA4_PROPERTY_ID` | ✅ | Prod value is legacy `358319621` | **Preview must be `387516214`** (marketing site — *Express Insurance Brokers Pty Ltd 2.0*), a **different value than Production**. Not secret. |
+| 1b | `GA4_CHANNEL_DIMENSION` | ⬜ | — | set `sessionPrimaryChannelGroup` to match GA4's "Session primary channel group" report |
+| 2 | `GA4_SA_EMAIL` | ✅ | ✅ Prod only → **add to Preview** | service-account client_email (reused). Also grant it **Viewer on `387516214`**. |
 | 3 | `GA4_SA_PRIVATE_KEY` | ✅ | ✅ Prod only → **add to Preview** | service-account private_key (reused); the code accepts it as stored |
 | 4 | `GOOGLE_ADS_DEVELOPER_TOKEN` | ✅ | ✅ Prod + Preview | from the MCC (API Center) |
 | 5 | `GOOGLE_ADS_CLIENT_ID` | ✅ | ✅ Prod + Preview | OAuth client |

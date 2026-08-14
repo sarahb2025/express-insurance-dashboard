@@ -12,7 +12,7 @@
  *   channel ∈ crossnet | paidsearch | direct | organic
  *
  * CREDENTIALS (env vars only — never commit secrets):
- *   GA4_PROPERTY_ID                    e.g. 358319621  (confirmed live on the current deployment)
+ *   GA4_PROPERTY_ID                    387516214 (marketing-site property "Express Insurance Brokers Pty Ltd 2.0")
  *   GA4_SA_EMAIL + GA4_SA_PRIVATE_KEY  service-account client_email + private_key
  *                                      (reuses the existing project's variables), OR
  *   GOOGLE_SERVICE_ACCOUNT_JSON        full service-account key JSON (raw or base64), OR

@@ -21,7 +21,7 @@ back silently to static/placeholder figures.
 | `assets/` | Express Insurance + Balmer Agency logos (real PNGs). | Static. |
 | `api/ads-report.js` | Google Ads → KPI band, stat cards, campaign table. | **Blocked** — invalid refresh token (see below). |
 | `api/ads-geo.js` | Google Ads → geographic conversions (source of truth for geo). | Not yet wired (endpoint new in this recreation). |
-| `api/ga4-landing-page.js` | GA4 → landing-page traffic & engagement only. | GA4 is live (property `358319621`); this endpoint needs deploying + creds. |
+| `api/ga4-landing-page.js` | GA4 → landing-page traffic & engagement only. | GA4 is live (property `387516214`); this endpoint needs deploying + creds. |
 | `lib/google-ads.js` | Shared Google Ads client helper (kept out of `/api`). | — |
 | `scripts/new-month-report.py` | Generates `reports/YYYY-MM/` from the master. | — |
 | `scripts/render-check.mjs` | Chromium smoke-test (asserts both pages render, no JS errors). | — |
@@ -106,7 +106,7 @@ placeholders and the feed-status pill shows why — nothing is invented.
 
 | Feed | Status | Blocker / next step |
 |------|--------|---------------------|
-| GA4 landing page | Property **`358319621`** confirmed live on the current deployment. | Deploy `api/ga4-landing-page.js` and grant the service account Viewer. |
+| GA4 landing page | Property **`387516214`** confirmed live on the current deployment. | Deploy `api/ga4-landing-page.js` and grant the service account Viewer. |
 | Google Ads report | **Blocked.** `/api/ads-report` returns `invalid_grant` — the OAuth **refresh token is expired/revoked**. | Regenerate `GOOGLE_ADS_REFRESH_TOKEN`. See `docs/INTEGRATIONS.md`. |
 | Google Ads geo | New endpoint in this recreation; not yet deployed. | Same Google Ads credentials as above; confirm geo_target fields. |
 | Looker Studio (LOB) | No direct report API. Figures are transcribed manually from the LOB report (or its underlying BigQuery/Sheet). | Decide the underlying source to read; see `docs/INTEGRATIONS.md`. |

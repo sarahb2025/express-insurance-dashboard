@@ -14,7 +14,7 @@ also spot-check the master root `/` (defaults to June).
 ## 1. Feed-status pills — all should read "live"
 - [ ] **Performance Overview** → `Feed: live · Google Ads`
 - [ ] **Performance Max & Asset Group Overview** → `Feed: live · Google Ads`
-- [ ] **Landing Page Performance** → `Feed: live · GA4 (property 358319621)`
+- [ ] **Landing Page Performance** → `Feed: live · GA4 (property 387516214)`
 - [ ] None reads `static …unavailable` or `Awaiting …`.
 
 ## 2. KPI band (Google Ads)

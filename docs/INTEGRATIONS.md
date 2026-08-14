@@ -16,24 +16,25 @@ Install deps once: `npm install`.
 **Powers:** the four landing-page channel cards in *More Insights* (sessions,
 key events, conv. rate, bounce, engagement). **GA4 is used for nothing else.**
 
-**Status:** GA4 is **live** on the current deployment — property **`358319621`**
-(confirmed: the existing `/api/ga4-geo` on the live site returns
-`"source":"ga4-live","propertyId":"358319621"`). This recreation repoints GA4 at
-its correct section (landing page) via a new `api/ga4-landing-page.js` that needs
-deploying and credentialing.
+**Status:** Use GA4 property **`387516214`** — *Express Insurance Brokers Pty Ltd 2.0*,
+the marketing-site property that contains the `/professional-indemnity-insurance/…`
+landing pages. (Note: `358319621`, used by the old deployment's `/api/ga4-geo`, is a
+**different, legacy quote-app property** and does **not** contain the marketing landing
+pages — do not use it here.) This recreation points GA4 at the landing-page section via
+`api/ga4-landing-page.js`, which needs deploying and credentialing on `387516214`.
 
 **Connect**
 1. In Google Cloud, create/choose a project; enable **Google Analytics Data API**.
 2. Create a **service account**; download a JSON key.
-3. In **GA4 → Admin → Property Access Management** (property `358319621`), add the
+3. In **GA4 → Admin → Property Access Management** (property `387516214`), add the
    service-account email as **Viewer**.
-4. Set env vars: `GA4_PROPERTY_ID=358319621` and
+4. Set env vars: `GA4_PROPERTY_ID=387516214` and
    `GOOGLE_SERVICE_ACCOUNT_JSON=<the key JSON, raw or base64>`.
 
 **Test**
 ```bash
 curl -s "http://localhost:3000/api/ga4-landing-page?start=2026-05-01&end=2026-05-31" | jq
-# Expect: { page, propertyId:"358319621", channels:[{channel:"paidsearch",sessions,keyEvents,convRate,bounceRate,engagement}, ...] }
+# Expect: { page, propertyId:"387516214", channels:[{channel:"paidsearch",sessions,keyEvents,convRate,bounceRate,engagement}, ...] }
 # 501 => env not set;  500 => auth/permission/quota (detail in body)
 ```
 On the page, open *More Insights* → the "GA4 live" pill next to *Landing Page

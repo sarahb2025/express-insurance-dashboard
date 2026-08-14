@@ -12,20 +12,20 @@ Nothing below is invented. Where a value is not yet known it is marked
 
 ## 1. GA4 — landing-page traffic & engagement
 
-**Property ID:** `358319621`  *(confirmed — the live deployment already serves
+**Property ID:** `387516214`  *(confirmed — the live deployment already serves
 GA4 data from this property).*
 
 **Access to grant**
 - A **Google Cloud project** with the **Google Analytics Data API** enabled.
 - A **service account** in that project (JSON key downloaded).
-- That service account added as **Viewer** on GA4 property `358319621`
+- That service account added as **Viewer** on GA4 property `387516214`
   (GA4 → Admin → Property Access Management). *Who can grant:* a GA4
   Administrator on the Express Insurance property (Balmer Agency / client).
 
 **Env vars**
 | Var | Value | Who supplies |
 |-----|-------|--------------|
-| `GA4_PROPERTY_ID` | `358319621` | known |
+| `GA4_PROPERTY_ID` | `387516214` | known |
 | `GA4_SA_EMAIL` + `GA4_SA_PRIVATE_KEY` | **existing** service-account client_email + private_key (reused; code reads these directly) | already provisioned; **secret** |
 | `GOOGLE_SERVICE_ACCOUNT_JSON` | *(alternative)* full key JSON (raw or base64) | developer; **secret** |
 | `GOOGLE_APPLICATION_CREDENTIALS` | *(local dev alt.)* path to the key file | developer |

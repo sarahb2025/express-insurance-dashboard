@@ -48,7 +48,7 @@ conversion columns — do **not** substitute GA4 numbers.
 
 ---
 
-## B. GA4  (property 358319621) — landing-page traffic & engagement ONLY
+## B. GA4  (property 387516214) — landing-page traffic & engagement ONLY
 
 Export as **CSV** or share the GA4 exploration.
 
