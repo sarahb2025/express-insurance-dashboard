@@ -312,11 +312,11 @@ tr:hover td{background:#F8FAFC}
 /* ── DATA-SOURCE LABELLING SYSTEM (added) ──
    Every section / block is tagged with the origin of its data so the
    reader always knows whether a number is live, manual, or static.
-   Categories: static | kirsten | gads | ga4 | looker | other        */
+   Categories: static | manual | gads | ga4 | looker | other        */
 .src-chip{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:3px 8px;border-radius:20px;border:1px solid;white-space:nowrap;vertical-align:middle;line-height:1.4}
 .src-chip::before{content:'';width:7px;height:7px;border-radius:50%;flex-shrink:0;background:currentColor}
 .src-static{color:#475569;background:#F1F5F9;border-color:#CBD5E1}
-.src-kirsten{color:#B45309;background:#FFFBEB;border-color:#FCD34D}
+.src-manual{color:#B45309;background:#FFFBEB;border-color:#FCD34D}
 .src-gads{color:#1A73E8;background:#E8F0FE;border-color:#AECBFA}
 .src-ga4{color:#E37400;background:#FEF3E7;border-color:#FBC38B}
 .src-looker{color:#7C3AED;background:#F5F3FF;border-color:#D6C7FB}
@@ -429,7 +429,7 @@ tr:hover td{background:#F8FAFC}
 <div class="src-legend">
   <span class="leg-lbl">Data sources</span>
   <span class="src-chip src-static">Static</span>
-  <span class="src-chip src-kirsten">Kirsten — manual</span>
+  <span class="src-chip src-manual">Manual</span>
   <span class="src-chip src-gads">Google Ads</span>
   <span class="src-chip src-ga4">GA4 live</span>
   <span class="src-chip src-looker">Looker Studio</span>
@@ -517,7 +517,7 @@ tr:hover td{background:#F8FAFC}
     <span class="sec-title">Performance Max &amp; Asset Group Overview</span>
     <span class="sec-sub">Asset group performance for the selected period</span>
     <span class="src-chip src-gads" title="Spend, conversions, conversion value & ROAS per asset group from Google Ads.">Google Ads</span>
-    <span class="src-chip src-static" title="Commentary below is written by the agency (Kirsten).">Static: commentary</span>
+    <span class="src-chip src-static" title="Commentary below is written by the agency.">Static: commentary</span>
     <span class="feed-status feed-placeholder" id="pmax-feed-status" title="Updates automatically when the Google Ads asset-group feed responds.">Feed: not connected</span>
   </div>
   <div class="tbl-wrap">
@@ -1228,7 +1228,7 @@ function renderPeriod(p){
 var PH = '—';
 function renderPlaceholders(p){
   var items = document.querySelectorAll('.kpi-bar .kpi-item');
-  var kpiNotes = ['Kirsten to set', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Target set by strategy'];
+  var kpiNotes = ['Set manually', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Awaiting Google Ads', 'Target set by strategy'];
   items.forEach(function(it, i){
     var v = it.querySelector('.kpi-val'), c = it.querySelector('.kpi-chg');
     if (i === 0 && DATA && DATA.budgetTotal) { // Monthly Budget: fixed total known even without live feeds
@@ -1240,7 +1240,7 @@ function renderPlaceholders(p){
     if (c) c.textContent = kpiNotes[i] || 'Awaiting data';
   });
   var lbl = document.querySelector('#perf .sec-hdr .sec-sub');
-  if (lbl) lbl.innerHTML = 'Reporting period: <strong>' + ((p && p.periodLabel) || 'this month') + '</strong> &nbsp;·&nbsp; <span style="color:var(--amber)">Awaiting Google Ads export &amp; Kirsten’s inputs</span>';
+  if (lbl) lbl.innerHTML = 'Reporting period: <strong>' + ((p && p.periodLabel) || 'this month') + '</strong> &nbsp;·&nbsp; <span style="color:var(--amber)">Awaiting Google Ads export &amp; manual inputs</span>';
   var cards = document.querySelectorAll('#perf .stats-row .stat-card');
   STAT_DEFS.forEach(function(def, i){
     if (!cards[i]) return;
@@ -1349,7 +1349,7 @@ function renderBudget(budget, roasByKey, fixedTotal){
   if (legend) legend.innerHTML = legHtml;
 }
 
-/* Manual commentary fields (Kirsten) — PMax, geography, landing page */
+/* Manual commentary fields (agency) — PMax, geography, landing page */
 function renderCommentaries(p){
   var c = (p && p.commentary) || (DATA && DATA.commentary) || {};
   var pm = document.getElementById('pmax-commentary-text');

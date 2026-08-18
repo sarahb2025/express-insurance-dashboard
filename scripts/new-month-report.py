@@ -86,7 +86,7 @@ def main():
     report_banner = (f'<!-- REPORT-KIND BANNER — this is the {label} reporting-month report, generated from the master template. -->\n'
                      '<div class="tpl-banner report" id="tpl-banner">\n'
                      '  <span class="tpl-tag">Reporting month</span>\n'
-                     f"  <span><strong>{label}</strong> — Google Ads and GA4 figures are pulled live. Kirsten's manual commentary and the Looker budget split may remain pending. See <code>reports/{ym}/README.md</code>.</span>\n"
+                     f"  <span><strong>{label}</strong> — Google Ads and GA4 figures are pulled live. The agency's manual commentary and the Looker budget split may remain pending. See <code>reports/{ym}/README.md</code>.</span>\n"
                      '</div>')
     src = sub(re.escape(master_banner), report_banner, src, "banner")
 

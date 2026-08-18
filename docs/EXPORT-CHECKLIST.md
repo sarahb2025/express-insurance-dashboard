@@ -88,5 +88,5 @@ Export as **CSV** or share the GA4 exploration.
 ## What stays "Awaiting data" until the above arrive
 KPI band (except Target ROAS) · all six stat cards · campaign table · PMax
 asset-group table · geography · the four GA4 landing-page cards · budget.
-Commentary (PMax, geography, landing) is already populated from Kirsten's July
+Commentary (PMax, geography, landing) is already populated from the agency's July
 document. LTV/LOB shows the dated May 2026 figures. **Nothing is fabricated.**

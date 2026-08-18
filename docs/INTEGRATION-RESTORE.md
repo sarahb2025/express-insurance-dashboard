@@ -13,7 +13,7 @@ validate both feeds. **No deploy, no merge, no secrets in the repo.**
   Google Ads has **not** been pulling — figures were served static.
 - `GET /api/ga4-geo` → **HTTP 200**, live GA4 (property `358319621`). Working, but
   it feeds **geography**, which per the agreed rules must come from **Google Ads**,
-  not GA4. (This is the mismatch Kirsten flagged: GA4 showed geo conversions in the
+  not GA4. (This is the mismatch the client flagged: GA4 showed geo conversions in the
   hundreds vs Google Ads' ~41.8.)
 - `GET /api/ads-geo`, `GET /api/ga4-landing-page` → **404** (don't exist on the old
   deployment).
@@ -124,7 +124,7 @@ curl -s "http://localhost:3000/api/ga4-landing-page?start=2026-06-01&end=2026-06
   the **Google Ads UI** (Campaigns view) for the same range.
 - **Geography:** city conversions must match the Google Ads **Locations** report — and
   should now read in the **tens** (Google Ads), *not* the GA4 hundreds. This is the
-  explicit fix for Kirsten's Slide 7 mismatch.
+  explicit fix for the client's Slide 7 mismatch.
 - **GA4** landing-page sessions/engagement must match the **GA4 UI** for the page and
   range.
 
@@ -152,7 +152,7 @@ Google Ads numbers. If a feed fails it falls back to placeholders and the pill s
 | Grant service account **Viewer** on GA4 `387516214` (marketing site) | GA4 Admin |
 | Build the PMax asset-group endpoint + hook | Developer (us) — ✅ done (this branch) |
 | Set env vars in Vercel; trigger Preview; production deploy | Whoever holds Vercel project access + your go-ahead |
-| Monthly commentary | Omdigi (Kirsten) |
+| Monthly commentary | Omdigi |
 
 ---
 

@@ -25,14 +25,14 @@ back silently to static/placeholder figures.
 | `lib/google-ads.js` | Shared Google Ads client helper (kept out of `/api`). | — |
 | `scripts/new-month-report.py` | Generates `reports/YYYY-MM/` from the master. | — |
 | `scripts/render-check.mjs` | Chromium smoke-test (asserts both pages render, no JS errors). | — |
-| `docs/` | Source classification, integration + testing guide, credentials/access, Kirsten change tracker. | — |
+| `docs/` | Source classification, integration + testing guide, credentials/access, change-request tracker. | — |
 
-> ✅ **Kirsten's changes applied (2026-08-11).** The 9-slide PowerPoint and the
+> ✅ **Change requests applied (2026-08-11).** The 9-slide PowerPoint and the
 > July 2026 commentary document have been incorporated: renamed sections, removed
 > sections/columns/labels, data-driven Budget + PMax asset-group table, corrected
 > geography source (Google Ads), and manual commentary fields. Every change is
-> logged in [`docs/KIRSTEN-CHANGES.md`](docs/KIRSTEN-CHANGES.md) (with three
-> judgement calls flagged for your confirmation). Kirsten's July commentary is
+> logged in [`docs/CHANGE-REQUESTS.md`](docs/CHANGE-REQUESTS.md) (with three
+> judgement calls flagged for your confirmation). The agency's July commentary is
 > populated in `reports/2026-07/data.json`; Google Ads/GA4 figures remain
 > placeholders until those exports/feeds are supplied.
 
@@ -48,7 +48,7 @@ back silently to static/placeholder figures.
   scoped to the landing-page section (`/api/ga4-landing-page`).
 
 Every block on the page is tagged with a coloured **source chip**
-(Static · Kirsten — manual · Google Ads · GA4 · Looker Studio · Other/unknown)
+(Static · Manual · Google Ads · GA4 · Looker Studio · Other/unknown)
 and there is a legend under the KPI bar. Full classification:
 [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md).
 
@@ -89,7 +89,7 @@ Vercel password protection / SSO if genuine access control is required.
 2. **Fill the data** in `reports/2026-08/data.json` from the correct source
    (see `docs/DATA-SOURCES.md`), then set `"placeholder": false`.
    - Google Ads figures: KPIs, stats, campaign table, geography.
-   - Kirsten's manual inputs: budget split, confirmed retention/cancellation,
+   - The agency's manual inputs: budget split, confirmed retention/cancellation,
      partner-conflict/pause decisions, creative-brief status.
    - Looker Studio LOB: average revenue + policy counts for the LTV / group
      sections.

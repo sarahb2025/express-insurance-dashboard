@@ -1,9 +1,9 @@
-# Kirsten's changes & manual inputs — tracker
+# Change requests & manual inputs — tracker
 
 Two separate things live here:
 1. **Pending change request** — the additions/removals/layout changes in
-   Kirsten's PowerPoint + the full-page screenshots (not yet received).
-2. **Kirsten's recurring manual inputs** — the fields Kirsten owns every month.
+   the change-request PowerPoint + the full-page screenshots (not yet received).
+2. **The agency's recurring manual inputs** — the fields the agency owns every month.
 
 ---
 
@@ -11,13 +11,13 @@ Two separate things live here:
 
 **Status: NOT YET RECEIVED (as of 2026-08-11).**
 
-The brief says full-page screenshots and Kirsten's PowerPoint (requested
+The brief says full-page screenshots and the change-request PowerPoint (requested
 additions, removals, and layout changes) will be uploaded. They were not
 available when this project was built, so this delivery is:
 
 - ✅ Faithful reproduction of the live dashboard (master template).
 - ✅ Project structure, source labelling, current-month report, docs, feed stubs.
-- ⏳ **Kirsten's requested changes — pending the PowerPoint + screenshots.**
+- ⏳ **The requested changes — pending the PowerPoint + screenshots.**
 
 **When the files arrive, do this:**
 1. Read the PowerPoint; list each change as add / remove / move / relabel, with
@@ -80,9 +80,9 @@ slides) and `Express_Insurance___July_2026_Commentary.docx` (July manual comment
 
 ---
 
-## 2. Kirsten's recurring manual inputs (every reporting month)
+## 2. The agency's recurring manual inputs (every reporting month)
 
-These are **not** pulled from any API — Kirsten supplies them. Enter them in the
+These are **not** pulled from any API — the agency supplies them. Enter them in the
 month's `reports/YYYY-MM/data.json` (or `index.html` where noted) each cycle.
 
 | Input | Where it appears | Where to enter |
@@ -96,13 +96,13 @@ month's `reports/YYYY-MM/data.json` (or `index.html` where noted) each cycle.
 | **Target ROAS** | KPI band | Static (strategy) |
 | **Effective-from date** for the budget | Budget subheader | Static |
 
-Anything Kirsten changes that is currently hard-coded should, over time, migrate
+Anything the agency changes that is currently hard-coded should, over time, migrate
 into the month `data.json` so producing a month becomes data-entry, not editing
 HTML. That refactor is noted in `README.md` (monthly workflow).
 
 ---
 
-## 3. Open questions for Kirsten / the client
+## 3. Open questions for the client
 
 - **Reporting month:** this build assumes the current reporting month is **July
   2026** (`reports/2026-07/`). Confirm — the live reference's latest data was May

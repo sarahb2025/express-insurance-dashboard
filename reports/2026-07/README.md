@@ -21,8 +21,8 @@ feed-status pills on the page show live / static / awaiting per feed.
 2. Fill each field from the **correct source** (see `../../docs/DATA-SOURCES.md`):
    - **Google Ads** → `months["July 2026"].kpi`, `.stats`, `.campaigns`, `.geo.locations`
      (conversions, conversion value, ROAS, geography).
-   - **Kirsten (manual)** → budget split, confirmed retention/cancellation,
-     pause/partner decisions (see `../../docs/KIRSTEN-CHANGES.md`).
+   - **Manual** → budget split, confirmed retention/cancellation,
+     pause/partner decisions (see `../../docs/CHANGE-REQUESTS.md`).
    - **Looker Studio (LOB)** → average revenue / policy counts used by the
      LTV & group sections.
 3. If the live feeds are connected (`/api/ads-report`, `/api/ads-geo`,
@@ -33,7 +33,7 @@ feed-status pills on the page show live / static / awaiting per feed.
 
 ## Regenerate from the master
 
-If the master template changes (e.g. Kirsten's PowerPoint edits land):
+If the master template changes (e.g. the change-request PowerPoint edits land):
 
 ```bash
 python3 scripts/new-month-report.py 2026 7   # run from repo root

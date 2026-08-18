@@ -45,7 +45,7 @@ also spot-check the master root `/` (defaults to June).
 - [ ] All four channel cards — Cross-network, Paid Search, Direct, Organic — show Sessions / Key Events / Conv. Rate / Bounce / Avg. Engagement (no `—`).
 - [ ] Cross-check vs the **GA4 UI** for the accountants landing page, July (Paid Search + Cross-network sessions ≈ the ~160 referenced in the commentary is a useful sanity anchor).
 
-## 8. Commentary (Kirsten — manual) — should already be present
+## 8. Commentary (Manual) — should already be present
 - [ ] PMax, Geography, and Landing-page blue ℹ️ boxes show the July commentary text.
 
 ## 9. Source labelling

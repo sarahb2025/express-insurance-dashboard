@@ -116,6 +116,30 @@ await check('/reports/2026-07/index.html', 'JULY landing-page cards fill from a 
   return { ok: filled && r.paidsearch.sessions === '160', ...r };
 });
 
+// No client-facing "Kirsten" anywhere in the rendered dashboard (text, tooltips/title
+// attributes, class names). Checks the fully-rendered DOM case-insensitively on both the
+// master template and the July report. Fails the suite if the name reappears.
+async function checkNoKirsten(path, label) {
+  const ctx = await browser.newContext();
+  await ctx.addInitScript(() => { try { sessionStorage.setItem('ei_ok', '1'); } catch (e) {} });
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}${path}`, { waitUntil: 'networkidle', timeout: 20000 });
+  await page.waitForTimeout(600);
+  const hits = await page.evaluate(() => {
+    const html = document.documentElement.outerHTML.toLowerCase();
+    let n = 0, i = -1;
+    while ((i = html.indexOf('kirsten', i + 1)) !== -1) n++;
+    return n;
+  });
+  await ctx.close();
+  const ok = hits === 0;
+  if (!ok) failures++;
+  console.log(`${ok ? 'PASS' : 'FAIL'}  ${label}  ${JSON.stringify({ kirstenOccurrences: hits })}`);
+}
+
+await checkNoKirsten('/index.html', 'MASTER contains no "Kirsten" reference');
+await checkNoKirsten('/reports/2026-07/index.html', 'JULY contains no "Kirsten" reference');
+
 await browser.close();
 console.log(failures === 0 ? '\nAll render checks passed.' : `\n${failures} render check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

@@ -3,15 +3,15 @@
 Every block on the dashboard is classified by where its data comes from. On the
 page itself this is shown as a coloured **source chip** in each section header
 (and a legend under the KPI bar). This file is the authoritative reference and
-reflects the layout **after Kirsten's requested changes** (see
-`KIRSTEN-CHANGES.md`).
+reflects the layout **after the requested changes** (see
+`CHANGE-REQUESTS.md`).
 
 ## Categories
 
 | Chip | Meaning |
 |------|---------|
 | **Static** | Hard-coded content: copy, structure, fixed assumptions. Changes only when the file is edited. |
-| **Kirsten — manual** | Numbers/decisions/commentary supplied by Balmer Agency / Kirsten each month (typed into the month `data.json`). |
+| **Manual** | Numbers/decisions/commentary supplied by Balmer Agency each month (typed into the month `data.json`). |
 | **Google Ads** | Live from the Google Ads API. **Source of truth for conversions, conversion value, ROAS, and geography.** |
 | **GA4** | Live from GA4 (property `387516214`). **Used only for landing-page traffic & engagement.** |
 | **Looker Studio** | From the LOB report / budget breakdown in Looker Studio. Currently transcribed into `data.json` (no direct report API). |
@@ -33,7 +33,7 @@ reflects the layout **after Kirsten's requested changes** (see
 
 | KPI | Source |
 |-----|--------|
-| Monthly Budget · $/day | **Kirsten — manual** |
+| Monthly Budget · $/day | **Manual** |
 | Account ROAS · Non-brand | **Google Ads** |
 | Best Campaign · ROAS | **Google Ads** |
 | PMax ROAS + note | **Google Ads** (value) · **Static** (note) |
@@ -74,7 +74,7 @@ with no source label; this is now resolved.)* `budget[]` items:
 | Element | Source |
 |---------|--------|
 | Asset-group table — Asset Group, Spend, Conversions, Conv. Value, ROAS | **Google Ads** — live via `/api/ads-asset-groups`, or `months[m].assetGroups[]` |
-| Commentary (blue ℹ️ info box) | **Kirsten — manual** (`commentary.pmax`) |
+| Commentary (blue ℹ️ info box) | **Manual** (`commentary.pmax`) |
 
 Changes: renamed from "Performance Max — Asset Group Strategy"; the five static
 strategy cards were replaced by the auto table + a single commentary box. Until
@@ -85,7 +85,7 @@ the asset-group export is supplied the table shows an "awaiting" row.
 | Element | Source |
 |---------|--------|
 | Average revenue per line of business | **Looker Studio** (LOB) — `data.json` `lob[]`, else built-in defaults |
-| Retention 75%, cancellation 3%, gross margin 100% | **Kirsten — manual** |
+| Retention 75%, cancellation 3%, gross margin 100% | **Manual** |
 | All LTV / CPA / net-margin / break-even maths | **Static** (computed in-browser) |
 
 The `lob` figures are now overridable from `data.json` (were hard-coded). No live
@@ -98,9 +98,9 @@ Looker API exists, so they carry the last transcribed LOB values until refreshed
 | Sub-block | Source |
 |-----------|--------|
 | **Geographic Performance** (bars + city table) | **Google Ads** — *source of truth for geography.* `/api/ads-geo` |
-| Geography commentary (single ℹ️ field) | **Kirsten — manual** (`commentary.geo`) |
+| Geography commentary (single ℹ️ field) | **Manual** (`commentary.geo`) |
 | **Landing Page Performance** (4 channel cards) | **GA4** (property `387516214`) — landing-page traffic & engagement only. `/api/ga4-landing-page` |
-| Landing-page commentary (headline + paragraph) | **Kirsten — manual** (`commentary.landing`) |
+| Landing-page commentary (headline + paragraph) | **Manual** (`commentary.landing`) |
 
 Changes: the 5-tile summary band, the Key Findings accordion, the two
 green/yellow geo bubbles, the three "What this means" cards, the static landing
@@ -119,5 +119,5 @@ date range — it is feed-driven.
 - Landing-page sessions / key events / bounce / engagement → **GA4 only.**
 - Line-of-business average revenue → **Looker Studio.**
 - Budget split → **Looker Studio** (total fixed at $18k; split provided at month-end).
-- Confirmed rates and all commentary → **Kirsten (manual).**
+- Confirmed rates and all commentary → **Manual.**
 - Structure, targets, calculator maths → **Static.**
