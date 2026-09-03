@@ -1,5 +1,5 @@
 {
-  "_schema": "August 2026 data feed. placeholder:true → the dashboard renders 'awaiting data' cells and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are pulled live for 1–31 August 2026 via the API routes; commentary is the agency's manual August input (MANUAL). To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
+  "_schema": "August 2026 data feed. placeholder:true → the dashboard renders 'awaiting data' cells for figures and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are pulled live for 1–31 August 2026 via the API routes; commentary is the agency's manual August input (MANUAL). To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
   "placeholder": true,
   "pmaxNote": "Optimising — allocation unchanged from July",
   "monthOrder": [
@@ -7,16 +7,16 @@
   ],
   "budgetNote": "The $18,000 monthly budget and campaign split remained unchanged in August. Activity focused on optimising the existing campaigns, as no changes to the current allocation were requested.",
   "commentary": {
-    "pmax": "Performance Max commentary for August 2026 — awaiting the agency's manual input (MANUAL).",
-    "geo": "Geography commentary for August 2026 — awaiting the agency's manual input (MANUAL). Geographic conversions are sourced from Google Ads (source of truth).",
+    "pmax": "August was a more mixed month overall, with conversion volume and ROAS easing from July, although spend was also slightly lower. Brand remained the strongest contributor to the account, while PMax continued to provide stable conversion volume and improved efficiency in the General asset group. PMax generated 23 conversions compared with 22 in July on lower spend. General remained the main driver, increasing to 20 conversions with ROAS improving to 2.20. Accounting delivered lower volume, but overall PMax performance remained relatively steady. As planned, the longer-term focus remains on gradually introducing more targeted occupation-specific asset groups to complement the broader General group. Accountant Insurance continues to be an important optimisation focus, with some positive movement within the PI ad group as ROAS improved from 0.38 to 1.30 while maintaining 2 conversions. The PI & PL ad group within Professional Indemnity also continued to generate conversions, although at lower volume than July. Management Consultants remains a priority test and is still in the very early learning stage, with limited delivery so far. We will continue building data here before making any broader expansion decisions.",
+    "ga4": "Overall GA4 traffic was slightly lower in August, but engagement quality improved. Engagement rate increased from 64.0% to 65.7%, while average engagement time also increased from around 1:48 to 1:55 per session. Paid Search traffic was lower month-on-month, but the users coming through were more engaged, with engagement rate improving from 68.6% to 72.4% and average engagement time increasing slightly to around 2:18 per session. Cross-network traffic also showed encouraging engagement signals, with average engagement time improving and session key event rate increasing from 21.9% to 29.1%. Overall, while traffic volume was softer, the quality of paid visits remained healthy.",
     "landing": {
-      "headline": "Landing pages — August",
-      "body": "Landing-page commentary for August 2026 — awaiting the agency's manual input (MANUAL)."
+      "headline": "Engagement Quality Remains Healthy Across Key Paid Landing Pages",
+      "body": "The homepage remained the strongest high-volume paid landing page, with traffic broadly stable and engagement improving. Engagement rate increased to 75%, while average engagement time rose from around 2:21 to 2:38. The Accountant Insurance page continued to attract meaningful paid traffic, with 140 Paid Search and Cross-network sessions in August. Paid Search engagement remained strong, with the majority of sessions engaged and average engagement time close to two minutes. Cross-network engagement was softer, so this remains an area we can continue refining alongside the ongoing Accountant campaign and quote journey optimisation. Management Consultants is still in the early stages, with limited traffic so far. As more data builds, we’ll be in a better position to assess landing-page engagement and determine the next optimisation or expansion opportunities."
     }
   },
   "months": {
     "August 2026": {
-      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (live, 1–31 August 2026). commentary above = agency manual (MANUAL).",
+      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (live, 1–31 August 2026). commentary = agency manual (MANUAL).",
       "periodLabel": "1 – 31 August 2026",
       "compareLabel": "1 – 31 July 2026",
       "kpi": {
@@ -29,19 +29,72 @@
         "convValueNote": "1 – 31 August 2026"
       },
       "stats": {
-        "impressions": { "v": null, "chg": null },
-        "clicks": { "v": null, "chg": null },
-        "conversions": { "v": null, "chg": null },
-        "convValue": { "v": null, "chg": null },
-        "cost": { "v": null, "chg": null },
-        "cpc": { "v": null, "chg": null }
+        "impressions": {
+          "v": null,
+          "chg": null
+        },
+        "clicks": {
+          "v": null,
+          "chg": null
+        },
+        "conversions": {
+          "v": null,
+          "chg": null
+        },
+        "convValue": {
+          "v": null,
+          "chg": null
+        },
+        "cost": {
+          "v": null,
+          "chg": null
+        },
+        "cpc": {
+          "v": null,
+          "chg": null
+        }
       },
       "campaigns": [
-        { "key": "brand", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "pmax", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "pi", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "acct", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "pl", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null }
+        {
+          "key": "brand",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pmax",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pi",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "acct",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pl",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        }
       ],
       "assetGroups": [],
       "geo": {
@@ -56,7 +109,9 @@
     "kpi": {},
     "stats": {},
     "campaigns": [],
-    "geo": { "locations": [] }
+    "geo": {
+      "locations": []
+    }
   },
   "custom": {
     "dailyRates": {},

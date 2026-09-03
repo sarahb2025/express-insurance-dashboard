@@ -597,6 +597,11 @@ tr:hover td{background:#F8FAFC}
     <div class="lbl">Landing Page Performance <span class="src-chip src-ga4 sm" title="Sessions, key events, bounce & engagement from GA4 (property 387516214). GA4 is used ONLY for landing-page traffic & engagement.">GA4 live · property 387516214</span></div>
     <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Landing pages in use during the selected period <span class="feed-status feed-placeholder" id="ga4-feed-status" title="Updates automatically when the GA4 live feed responds.">Feed: not connected</span></div>
     <div id="lp-grid-anchor"></div>
+    <!-- Optional manual GA4 overview (rendered only when data.commentary.ga4 is present). -->
+    <div class="note" id="ga4-commentary" style="display:none;margin-bottom:16px">
+      <span class="src-chip src-manual sm" style="margin-right:6px">Manual</span>
+      <strong>GA4 overview:</strong> <span id="ga4-commentary-text"></span>
+    </div>
     <div class="lp-grid" id="lp-grid">
       <div class="lp-card" data-channel="crossnet" style="border-top:3px solid var(--red)">
         <div class="lp-channel">Cross-network / likely PMax</div>
@@ -1178,16 +1183,25 @@ function renderBudget(budget, roasByKey, fixedTotal){
 /* Manual commentary fields (agency) — PMax, geography, landing page */
 function renderCommentaries(p){
   var c = (p && p.commentary) || (DATA && DATA.commentary) || {};
-  var pm = document.getElementById('pmax-commentary-text');
-  if (pm) pm.textContent = c.pmax || 'Add this month’s Performance Max commentary in the report data file.';
-  var geo = document.getElementById('geo-commentary-text');
-  if (geo) geo.textContent = c.geo || 'Add this month’s geography commentary in the report data file.';
+  // Show a commentary note only when text is supplied; otherwise hide the box
+  // entirely (no developer placeholder wording ever reaches the client view).
+  function setNote(boxId, txtId, text){
+    var box = document.getElementById(boxId), txt = document.getElementById(txtId);
+    if (!box || !txt) return;
+    if (text){ txt.textContent = text; box.style.display = ''; }
+    else { txt.textContent = ''; box.style.display = 'none'; }
+  }
+  setNote('pmax-commentary', 'pmax-commentary-text', c.pmax);
+  setNote('geo-commentary', 'geo-commentary-text', c.geo);
+  setNote('ga4-commentary', 'ga4-commentary-text', c.ga4);
+  var lbox = document.getElementById('lp-commentary');
   var lh = document.getElementById('lp-commentary-head'), lt = document.getElementById('lp-commentary-text');
-  if (c.landing && typeof c.landing === 'object'){
-    if (lh) lh.textContent = c.landing.headline || 'Commentary';
-    if (lt) lt.textContent = c.landing.body || '';
-  } else if (typeof c.landing === 'string' && lt){
-    lt.textContent = c.landing;
+  var landingHead = 'Commentary', landingBody = '';
+  if (c.landing && typeof c.landing === 'object'){ landingHead = c.landing.headline || 'Commentary'; landingBody = c.landing.body || ''; }
+  else if (typeof c.landing === 'string'){ landingBody = c.landing; }
+  if (lbox && lt){
+    if (landingBody){ if (lh) lh.textContent = landingHead; lt.textContent = landingBody; lbox.style.display = ''; }
+    else { lt.textContent = ''; lbox.style.display = 'none'; }
   }
   // Optional manual budget note — shown only when supplied in the report data.
   var bn = (p && p.budgetNote) || (DATA && DATA.budgetNote);

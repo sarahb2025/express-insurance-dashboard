@@ -132,11 +132,32 @@ await check('/reports/2026-08/index.html', 'AUGUST report renders placeholders +
   const noteHasChip = await p.$eval('#budget-note-manual .src-manual', (e) => e.textContent.trim().toLowerCase() === 'manual').catch(() => false);
   // August reporting period is reflected in the performance header
   const periodAug = (await p.textContent('body')).includes('August 2026');
+  // Manual commentary blocks: PMax + GA4 overview + Landing-page all render with the
+  // supplied text; Geography carries no August commentary (its box stays hidden); and
+  // no developer placeholder wording survives anywhere in the body.
+  const vis = async (sel) => { const el = await p.$(sel); return el ? el.isVisible() : false; };
+  const pmaxC = (await p.textContent('#pmax-commentary-text'))?.trim() || '';
+  const ga4C = (await p.textContent('#ga4-commentary-text'))?.trim() || '';
+  const lpHead = (await p.textContent('#lp-commentary-head'))?.trim() || '';
+  const lpBody = (await p.textContent('#lp-commentary-text'))?.trim() || '';
+  const pmaxVisible = await vis('#pmax-commentary');
+  const ga4Visible = await vis('#ga4-commentary');
+  const lpVisible = await vis('#lp-commentary');
+  const geoHidden = !(await vis('#geo-commentary'));
+  const body = await p.textContent('body');
+  const noPlaceholderWording = !/Add (this month|landing-page)|awaiting input|awaiting the agency/i.test(body);
+  const commentaryOk =
+    pmaxVisible && pmaxC.includes('PMax generated 23 conversions') &&
+    ga4Visible && ga4C.includes('64.0% to 65.7%') &&
+    lpVisible && lpHead === 'Engagement Quality Remains Healthy Across Key Paid Landing Pages' &&
+    lpBody.includes('140 Paid Search and Cross-network sessions') &&
+    geoHidden && noPlaceholderWording;
   return {
     ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' && bannerNoPlaceholderClaim && noStrayBackref &&
         noteVisible && noteHasChip && periodAug &&
-        noteText.startsWith('The $18,000 monthly budget and campaign split remained unchanged in August'),
-    kpi, stat, banner, budgetKpi, noteVisible, noteHasChip, periodAug, noteText: noteText.slice(0, 40),
+        noteText.startsWith('The $18,000 monthly budget and campaign split remained unchanged in August') &&
+        commentaryOk,
+    kpi, stat, budgetKpi, noteVisible, periodAug, pmaxVisible, ga4Visible, lpVisible, geoHidden, noPlaceholderWording,
   };
 });
 
