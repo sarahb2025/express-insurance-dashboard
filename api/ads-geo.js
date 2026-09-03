@@ -47,6 +47,7 @@ module.exports = async function handler(req, res) {
     res.status(400).json({ error: 'start and end (YYYY-MM-DD) query params are required' });
     return;
   }
+  const debug = req.query && (req.query.debug === '1' || req.query.debug === 'true');
   let customer;
   try { customer = getCustomer(); } catch (e) { return sendError(res, e); }
 
@@ -85,11 +86,24 @@ module.exports = async function handler(req, res) {
       .sort((a, b) => b.conv - a.conv)
       .slice(0, 10);
 
-    res.status(200).json({
+    const payload = {
       periodLabel: `All campaigns · ${start} – ${end} · User location (Google Ads)`,
       source: 'google-ads-live',
       locations,
-    });
+    };
+    // Safe diagnostics (?debug=1): report data only — the window, how many distinct
+    // locations had conversions in the current and previous windows, and the resolved
+    // top locations. No credentials exposed.
+    if (debug) {
+      payload._debug = {
+        window: { start, end },
+        prevWindow: { start: prevStart, end: prevEnd },
+        currentLocationCount: Object.keys(cur).length,
+        prevLocationCount: Object.keys(prev).length,
+        resolvedTopLocations: locations.map((l) => ({ name: l.name, state: l.state, conv: l.conv })),
+      };
+    }
+    res.status(200).json(payload);
   } catch (err) {
     sendError(res, err);
   }

@@ -50,6 +50,7 @@ async function handler(req, res) {
     res.status(400).json({ error: 'start and end (YYYY-MM-DD) query params are required' });
     return;
   }
+  const debug = req.query && (req.query.debug === '1' || req.query.debug === 'true');
   let customer;
   try { customer = getCustomer(); } catch (e) { return sendError(res, e); }
 
@@ -61,11 +62,30 @@ async function handler(req, res) {
       WHERE segments.date BETWEEN '${start}' AND '${end}'
         AND campaign.advertising_channel_type = 'PERFORMANCE_MAX'
     `);
-    res.status(200).json({
+    const assetGroups = aggregateAssetGroups(rows);
+    const payload = {
       periodLabel: `${start} – ${end}`,
       source: 'google-ads-live',
-      assetGroups: aggregateAssetGroups(rows),
-    });
+      assetGroups,
+    };
+    // Safe diagnostics (?debug=1): report data only — the window, the PMax asset-group row
+    // count, and the asset-group / campaign names returned. No credentials exposed.
+    if (debug) {
+      const groupNames = [], campaignNames = [];
+      for (const r of rows || []) {
+        const gn = r.asset_group && r.asset_group.name;
+        const cn = r.campaign && r.campaign.name;
+        if (gn && groupNames.indexOf(gn) === -1) groupNames.push(gn);
+        if (cn && campaignNames.indexOf(cn) === -1) campaignNames.push(cn);
+      }
+      payload._debug = {
+        window: { start, end },
+        rowCount: (rows || []).length,
+        assetGroupNames: groupNames,
+        pmaxCampaignNames: campaignNames,
+      };
+    }
+    res.status(200).json(payload);
   } catch (err) {
     sendError(res, err);
   }

@@ -18,6 +18,7 @@ module.exports = async function handler(req, res) {
     res.status(400).json({ error: 'start and end (YYYY-MM-DD) query params are required' });
     return;
   }
+  const debug = req.query && (req.query.debug === '1' || req.query.debug === 'true');
   let customer;
   try { customer = getCustomer(); } catch (e) { return sendError(res, e); }
 
@@ -33,9 +34,12 @@ module.exports = async function handler(req, res) {
     let imp = 0, clk = 0, cost = 0, conv = 0, val = 0;
     let brandCost = 0, brandVal = 0, pmaxRoas = 0, best = null;
     const byKey = {};
+    const namesReturned = [], unmappedNames = [];
     for (const r of rows) {
+      const cname = r.campaign && r.campaign.name;
+      if (namesReturned.indexOf(cname) === -1) namesReturned.push(cname);
       const key = campaignKeyFor(r.campaign.name);
-      if (!key) continue;
+      if (!key) { if (unmappedNames.indexOf(cname) === -1) unmappedNames.push(cname); continue; }
       const c = (Number(r.metrics.cost_micros) || 0) / 1e6;
       const cv = Number(r.metrics.conversions) || 0;
       const vv = Number(r.metrics.conversions_value) || 0;
@@ -60,7 +64,7 @@ module.exports = async function handler(req, res) {
     // comparison query before publishing deltas. See docs/INTEGRATIONS.md.
     const mk = (v) => ({ v, chg: null });
 
-    res.status(200).json({
+    const payload = {
       periodLabel: `${start} – ${end}`,
       compareLabel: 'previous period',
       source: 'google-ads-live',
@@ -75,7 +79,23 @@ module.exports = async function handler(req, res) {
         convValue: mk(val), cost: mk(cost), cpc: mk(cpc),
       },
       campaigns,
-    });
+    };
+
+    // Safe diagnostics (?debug=1): report data only — the query window, how many rows
+    // Google Ads returned for that window, the campaign names returned, which mapped to a
+    // dashboard key and which did not, and the account totals. No credentials are exposed.
+    if (debug) {
+      payload._debug = {
+        window: { start, end },
+        rowCount: rows.length,
+        campaignNamesReturned: namesReturned,
+        mappedKeys: campaigns.map((c) => c.key),
+        unmappedNames,
+        totals: { cost: Math.round(cost), conv, convValue: Math.round(val) },
+      };
+    }
+
+    res.status(200).json(payload);
   } catch (err) {
     sendError(res, err);
   }
