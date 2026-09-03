@@ -1,0 +1,68 @@
+{
+  "_schema": "August 2026 data feed. placeholder:true → the dashboard renders 'awaiting data' cells and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are pulled live for 1–31 August 2026 via the API routes; commentary is the agency's manual August input (MANUAL). To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
+  "placeholder": true,
+  "pmaxNote": "Optimising — allocation unchanged from July",
+  "monthOrder": [
+    "August 2026"
+  ],
+  "budgetNote": "The $18,000 monthly budget and campaign split remained unchanged in August. Activity focused on optimising the existing campaigns, as no changes to the current allocation were requested.",
+  "commentary": {
+    "pmax": "Performance Max commentary for August 2026 — awaiting the agency's manual input (MANUAL).",
+    "geo": "Geography commentary for August 2026 — awaiting the agency's manual input (MANUAL). Geographic conversions are sourced from Google Ads (source of truth).",
+    "landing": {
+      "headline": "Landing pages — August",
+      "body": "Landing-page commentary for August 2026 — awaiting the agency's manual input (MANUAL)."
+    }
+  },
+  "months": {
+    "August 2026": {
+      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (live, 1–31 August 2026). commentary above = agency manual (MANUAL).",
+      "periodLabel": "1 – 31 August 2026",
+      "compareLabel": "1 – 31 July 2026",
+      "kpi": {
+        "accountRoas": null,
+        "nonBrand": null,
+        "bestName": null,
+        "bestRoas": null,
+        "pmaxRoas": null,
+        "convValue": null,
+        "convValueNote": "1 – 31 August 2026"
+      },
+      "stats": {
+        "impressions": { "v": null, "chg": null },
+        "clicks": { "v": null, "chg": null },
+        "conversions": { "v": null, "chg": null },
+        "convValue": { "v": null, "chg": null },
+        "cost": { "v": null, "chg": null },
+        "cpc": { "v": null, "chg": null }
+      },
+      "campaigns": [
+        { "key": "brand", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "pmax", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "pi", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "acct", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "pl", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null }
+      ],
+      "assetGroups": [],
+      "geo": {
+        "periodLabel": "All campaigns · 1 – 31 August 2026 · User location (Google Ads)",
+        "locations": []
+      }
+    }
+  },
+  "last30": {
+    "periodLabel": "Last 30 days",
+    "compareLabel": "Previous 30 days",
+    "kpi": {},
+    "stats": {},
+    "campaigns": [],
+    "geo": { "locations": [] }
+  },
+  "custom": {
+    "dailyRates": {},
+    "campaignDailyRates": {},
+    "geoDailyRates": {},
+    "monthFactor": {}
+  },
+  "budgetTotal": 18000
+}

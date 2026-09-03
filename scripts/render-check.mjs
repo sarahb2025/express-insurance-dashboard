@@ -116,6 +116,38 @@ await check('/reports/2026-07/index.html', 'JULY landing-page cards fill from a 
   return { ok: filled && r.paidsearch.sessions === '160', ...r };
 });
 
+// AUGUST report — same placeholder posture as July, plus the confirmed $18K budget,
+// the August reporting period, and the manual budget note rendered from data.budgetNote.
+await check('/reports/2026-08/index.html', 'AUGUST report renders placeholders + $18K + Aug period + budget note', async (p) => {
+  const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
+  const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
+  const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
+  const budgetKpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(1) .kpi-val'))?.trim();
+  const bannerNoPlaceholderClaim = !(await p.textContent('#tpl-banner'))?.includes('all live figures are placeholders');
+  const noStrayBackref = !(await p.textContent('body')).includes('\\1');
+  // Budget note visible with the confirmed August wording, labelled Manual
+  const noteBox = await p.$('#budget-note-manual');
+  const noteVisible = noteBox ? await noteBox.isVisible() : false;
+  const noteText = (await p.textContent('#budget-note-manual-text'))?.trim() || '';
+  const noteHasChip = await p.$eval('#budget-note-manual .src-manual', (e) => e.textContent.trim().toLowerCase() === 'manual').catch(() => false);
+  // August reporting period is reflected in the performance header
+  const periodAug = (await p.textContent('body')).includes('August 2026');
+  return {
+    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' && bannerNoPlaceholderClaim && noStrayBackref &&
+        noteVisible && noteHasChip && periodAug &&
+        noteText.startsWith('The $18,000 monthly budget and campaign split remained unchanged in August'),
+    kpi, stat, banner, budgetKpi, noteVisible, noteHasChip, periodAug, noteText: noteText.slice(0, 40),
+  };
+});
+
+// July's budget note element must stay hidden (July supplies no data.budgetNote) — proves the
+// additive master change did not alter the July report's rendered output.
+await check('/reports/2026-07/index.html', 'JULY budget note stays hidden (unchanged behaviour)', async (p) => {
+  const box = await p.$('#budget-note-manual');
+  const hidden = box ? !(await box.isVisible()) : true;
+  return { ok: hidden, hidden };
+});
+
 // No client-facing "Kirsten" anywhere in the rendered dashboard (text, tooltips/title
 // attributes, class names). Checks the fully-rendered DOM case-insensitively on both the
 // master template and the July report. Fails the suite if the name reappears.
@@ -139,6 +171,7 @@ async function checkNoKirsten(path, label) {
 
 await checkNoKirsten('/index.html', 'MASTER contains no "Kirsten" reference');
 await checkNoKirsten('/reports/2026-07/index.html', 'JULY contains no "Kirsten" reference');
+await checkNoKirsten('/reports/2026-08/index.html', 'AUGUST contains no "Kirsten" reference');
 
 await browser.close();
 console.log(failures === 0 ? '\nAll render checks passed.' : `\n${failures} render check(s) FAILED.`);
