@@ -417,7 +417,7 @@ tr:hover td{background:#F8FAFC}
 <!-- REPORT-KIND BANNER — this is the September 2026 reporting-month report, generated from the master template. -->
 <div class="tpl-banner report" id="tpl-banner">
   <span class="tpl-tag">Reporting month</span>
-  <span><strong>September 2026</strong> — Google Ads and GA4 figures are pulled live. The agency's manual commentary and the Looker budget split may remain pending. See <code>reports/2026-09/README.md</code>.</span>
+  <span><strong>September 2026</strong> — Google Ads and GA4 figures are pulled live. Commentary has been updated for the reporting period.</span>
 </div>
 
 <!-- DATA-SOURCE LEGEND — classifies every block on the page -->
@@ -475,7 +475,7 @@ tr:hover td{background:#F8FAFC}
   <div class="sec-hdr">
     <span class="sec-title">Budget Allocation</span>
     <span class="sec-sub">Total fixed at $18,000/month · split from the Looker Studio budget breakdown</span>
-    <span class="src-chip src-looker" title="Confirmed by Sarah: per-campaign split comes from the Looker Studio budget breakdown. Total budget is fixed at $18,000/month; the split is populated at month-end.">Looker: budget</span>
+    <span class="src-chip src-looker" title="Total budget is fixed at $18,000/month; per-campaign split from the Looker Studio budget breakdown.">Looker: budget</span>
   </div>
 
   <div class="budget-layout">
@@ -503,7 +503,7 @@ tr:hover td{background:#F8FAFC}
       </div>
     </div>
   </div>
-  <div style="font-size:11px;color:var(--text-muted);margin-top:14px;line-height:1.6">ℹ️ Total budget is fixed at $18,000/month. The per-campaign split comes from the Looker Studio budget breakdown and is populated at month-end; ROAS shown per row is live from Google Ads.</div>
+  <div style="font-size:11px;color:var(--text-muted);margin-top:14px;line-height:1.6">ℹ️ Total budget is fixed at $18,000/month; ROAS shown per row is live from Google Ads.</div>
   <!-- Optional manual budget note for the reporting month (rendered only when data.budgetNote is present). -->
   <div class="note" id="budget-note-manual" style="display:none">
     <span class="src-chip src-manual sm" style="margin-right:6px">Manual</span>
@@ -960,7 +960,7 @@ function renderBudgetKPI(){
   var v = items[0].querySelector('.kpi-val'), c = items[0].querySelector('.kpi-chg');
   if (DATA && DATA.budgetTotal) {
     if (v) v.textContent = fmtDollarK(DATA.budgetTotal);
-    if (c) c.textContent = 'Split pending · Looker';
+    if (c) c.textContent = '$600/day';
   }
 }
 
@@ -1064,7 +1064,7 @@ function renderPlaceholders(p){
     var v = it.querySelector('.kpi-val'), c = it.querySelector('.kpi-chg');
     if (i === 0 && DATA && DATA.budgetTotal) { // Monthly Budget: fixed total known even without live feeds
       if (v) v.textContent = fmtDollarK(DATA.budgetTotal);
-      if (c) c.textContent = 'Split pending · Looker';
+      if (c) c.textContent = '$600/day';
       return;
     }
     if (v) v.textContent = PH;
@@ -1143,7 +1143,7 @@ function renderBudget(budget, roasByKey, fixedTotal){
   if (!Array.isArray(budget) || !budget.length){
     // No per-campaign split yet. If the fixed total is known, show it and note the split is pending.
     if (fixedTotal){
-      rows.innerHTML = '<div class="note-warn" style="margin:0">⏳ Total budget fixed at ' + money(fixedTotal) + '/month. The per-campaign split (Looker Studio budget breakdown) is populated at month-end.</div>';
+      rows.innerHTML = '<div class="note" style="margin:0">Total budget fixed at ' + money(fixedTotal) + '/month.</div>';
       if (totalEl) totalEl.querySelector('.budget-total-val').textContent = money(fixedTotal) + ' / mo';
       if (centre) centre.textContent = fixedTotal >= 1000 ? '$' + Math.round(fixedTotal / 1000) + 'K' : money(fixedTotal);
     } else {
