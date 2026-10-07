@@ -161,6 +161,30 @@ await check('/reports/2026-08/index.html', 'AUGUST report renders placeholders +
   };
 });
 
+// SEPTEMBER report — duplicated from the master: placeholders until the live Google Ads
+// feed responds, confirmed $18K budget, September reporting period, and the August
+// comparison period. Commentary is empty until supplied, so all commentary boxes hide.
+await check('/reports/2026-09/index.html', 'SEPTEMBER report renders placeholders + $18K + Sep period + Aug compare', async (p) => {
+  const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
+  const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
+  const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
+  const budgetKpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(1) .kpi-val'))?.trim();
+  const body = await p.textContent('body');
+  const periodSep = body.includes('1 – 30 September 2026');
+  const compareAug = body.includes('1 – 31 August 2026');
+  const vis = async (sel) => { const el = await p.$(sel); return el ? el.isVisible() : false; };
+  // No commentary yet → every commentary box hidden, and no placeholder wording shown.
+  const commentaryHidden = !(await vis('#pmax-commentary')) && !(await vis('#ga4-commentary')) &&
+                           !(await vis('#geo-commentary')) && !(await vis('#lp-commentary'));
+  const noPlaceholderWording = !/Add (this month|landing-page)|awaiting input/i.test(body);
+  const noteHidden = !(await vis('#budget-note-manual')); // no September budget note supplied
+  return {
+    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' &&
+        periodSep && compareAug && commentaryHidden && noPlaceholderWording && noteHidden,
+    kpi, stat, budgetKpi, periodSep, compareAug, commentaryHidden, noPlaceholderWording, noteHidden,
+  };
+});
+
 // July's budget note element must stay hidden (July supplies no data.budgetNote) — proves the
 // additive master change did not alter the July report's rendered output.
 await check('/reports/2026-07/index.html', 'JULY budget note stays hidden (unchanged behaviour)', async (p) => {
@@ -193,6 +217,7 @@ async function checkNoKirsten(path, label) {
 await checkNoKirsten('/index.html', 'MASTER contains no "Kirsten" reference');
 await checkNoKirsten('/reports/2026-07/index.html', 'JULY contains no "Kirsten" reference');
 await checkNoKirsten('/reports/2026-08/index.html', 'AUGUST contains no "Kirsten" reference');
+await checkNoKirsten('/reports/2026-09/index.html', 'SEPTEMBER contains no "Kirsten" reference');
 
 await browser.close();
 console.log(failures === 0 ? '\nAll render checks passed.' : `\n${failures} render check(s) FAILED.`);

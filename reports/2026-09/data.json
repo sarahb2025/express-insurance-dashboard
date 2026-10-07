@@ -1,0 +1,59 @@
+{
+  "_schema": "September 2026 data feed. placeholder:true → the dashboard renders 'awaiting data' cells for figures and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are pulled live for 1–30 September 2026 via the API routes; commentary is the agency's manual September input (MANUAL), added when supplied. To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
+  "placeholder": true,
+  "pmaxNote": "Optimising — allocation unchanged",
+  "monthOrder": [
+    "September 2026"
+  ],
+  "months": {
+    "September 2026": {
+      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (live, 1–30 September 2026). commentary = agency manual (MANUAL), added when supplied.",
+      "periodLabel": "1 – 30 September 2026",
+      "compareLabel": "1 – 31 August 2026",
+      "kpi": {
+        "accountRoas": null,
+        "nonBrand": null,
+        "bestName": null,
+        "bestRoas": null,
+        "pmaxRoas": null,
+        "convValue": null,
+        "convValueNote": "1 – 30 September 2026"
+      },
+      "stats": {
+        "impressions": { "v": null, "chg": null },
+        "clicks": { "v": null, "chg": null },
+        "conversions": { "v": null, "chg": null },
+        "convValue": { "v": null, "chg": null },
+        "cost": { "v": null, "chg": null },
+        "cpc": { "v": null, "chg": null }
+      },
+      "campaigns": [
+        { "key": "brand", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "pmax", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "pi", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "acct", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
+        { "key": "pl", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null }
+      ],
+      "assetGroups": [],
+      "geo": {
+        "periodLabel": "All campaigns · 1 – 30 September 2026 · User location (Google Ads)",
+        "locations": []
+      }
+    }
+  },
+  "last30": {
+    "periodLabel": "Last 30 days",
+    "compareLabel": "Previous 30 days",
+    "kpi": {},
+    "stats": {},
+    "campaigns": [],
+    "geo": { "locations": [] }
+  },
+  "custom": {
+    "dailyRates": {},
+    "campaignDailyRates": {},
+    "geoDailyRates": {},
+    "monthFactor": {}
+  },
+  "budgetTotal": 18000
+}
