@@ -162,9 +162,9 @@ await check('/reports/2026-08/index.html', 'AUGUST report renders placeholders +
 });
 
 // SEPTEMBER report — duplicated from the master: placeholders until the live Google Ads
-// feed responds, confirmed $18K budget, September reporting period, and the August
-// comparison period. Commentary is empty until supplied, so all commentary boxes hide.
-await check('/reports/2026-09/index.html', 'SEPTEMBER report renders placeholders + $18K + Sep period + Aug compare', async (p) => {
+// feed responds, confirmed $18K budget, September reporting period, August comparison, and
+// the supplied PMax / GA4 / Landing-page commentary (MANUAL) plus the September budget note.
+await check('/reports/2026-09/index.html', 'SEPTEMBER report: $18K + Sep period + Aug compare + commentary', async (p) => {
   const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
   const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
   const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
@@ -173,15 +173,23 @@ await check('/reports/2026-09/index.html', 'SEPTEMBER report renders placeholder
   const periodSep = body.includes('1 – 30 September 2026');
   const compareAug = body.includes('1 – 31 August 2026');
   const vis = async (sel) => { const el = await p.$(sel); return el ? el.isVisible() : false; };
-  // No commentary yet → every commentary box hidden, and no placeholder wording shown.
-  const commentaryHidden = !(await vis('#pmax-commentary')) && !(await vis('#ga4-commentary')) &&
-                           !(await vis('#geo-commentary')) && !(await vis('#lp-commentary'));
+  const pmaxC = (await p.textContent('#pmax-commentary-text'))?.trim() || '';
+  const ga4C = (await p.textContent('#ga4-commentary-text'))?.trim() || '';
+  const lpBody = (await p.textContent('#lp-commentary-text'))?.trim() || '';
+  const noteText = (await p.textContent('#budget-note-manual-text'))?.trim() || '';
+  const commentaryOk =
+    (await vis('#pmax-commentary')) && pmaxC.includes('1.80 to 2.65') &&
+    (await vis('#ga4-commentary')) && ga4C.includes('2 minutes 25 seconds') &&
+    (await vis('#lp-commentary')) && lpBody.includes('77 Paid Search sessions') &&
+    !(await vis('#geo-commentary')); // no September geography commentary
+  const noteOk = (await vis('#budget-note-manual')) &&
+                 noteText.startsWith('We are continuing optimisations');
+  const noName = !/\bSarah\b/i.test(body) && !/kirsten/i.test(body);
   const noPlaceholderWording = !/Add (this month|landing-page)|awaiting input/i.test(body);
-  const noteHidden = !(await vis('#budget-note-manual')); // no September budget note supplied
   return {
     ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' &&
-        periodSep && compareAug && commentaryHidden && noPlaceholderWording && noteHidden,
-    kpi, stat, budgetKpi, periodSep, compareAug, commentaryHidden, noPlaceholderWording, noteHidden,
+        periodSep && compareAug && commentaryOk && noteOk && noName && noPlaceholderWording,
+    budgetKpi, periodSep, compareAug, commentaryOk, noteOk, noName, noPlaceholderWording,
   };
 });
 

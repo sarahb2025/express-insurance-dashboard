@@ -20,19 +20,72 @@
         "convValueNote": "1 – 30 September 2026"
       },
       "stats": {
-        "impressions": { "v": null, "chg": null },
-        "clicks": { "v": null, "chg": null },
-        "conversions": { "v": null, "chg": null },
-        "convValue": { "v": null, "chg": null },
-        "cost": { "v": null, "chg": null },
-        "cpc": { "v": null, "chg": null }
+        "impressions": {
+          "v": null,
+          "chg": null
+        },
+        "clicks": {
+          "v": null,
+          "chg": null
+        },
+        "conversions": {
+          "v": null,
+          "chg": null
+        },
+        "convValue": {
+          "v": null,
+          "chg": null
+        },
+        "cost": {
+          "v": null,
+          "chg": null
+        },
+        "cpc": {
+          "v": null,
+          "chg": null
+        }
       },
       "campaigns": [
-        { "key": "brand", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "pmax", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "pi", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "acct", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null },
-        { "key": "pl", "cost": null, "conv": null, "cpa": null, "convValue": null, "roas": null }
+        {
+          "key": "brand",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pmax",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pi",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "acct",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pl",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        }
       ],
       "assetGroups": [],
       "geo": {
@@ -47,7 +100,9 @@
     "kpi": {},
     "stats": {},
     "campaigns": [],
-    "geo": { "locations": [] }
+    "geo": {
+      "locations": []
+    }
   },
   "custom": {
     "dailyRates": {},
@@ -55,5 +110,14 @@
     "geoDailyRates": {},
     "monthFactor": {}
   },
-  "budgetTotal": 18000
+  "budgetTotal": 18000,
+  "budgetNote": "We are continuing optimisations within the existing account structure and maintaining the current budget split. Any new priorities or budget changes will be implemented if advised.",
+  "commentary": {
+    "pmax": "September delivered stronger overall efficiency. Spend decreased from $17,144 in August to $14,800, while conversion value increased from $30,804 to $39,147. Overall ROAS improved from 1.80 to 2.65. Brand was the main driver, generating 27.5 conversions, $22,419 in conversion value and a 9.95 ROAS. Public Liability was also highly efficient at 6.75 ROAS, while Professional Indemnity improved to 2.44 ROAS. Accountant Insurance remained the main area requiring improvement at 0.51 ROAS. Performance Max was softer, generating 13 conversions and $6,229 in conversion value from $6,688 spend, resulting in a 0.93 ROAS. General continued to carry most PMax volume, while Accounting remained weaker. During September, competitor traffic was tightened, Accounting search themes were refined and more accountant-specific messaging was introduced. Management Consultants remains an early-stage test with insufficient data to justify a dedicated PMax asset group.",
+    "ga4": "Paid Search sessions remained broadly stable compared with August, while average engagement time increased to approximately 2 minutes 25 seconds per session. Paid Search revenue also increased strongly month-on-month, aligning with the improved Search campaign performance in Google Ads. Cross-network traffic increased by approximately 28%, but engagement quality softened. Engagement rate decreased from approximately 65% to 57%, average engagement time fell from around 1 minute 58 seconds to 1 minute 23 seconds, and the session key-event rate also declined. Cross-network traffic quality remains the primary area for improvement.",
+    "landing": {
+      "headline": "Landing pages — September",
+      "body": "Paid Search remained the stronger quality driver across priority landing pages. The Accountant Insurance page maintained 77 Paid Search sessions, with average engagement time improving to more than two minutes and revenue increasing compared with August. Cross-network traffic to the Accountant Insurance page increased significantly, but engagement remained weak, with approximately 20% of sessions engaged and average engagement time below four seconds. This supports the work completed in September to tighten PMax Accounting signals and introduce more accountant-specific creative. The homepage continued to generate strong Paid Search engagement and increased attributed revenue. Public Liability also showed encouraging engagement and value contribution. Management Consultants is beginning to receive Paid Search traffic, but volume remains too limited for firm landing-page or expansion decisions."
+    }
+  }
 }
