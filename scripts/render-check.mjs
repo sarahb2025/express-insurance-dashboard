@@ -198,9 +198,11 @@ await check('/reports/2026-09/index.html', 'SEPTEMBER report: $18K + Sep period 
 // OCTOBER report — duplicated from September: placeholders until the live Google Ads
 // feed responds, confirmed $18K budget, October reporting period, September comparison.
 // Commentary is empty until supplied, so all commentary boxes hide.
-await check('/reports/2026-10/index.html', 'OCTOBER report: $18K + Oct period + Sep compare + commentary', async (p) => {
+await check('/reports/2026-10/index.html', 'OCTOBER report: Google Ads figures + $18K + Oct period + Sep compare + commentary', async (p) => {
   const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
   const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
+  const campRows = await p.$$eval('#perf table tbody tr', rs => rs.length);
+  const pmaxRows = await p.$$eval('#pmax-tbl-body tr', rs => rs.length);
   const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
   const budgetKpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(1) .kpi-val'))?.trim();
   const body = await p.textContent('body');
@@ -220,9 +222,9 @@ await check('/reports/2026-10/index.html', 'OCTOBER report: $18K + Oct period + 
   const noteHidden = !(await vis('#budget-note-manual'));
   const noName = !/\bSarah\b/i.test(body) && !/kirsten/i.test(body);
   return {
-    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' &&
+    ok: kpi === '2.14' && stat === '132K' && campRows === 5 && pmaxRows === 2 && banner && budgetKpi === '$18K' &&
         periodOct && compareSep && commentaryOk && noPlaceholderWording && noteHidden && noName,
-    kpi, stat, budgetKpi, periodOct, compareSep, commentaryOk, noPlaceholderWording, noteHidden, noName,
+    kpi, stat, campRows, pmaxRows, budgetKpi, periodOct, compareSep, commentaryOk, noPlaceholderWording, noteHidden, noName,
   };
 });
 

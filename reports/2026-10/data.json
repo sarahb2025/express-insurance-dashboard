@@ -1,93 +1,108 @@
 {
-  "_schema": "October 2026 data feed. placeholder:true → the dashboard renders 'awaiting data' cells for figures and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are pulled live for 1–31 October 2026 via the API routes; commentary is the agency's manual October input (MANUAL), added when supplied. To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
-  "placeholder": true,
+  "_schema": "October 2026 data. Google Ads figures entered from the Google Ads UI (live API token invalid); the live feed overrides them automatically once the token is renewed. Commentary is the agency's manual October input.",
+  "placeholder": false,
   "pmaxNote": "Optimising — allocation unchanged",
   "monthOrder": [
     "October 2026"
   ],
   "months": {
     "October 2026": {
-      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (live, 1–30 October 2026). commentary = agency manual (MANUAL), added when supplied.",
+      "_source": "kpi/stats/campaigns = GOOGLE ADS (Edgewise account, Campaigns view, 1–31 October 2026; comparison 1–30 September 2026), entered from the Google Ads UI on 9 Nov 2026 because the live API token is invalid (invalid_grant). assetGroups = Google Ads figures quoted in the agency's October commentary (spend/value not supplied). commentary = agency manual (MANUAL).",
       "periodLabel": "1 – 31 October 2026",
       "compareLabel": "1 – 30 September 2026",
       "kpi": {
-        "accountRoas": null,
-        "nonBrand": null,
-        "bestName": null,
-        "bestRoas": null,
-        "pmaxRoas": null,
-        "convValue": null,
+        "accountRoas": 2.14,
+        "nonBrand": 1.56,
+        "bestName": "Brand",
+        "bestRoas": 4.66,
+        "pmaxRoas": 2.22,
+        "convValue": 35439.79,
         "convValueNote": "1 – 31 October 2026"
       },
       "stats": {
         "impressions": {
-          "v": null,
-          "chg": null
+          "v": 132466,
+          "chg": "−2.7%"
         },
         "clicks": {
-          "v": null,
-          "chg": null
+          "v": 1502,
+          "chg": "−3.0%"
         },
         "conversions": {
-          "v": null,
-          "chg": null
+          "v": 47,
+          "chg": "−8.4%"
         },
         "convValue": {
-          "v": null,
-          "chg": null
+          "v": 35439.79,
+          "chg": "−12.1%"
         },
         "cost": {
-          "v": null,
-          "chg": null
+          "v": 16591.22,
+          "chg": "+12.1%"
         },
         "cpc": {
-          "v": null,
-          "chg": null
+          "v": 11.05,
+          "chg": "+15.5%"
         }
       },
       "campaigns": [
         {
           "key": "brand",
-          "cost": null,
-          "conv": null,
-          "cpa": null,
-          "convValue": null,
-          "roas": null
+          "cost": 3058.73,
+          "conv": 20,
+          "cpa": 152.94,
+          "convValue": 14266.43,
+          "roas": 4.66
         },
         {
           "key": "pmax",
-          "cost": null,
-          "conv": null,
-          "cpa": null,
-          "convValue": null,
-          "roas": null
+          "cost": 7431.1,
+          "conv": 20,
+          "cpa": 371.56,
+          "convValue": 16478.95,
+          "roas": 2.22
         },
         {
           "key": "pi",
-          "cost": null,
-          "conv": null,
-          "cpa": null,
-          "convValue": null,
-          "roas": null
+          "cost": 2743.69,
+          "conv": 3,
+          "cpa": 914.56,
+          "convValue": 2091.7,
+          "roas": 0.76
         },
         {
           "key": "acct",
-          "cost": null,
-          "conv": null,
-          "cpa": null,
-          "convValue": null,
-          "roas": null
+          "cost": 2918.34,
+          "conv": 1,
+          "cpa": 2918.34,
+          "convValue": 1527.15,
+          "roas": 0.52
         },
         {
           "key": "pl",
-          "cost": null,
-          "conv": null,
-          "cpa": null,
-          "convValue": null,
-          "roas": null
+          "cost": 439.36,
+          "conv": 3,
+          "cpa": 146.45,
+          "convValue": 1075.56,
+          "roas": 2.45
         }
       ],
-      "assetGroups": [],
+      "assetGroups": [
+        {
+          "name": "General",
+          "spend": null,
+          "conv": 17.56,
+          "convValue": null,
+          "roas": 2.49
+        },
+        {
+          "name": "Accounting",
+          "spend": null,
+          "conv": 2.44,
+          "convValue": null,
+          "roas": 1.09
+        }
+      ],
       "geo": {
         "periodLabel": "All campaigns · 1 – 31 October 2026 · User location (Google Ads)",
         "locations": []
