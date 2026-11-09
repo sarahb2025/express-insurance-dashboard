@@ -198,7 +198,7 @@ await check('/reports/2026-09/index.html', 'SEPTEMBER report: $18K + Sep period 
 // OCTOBER report — duplicated from September: placeholders until the live Google Ads
 // feed responds, confirmed $18K budget, October reporting period, September comparison.
 // Commentary is empty until supplied, so all commentary boxes hide.
-await check('/reports/2026-10/index.html', 'OCTOBER report renders placeholders + $18K + Oct period + Sep compare', async (p) => {
+await check('/reports/2026-10/index.html', 'OCTOBER report: $18K + Oct period + Sep compare + commentary', async (p) => {
   const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
   const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
   const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
@@ -207,15 +207,22 @@ await check('/reports/2026-10/index.html', 'OCTOBER report renders placeholders 
   const periodOct = body.includes('1 – 31 October 2026');
   const compareSep = body.includes('1 – 30 September 2026');
   const vis = async (sel) => { const el = await p.$(sel); return el ? el.isVisible() : false; };
-  const commentaryHidden = !(await vis('#pmax-commentary')) && !(await vis('#ga4-commentary')) &&
-                           !(await vis('#geo-commentary')) && !(await vis('#lp-commentary'));
-  const noPlaceholderWording = !/Add (this month|landing-page)|awaiting input/i.test(body);
+  const pmaxC = (await p.textContent('#pmax-commentary-text'))?.trim() || '';
+  const ga4C = (await p.textContent('#ga4-commentary-text'))?.trim() || '';
+  const lpBody = (await p.textContent('#lp-commentary-text'))?.trim() || '';
+  const commentaryOk =
+    (await vis('#pmax-commentary')) && pmaxC.includes('overall ROAS of 2.14') &&
+    (await vis('#ga4-commentary')) && ga4C.includes('794 Paid Search sessions') &&
+    (await vis('#lp-commentary')) && lpBody.includes('388 Paid Search sessions') &&
+    !(await vis('#geo-commentary'));
+  const noPlaceholderWording = !/Add (this month|landing-page)|awaiting input/i.test(body) &&
+                               !/pending/i.test(await p.textContent('#tpl-banner'));
   const noteHidden = !(await vis('#budget-note-manual'));
   const noName = !/\bSarah\b/i.test(body) && !/kirsten/i.test(body);
   return {
     ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' &&
-        periodOct && compareSep && commentaryHidden && noPlaceholderWording && noteHidden && noName,
-    kpi, stat, budgetKpi, periodOct, compareSep, commentaryHidden, noPlaceholderWording, noteHidden, noName,
+        periodOct && compareSep && commentaryOk && noPlaceholderWording && noteHidden && noName,
+    kpi, stat, budgetKpi, periodOct, compareSep, commentaryOk, noPlaceholderWording, noteHidden, noName,
   };
 });
 
