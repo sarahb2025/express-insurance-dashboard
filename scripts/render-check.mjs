@@ -15,8 +15,10 @@ function findChrome() {
   const base = '/opt/pw-browsers';
   for (const d of fs.readdirSync(base)) {
     if (d.startsWith('chromium') && !d.includes('headless')) {
-      const p = `${base}/${d}/chrome-linux/chrome`;
-      if (fs.existsSync(p)) return p;
+      for (const sub of ['chrome-linux', 'chrome-linux64']) {
+        const p = `${base}/${d}/${sub}/chrome`;
+        if (fs.existsSync(p)) return p;
+      }
     }
   }
   throw new Error('Chromium not found under /opt/pw-browsers');
@@ -193,6 +195,30 @@ await check('/reports/2026-09/index.html', 'SEPTEMBER report: $18K + Sep period 
   };
 });
 
+// OCTOBER report — duplicated from September: placeholders until the live Google Ads
+// feed responds, confirmed $18K budget, October reporting period, September comparison.
+// Commentary is empty until supplied, so all commentary boxes hide.
+await check('/reports/2026-10/index.html', 'OCTOBER report renders placeholders + $18K + Oct period + Sep compare', async (p) => {
+  const kpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(2) .kpi-val'))?.trim();
+  const stat = (await p.textContent('#perf .stats-row .stat-card:first-child .stat-val'))?.trim();
+  const banner = (await p.textContent('#tpl-banner'))?.includes('Reporting month');
+  const budgetKpi = (await p.textContent('.kpi-bar .kpi-item:nth-child(1) .kpi-val'))?.trim();
+  const body = await p.textContent('body');
+  const periodOct = body.includes('1 – 31 October 2026');
+  const compareSep = body.includes('1 – 30 September 2026');
+  const vis = async (sel) => { const el = await p.$(sel); return el ? el.isVisible() : false; };
+  const commentaryHidden = !(await vis('#pmax-commentary')) && !(await vis('#ga4-commentary')) &&
+                           !(await vis('#geo-commentary')) && !(await vis('#lp-commentary'));
+  const noPlaceholderWording = !/Add (this month|landing-page)|awaiting input/i.test(body);
+  const noteHidden = !(await vis('#budget-note-manual'));
+  const noName = !/\bSarah\b/i.test(body) && !/kirsten/i.test(body);
+  return {
+    ok: kpi === '—' && stat === '—' && banner && budgetKpi === '$18K' &&
+        periodOct && compareSep && commentaryHidden && noPlaceholderWording && noteHidden && noName,
+    kpi, stat, budgetKpi, periodOct, compareSep, commentaryHidden, noPlaceholderWording, noteHidden, noName,
+  };
+});
+
 // July's budget note element must stay hidden (July supplies no data.budgetNote) — proves the
 // additive master change did not alter the July report's rendered output.
 await check('/reports/2026-07/index.html', 'JULY budget note stays hidden (unchanged behaviour)', async (p) => {
@@ -226,6 +252,7 @@ await checkNoKirsten('/index.html', 'MASTER contains no "Kirsten" reference');
 await checkNoKirsten('/reports/2026-07/index.html', 'JULY contains no "Kirsten" reference');
 await checkNoKirsten('/reports/2026-08/index.html', 'AUGUST contains no "Kirsten" reference');
 await checkNoKirsten('/reports/2026-09/index.html', 'SEPTEMBER contains no "Kirsten" reference');
+await checkNoKirsten('/reports/2026-10/index.html', 'OCTOBER contains no "Kirsten" reference');
 
 await browser.close();
 console.log(failures === 0 ? '\nAll render checks passed.' : `\n${failures} render check(s) FAILED.`);
