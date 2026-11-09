@@ -1,0 +1,122 @@
+{
+  "_schema": "October 2026 data feed. placeholder:true → the dashboard renders 'awaiting data' cells for figures and fabricates nothing. Google Ads figures (kpi/stats/campaigns/assetGroups/geo) are pulled live for 1–31 October 2026 via the API routes; commentary is the agency's manual October input (MANUAL), added when supplied. To publish figures: set placeholder=false and fill each field from its source (docs/DATA-SOURCES.md).",
+  "placeholder": true,
+  "pmaxNote": "Optimising — allocation unchanged",
+  "monthOrder": [
+    "October 2026"
+  ],
+  "months": {
+    "October 2026": {
+      "_source": "kpi/stats/campaigns/assetGroups/geo = GOOGLE ADS (live, 1–30 October 2026). commentary = agency manual (MANUAL), added when supplied.",
+      "periodLabel": "1 – 31 October 2026",
+      "compareLabel": "1 – 30 September 2026",
+      "kpi": {
+        "accountRoas": null,
+        "nonBrand": null,
+        "bestName": null,
+        "bestRoas": null,
+        "pmaxRoas": null,
+        "convValue": null,
+        "convValueNote": "1 – 31 October 2026"
+      },
+      "stats": {
+        "impressions": {
+          "v": null,
+          "chg": null
+        },
+        "clicks": {
+          "v": null,
+          "chg": null
+        },
+        "conversions": {
+          "v": null,
+          "chg": null
+        },
+        "convValue": {
+          "v": null,
+          "chg": null
+        },
+        "cost": {
+          "v": null,
+          "chg": null
+        },
+        "cpc": {
+          "v": null,
+          "chg": null
+        }
+      },
+      "campaigns": [
+        {
+          "key": "brand",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pmax",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pi",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "acct",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        },
+        {
+          "key": "pl",
+          "cost": null,
+          "conv": null,
+          "cpa": null,
+          "convValue": null,
+          "roas": null
+        }
+      ],
+      "assetGroups": [],
+      "geo": {
+        "periodLabel": "All campaigns · 1 – 31 October 2026 · User location (Google Ads)",
+        "locations": []
+      }
+    }
+  },
+  "last30": {
+    "periodLabel": "Last 30 days",
+    "compareLabel": "Previous 30 days",
+    "kpi": {},
+    "stats": {},
+    "campaigns": [],
+    "geo": {
+      "locations": []
+    }
+  },
+  "custom": {
+    "dailyRates": {},
+    "campaignDailyRates": {},
+    "geoDailyRates": {},
+    "monthFactor": {}
+  },
+  "budgetTotal": 18000,
+  "commentary": {
+    "pmax": "October recorded 47 purchases from $16,591.22 in total spend, generating $35,439.79 in conversion value and an overall ROAS of 2.14. Performance Max contributed 20 purchases at a ROAS of 2.22, while Brand remained the strongest Search campaign with 20 purchases at a ROAS of 4.66. Public Liability also delivered 3 purchases at a ROAS of 2.45, although Professional Indemnity and Accountant Insurance continued to face challenges with higher acquisition costs and lower returns. Within PMax, General was the main contributor, generating 17.56 conversions at a ROAS of 2.49. Accounting delivered 2.44 conversions at a ROAS of 1.09, indicating that this segment still needs improvement. October optimisations focused on refining traffic quality, updating Accounting-specific messaging and resolving policy restrictions to support more relevant traffic.",
+    "ga4": "GA4 recorded 794 Paid Search sessions and 846 Cross-network sessions during October. Paid Search showed stronger engagement quality, with a 64.5% engagement rate, an average engagement time of 2 minutes 11 seconds and a 24.6% session key event rate. Cross-network recorded a 57.1% engagement rate, an average engagement time of 1 minute 33 seconds and a 15.5% session key event rate. Both channels contributed to website activity, although Paid Search continued to attract more engaged visitors. Cross-network generated slightly more sessions but showed weaker engagement and key event rates, particularly on the Accountant Insurance landing page.",
+    "landing": {
+      "headline": "Landing pages — October",
+      "body": "The homepage was the strongest landing page for paid traffic in October, recording 388 Paid Search sessions with an 80.9% engagement rate and nearly 3 minutes of average engagement time. Cross-network traffic to the homepage also performed well, generating 221 sessions with a 73.8% engagement rate. The Transit Insurance landing page showed encouraging Cross-network engagement, with 139 sessions and an 81.3% engagement rate. The Accountant Insurance landing page showed a clear difference in traffic quality. Paid Search generated 63 sessions with a 74.6% engagement rate and over 2 minutes of average engagement time, while Cross-network delivered 170 sessions with only a 16.5% engagement rate and no recorded key events. This remains an important area for improving PMax Accounting traffic quality."
+    }
+  }
+}
