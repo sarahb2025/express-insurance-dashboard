@@ -417,7 +417,7 @@ tr:hover td{background:#F8FAFC}
 <!-- REPORT-KIND BANNER — this is the October 2026 reporting-month report, generated from the master template. -->
 <div class="tpl-banner report" id="tpl-banner">
   <span class="tpl-tag">Reporting month</span>
-  <span><strong>October 2026</strong> — Google Ads and GA4 figures are pulled live. Commentary has been updated for the reporting period.</span>
+  <span><strong>October 2026</strong> — Google Ads figures for 1–31 October 2026; GA4 figures are pulled live. Commentary has been updated for the reporting period.</span>
 </div>
 
 <!-- DATA-SOURCE LEGEND — classifies every block on the page -->
@@ -1385,7 +1385,7 @@ function tryLiveAssetGroups(){
     })
     .catch(function(){
       if (DATA && DATA.placeholder) setFeedStatus('pmax-feed-status', 'placeholder', 'Awaiting Google Ads asset-group report');
-      else setFeedStatus('pmax-feed-status', 'fallback', 'Feed: static — Google Ads asset-group feed unavailable');
+      else setFeedStatus('pmax-feed-status', 'fallback', 'Google Ads · from October commentary');
     });
 }
 
@@ -1409,7 +1409,7 @@ function tryLiveAds(){
     })
     .catch(function(){
       if (DATA && DATA.placeholder) setFeedStatus('ads-feed-status', 'placeholder', 'Awaiting Google Ads export');
-      else setFeedStatus('ads-feed-status', 'fallback', 'Feed: static — Google Ads live feed unavailable (see docs/INTEGRATIONS.md)');
+      else setFeedStatus('ads-feed-status', 'fallback', 'Google Ads · October 2026 figures');
     });
 }
 
